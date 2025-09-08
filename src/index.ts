@@ -1,6 +1,11 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
+export type Array_And_Element<T> = {
+    'array': _et.Array<T>
+    'element': T
+}
+
 export type Pure = {
     'dictionary': {
         'create single entry dictionary': <T>($: _et.Key_Value_Pair<T>) => _et.Dictionary<T>
@@ -80,12 +85,14 @@ export type Impure = {
         }>
         'expect exactly one element': <T>($: _et.Array<T>) => _et.Optional_Value<T>
         'expect more than one element': <T>($: _et.Array<T>) => _et.Optional_Value<_et.Array<T>>
-        // 'get first element': <T>($: pt.Array<T>) => pt.Optional_Value<T>
+        // 'get first element': <T>($: pt.Array<T>) => pt.Optional_Value<T> //why is this commented out?
         'is empty': <T>($: _et.Array<T>) => boolean
         'is not empty': <T>($: _et.Array<T>) => boolean
         'select clashing keys': <T>($: _et.Array<_et.Key_Value_Pair<T>>) => _et.Dictionary<_et.Array<T>>
         'to dictionary, overwrite clashing keys': <T>($: _et.Array<_et.Key_Value_Pair<T>>) => _et.Dictionary<T>
         'group': <T>($: _et.Array<_et.Key_Value_Pair<T>>) => _et.Dictionary<_et.Array<T>>
+        'remove first element': <T>($: _et.Array<T>) => _et.Optional_Value<Array_And_Element<T>>
+        'remove last element': <T>($: _et.Array<T>) => _et.Optional_Value<Array_And_Element<T>>
     },
     'text': {
         'escape character': (
@@ -102,7 +109,7 @@ export type Impure = {
         'serialize with grave delimiter': ($: string) => string
         'starts with': (
             $: string,
-            $p: { 
+            $p: {
                 'search pattern': string,
                 'position': number
             },
@@ -236,6 +243,41 @@ export const impure: Impure = {
                     })
                 }).map(($) => impure.list['expect more than one element']($))
             )
+        },
+        'remove first element': <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => {
+            if ($.__get_length() === 0) {
+                return _ea.not_set()
+            }
+            return _ea.set({
+                'array': _ea.pure.list.build(($i) => {
+                    let is_first = true
+                    $.__for_each(($) => {
+                        if (!is_first) {
+                            $i['add element']($)
+                        }
+                        is_first = false
+                    })
+                }),
+                'element': $.__get_element_at(0).transform(($) => $, () => _ea.panic("unreachable")),
+            })
+        },
+        'remove last element': <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => {
+            const length = $.__get_length()
+            if (length === 0) {
+                return _ea.not_set()
+            }
+            return _ea.set({
+                'array': _ea.pure.list.build(($i) => {
+                    let current = 0
+                    $.__for_each(($) => {
+                        if (current !== length - 1) {
+                            $i['add element']($)
+                        }
+                        current += 1
+                    })
+                }),
+                'element': $.__get_element_at(length - 1).transform(($) => $, () => _ea.panic("unreachable")),
+            })
         },
         'to dictionary, overwrite clashing keys': <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Dictionary<T> => {
             return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
