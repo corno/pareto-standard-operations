@@ -33,6 +33,7 @@ export type Pure = {
 export type Impure = {
     'dictionary': {
         'cast to non empty': <T>($: _et.Dictionary<T>) => _et.Optional_Value<_et.Dictionary<T>>
+        'expect exactly one entry': <T>($: _et.Dictionary<T>) => _et.Optional_Value<_et.Key_Value_Pair<T>>
         'is empty': <T>($: _et.Dictionary<T>) => boolean
         'is not empty': <T>($: _et.Dictionary<T>) => boolean
         /**
@@ -143,6 +144,28 @@ export const impure: Impure = {
                     })
                 })
             })
+        },
+        'expect exactly one entry': <T>($: _et.Dictionary<T>): _et.Optional_Value<_et.Key_Value_Pair<T>> => {
+            let found: null | _et.Key_Value_Pair<T> = null
+            let found_too_many = false
+            $.map(($, key) => {
+                if (found !== null) {
+                    found_too_many = true
+                }
+                found = {
+                    'key': key,
+                    'value': $,
+                }
+            })
+            if (found_too_many) {
+                //more than one entry
+                return _ea.not_set()
+            }
+            if (found === null) {
+                //not found
+                return _ea.not_set()
+            }
+            return _ea.set(found)
         },
         'is empty': ($) => {
             let is_empty = true
