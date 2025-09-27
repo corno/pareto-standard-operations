@@ -1,6 +1,8 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
+import * as _esl from "exupery-standard-library"
+
 export type Array_And_Element<T> = {
     'array': _et.Array<T>
     'element': T
@@ -137,7 +139,7 @@ export const impure: Impure = {
             return _ea.set($)
         },
         'dictionary of lists to list': <T>($: _et.Dictionary<_et.Array<T>>): _et.Array<T> => {
-            return _ea.pure.list.build(($i) => {
+            return _ea.build_list(($i) => {
                 $.map(($, key) => {
                     $.__for_each(($) => {
                         $i['add element']($)
@@ -182,7 +184,7 @@ export const impure: Impure = {
             return !is_empty
         },
         'merge': ($, $p) => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $.map(($, key) => {
                     $i['add entry'](key, {
                         'context': $,
@@ -192,7 +194,7 @@ export const impure: Impure = {
             })
         },
         'to list, sorted by code point': ($) => {
-            return _ea.pure.dictionary['to list'](
+            return _esl.pure.dictionary['to list'](
                 $,
                 {
                     'compare': (a, b) => {
@@ -246,7 +248,7 @@ export const impure: Impure = {
         //     return pa.set($.__get_element_at(0))
         // },
         'group': <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Dictionary<_et.Array<T>> => {
-            return _ea.pure.dictionary['build dictionary of lists'](($i) => {
+            return _esl.pure.dictionary['build dictionary of lists'](($i) => {
                 $.__for_each(($) => {
                     $i['add entry']($.key, $.value)
                 })
@@ -260,7 +262,7 @@ export const impure: Impure = {
         },
         'select clashing keys': <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Dictionary<_et.Array<T>> => {
             return pure.dictionary.filter(
-                _ea.pure.dictionary['build dictionary of lists']<T>(($i) => {
+                _esl.pure.dictionary['build dictionary of lists']<T>(($i) => {
                     $.__for_each(($) => {
                         $i['add entry']($['key'], $['value'])
                     })
@@ -272,7 +274,7 @@ export const impure: Impure = {
                 return _ea.not_set()
             }
             return _ea.set({
-                'array': _ea.pure.list.build(($i) => {
+                'array': _ea.build_list(($i) => {
                     let is_first = true
                     $.__for_each(($) => {
                         if (!is_first) {
@@ -290,7 +292,7 @@ export const impure: Impure = {
                 return _ea.not_set()
             }
             return _ea.set({
-                'array': _ea.pure.list.build(($i) => {
+                'array': _ea.build_list(($i) => {
                     let current = 0
                     $.__for_each(($) => {
                         if (current !== length - 1) {
@@ -303,7 +305,7 @@ export const impure: Impure = {
             })
         },
         'to dictionary, overwrite clashing keys': <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Dictionary<T> => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $.__for_each(($) => {
                     $i['add entry']($.key, $.value)
                 })
@@ -315,7 +317,7 @@ export const impure: Impure = {
             if (!$p['replace spaces with underscores']) {
                 return $ //FIXME: this needs to be implemented properly
             }
-            return _ea.impure.text['replace all occurences of all patterns'](
+            return _esl.impure.text['replace all occurences of all patterns'](
                 $,
                 _ea.array_literal([
                     { 'search value': "$", 'replace value': "$$" },
@@ -325,8 +327,8 @@ export const impure: Impure = {
             )
         },
         'escape character': ($, $p) => {
-            return _ea.pure.text.build(($i) => {
-                const characters = _ea.impure.text['to character list']($)
+            return _esl.pure.text.build(($i) => {
+                const characters = _esl.impure.text['to character list']($)
                 const length = characters.__get_length()
 
                 let position = 0
@@ -364,7 +366,7 @@ export const impure: Impure = {
         },
         'join list of texts with separator': ($, $p) => {
             let is_first = true
-            return _ea.pure.text.build(($i) => {
+            return _esl.pure.text.build(($i) => {
                 $.__for_each(($) => {
                     if (!is_first) {
                         $i['add snippet']($p.separator)
@@ -376,7 +378,7 @@ export const impure: Impure = {
             })
         },
         'repeat': ($, $p) => {
-            return _ea.pure.text.build(($i) => {
+            return _esl.pure.text.build(($i) => {
                 for (let i = 0; i < $p.count; i++) {
                     $i['add snippet']($)
                 }
@@ -417,15 +419,15 @@ export const impure: Impure = {
                 + '"'
         },
         'starts with': ($, $p) => {
-            return _ea.impure.text['starts with']($, $p['search pattern'], $p['position'])
+            return _esl.impure.text['starts with']($, $p['search pattern'], $p['position'])
         },
         'to character list': ($) => {
-            return _ea.impure.text['to character list']($)
+            return _esl.impure.text['to character list']($)
         },
     },
     // 'typescript': {
     //     'escape file name': ($) => {
-    //         return _ea.impure.text['replace all'](
+    //         return _esl.impure.text['replace all'](
     //             $,
     //             " ",
     //             "_"
@@ -437,12 +439,12 @@ export const impure: Impure = {
 export const pure: Pure = {
     'dictionary': {
         'create single entry dictionary': ($) => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $i['add entry']($.key, $.value)
             })
         },
         'filter': ($) => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $.map(($, key) => {
                     $.map(($) => {
                         $i['add entry'](key, $)
@@ -451,7 +453,7 @@ export const pure: Pure = {
             })
         },
         'flatten': ($, $p) => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $.map(($, key) => {
                     $.map(($, subkey) => {
                         $i['add entry'](`${key}${$p.separator}${subkey}`, $)
@@ -460,16 +462,16 @@ export const pure: Pure = {
             })
         },
         'group': ($) => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $.map(($, key) => {
-                    $i['add entry']($.key, _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+                    $i['add entry']($.key, _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                         $i['add entry'](key, $.value)
                     }))
                 })
             })
         },
         'pad identifiers': ($, $p) => {
-            return _ea.pure.dictionary['build, overwrite clashing keys'](($i) => {
+            return _esl.pure.dictionary['build, overwrite clashing keys'](($i) => {
                 $.map(($, key) => {
                     $i['add entry']($p.prefix + key + $p.suffix, $)
                 })
@@ -478,7 +480,7 @@ export const pure: Pure = {
     },
     'list': {
         'prepend element': ($, $p) => {
-            return _ea.pure.list.build(($i) => {
+            return _ea.build_list(($i) => {
                 $i['add element']($p.element)
                 $.__for_each(($) => {
                     $i['add element']($)
@@ -486,7 +488,7 @@ export const pure: Pure = {
             })
         },
         'append element': ($, $p) => {
-            return _ea.pure.list.build(($i) => {
+            return _ea.build_list(($i) => {
                 $.__for_each(($) => {
                     $i['add element']($)
                 })
@@ -494,7 +496,7 @@ export const pure: Pure = {
             })
         },
         'filter': ($) => {
-            return _ea.pure.list.build(($i) => {
+            return _ea.build_list(($i) => {
                 $.__for_each(($) => {
                     $.map(($) => {
                         $i['add element']($)
@@ -503,7 +505,7 @@ export const pure: Pure = {
             })
         },
         'flatten': ($) => {
-            return _ea.pure.list.build(($i) => {
+            return _ea.build_list(($i) => {
                 $.__for_each(($) => {
                     $.__for_each(($) => {
                         $i['add element']($)
@@ -525,7 +527,7 @@ export const pure: Pure = {
     },
     'text': {
         'join list of texts': ($) => {
-            return _ea.pure.text.build(($i) => {
+            return _esl.pure.text.build(($i) => {
                 $.__for_each(($) => {
                     $i['add snippet']($)
                 })
