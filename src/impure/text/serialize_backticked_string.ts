@@ -6,7 +6,7 @@ import { $$ as op_escape_character } from "./escape_character"
 export const $$ = ($: {
     'value': string
     'add delimiters': boolean
-}): string => $['add delimiters'] ? '`' : ''
+}): string => ($['add delimiters'] ? '`' : '')
     + op_escape_character(
         $.value,
         {
