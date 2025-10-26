@@ -3,7 +3,7 @@ import * as _ea from 'exupery-core-alg'
 
 import { $$ as op_build_dictionary_of_lists } from "exupery-standard-library/dist/dictionary/build_dictionary_of_lists"
 import { $$ as op_filter } from "../../pure/dictionary/filter"
-import { $$ as op_expect_more_than_one_element } from "../../impure/list/expect_more_than_one_element"
+import { $$ as op_expect_more_than_one_element } from "./expect_more_than_one_element"
 
 export const $$ = <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Dictionary<_et.Array<T>> => op_filter(
     op_build_dictionary_of_lists<T>(($i) => {
