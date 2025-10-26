@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$ as op_replace_all } from "exupery-standard-library/dist/text/replace_all_occurences_of_all_patterns"
+import { $$ as op_replace_all } from "exupery-standard-library/dist/operations/impure/text/replace_all_occurences_of_all_patterns"
 
 export const $$ = (
     $: string,

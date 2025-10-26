@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$ as op_starts_with } from "exupery-standard-library/dist/text/starts_with"
+import { $$ as op_starts_with } from "exupery-standard-library/dist/operations/impure/text/starts_with"
 
 export const $$ = (
     $: string,

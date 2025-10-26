@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$ as op_dictionary_to_list } from "exupery-standard-library/dist/dictionary/to_list"
+import { $$ as op_dictionary_to_list } from "exupery-standard-library/dist/operations/impure/dictionary/to_list"
 
 export const $$ = <T>(
     $: _et.Dictionary<T>,
