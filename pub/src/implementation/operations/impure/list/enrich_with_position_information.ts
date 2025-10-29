@@ -1,5 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
+import { Signature } from "../../../../interface/algorithms/operations/impure/list/enrich_with_position_information"
+
 
 export const $$ = <T>($: _et.Array<T>): _et.Array<{
     'value': T

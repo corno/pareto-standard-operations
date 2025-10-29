@@ -1,5 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
+import { Signature } from "../../../../interface/algorithms/operations/pure/list/prepend_element"
+
 
 export const $$ = <T>($: _et.Array<T>, $p: {
     'element': T

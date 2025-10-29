@@ -1,5 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
+import { Signature } from "../../../../interface/algorithms/operations/impure/dictionary/expect_exactly_one_entry"
+
 
 export const $$ = <T>($: _et.Dictionary<T>): _et.Optional_Value<_et.Key_Value_Pair<T>> => {
     let found: null | _et.Key_Value_Pair<T> = null
