@@ -10,19 +10,19 @@ export type Array_And_Element<T> = {
 
 export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => {
     const length = $.__get_length()
-    if (length === 0) {
-        return _ea.not_set()
-    }
-    return _ea.set({
-        'array': _ea.build_list(($i) => {
-            let current = 0
-            $.__for_each(($) => {
-                if (current !== length - 1) {
-                    $i['add element']($)
-                }
-                current += 1
-            })
+    const arr = $
+    return $.__get_element_at(length - 1).map(
+        ($) => ({
+            'array': _ea.build_list(($i) => {
+                let current = 0
+                arr.__for_each(($) => {
+                    if (current !== length - 1) {
+                        $i['add element']($)
+                    }
+                    current += 1
+                })
+            }),
+            'element': $,
         }),
-        'element': $.__get_element_at(length - 1).transform(($) => $, () => _ea.panic("unreachable")),
-    })
+    )
 }

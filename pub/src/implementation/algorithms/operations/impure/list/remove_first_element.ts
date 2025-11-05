@@ -8,17 +8,20 @@ export type Array_And_Element<T> = {
     'element': T
 }
 
-export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => $.__get_length() === 0
-    ? _ea.not_set()
-    : _ea.set({
-        'array': _ea.build_list(($i) => {
-            let is_first = true
-            $.__for_each(($) => {
-                if (!is_first) {
-                    $i['add element']($)
-                }
-                is_first = false
-            })
+export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => {
+    const arr = $
+    return $.__get_element_at(0).map(
+        ($) => ({
+            'array': _ea.build_list(($i) => {
+                let is_first = true
+                arr.__for_each(($) => {
+                    if (!is_first) {
+                        $i['add element']($)
+                    }
+                    is_first = false
+                })
+            }),
+            'element': $,
         }),
-        'element': $.__get_element_at(0).transform(($) => $, () => _ea.panic("unreachable")),
-    })
+    )
+}
