@@ -9,7 +9,7 @@ export const $$ = <T>($: _et.Array<T>): _et.Array<{
     'is last': boolean
     'index': number
 }> => {
-    const length = $.__get_length()
+    const length = $.__get_number_of_elements()
     let index = -1
     return $.map(($) => {
         index += 1

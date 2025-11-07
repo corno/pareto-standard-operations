@@ -3,4 +3,4 @@ import * as _ea from 'exupery-core-alg'
 import { Signature } from "../../../../../interface/algorithms/operations/impure/list/is_not_empty"
 
 
-export const $$ = <T>($: _et.Array<T>): boolean => $.__get_length() !== 0
+export const $$ = <T>($: _et.Array<T>): boolean => $.__get_number_of_elements() !== 0

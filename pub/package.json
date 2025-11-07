@@ -7,7 +7,7 @@
     "dist"
   ],
   "dependencies": {
-    "exupery-core-alg": "^0.2.0",
-    "exupery-standard-library": "^0.2.0"
+    "exupery-core-alg": "^0.5.0",
+    "exupery-standard-library": "^0.3.0"
   }
 }

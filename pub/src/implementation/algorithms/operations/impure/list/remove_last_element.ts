@@ -9,7 +9,7 @@ export type Array_And_Element<T> = {
 }
 
 export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => {
-    const length = $.__get_length()
+    const length = $.__get_number_of_elements()
     const arr = $
     return $.__get_element_at(length - 1).map(
         ($) => ({
