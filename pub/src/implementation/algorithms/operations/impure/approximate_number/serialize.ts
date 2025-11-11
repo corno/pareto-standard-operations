@@ -1,4 +1,3 @@
-// Generated interface for operations/impure/approximate_number/serialize.ts
-// This file defines the type signature for the implementation
+import * as _ea from 'exupery-core-alg'
 
-export type Signature = () => void
+export const $$ = ($: number) => _ea.deprecated_panic("IMPLEMENT approximate number -> serialize !")
