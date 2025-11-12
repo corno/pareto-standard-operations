@@ -36,7 +36,7 @@ export const $$ = <Main, Supporting>(
 ): _et.Dictionary<{
     'context': Main
     'supporting': _et.Optional_Value<Supporting>
-}> => _ea.build_dictionary(($i) => {
+}> => _ea.deprecated_build_dictionary(($i) => {
     $.map(($, key) => {
         $i['add entry'](key, {
             'context': $,

@@ -6,7 +6,7 @@ import { Signature } from "../../../../../interface/algorithms/operations/impure
 export const $$ = <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Optional_Value<_et.Dictionary<T>> => {
     const seenKeys: { [key: string]: null } = {}
     let foundClash: boolean = false
-    const result = _ea.build_dictionary<T>(($i) => {
+    const result = _ea.deprecated_build_dictionary<T>(($i) => {
         $.__for_each(($) => {
             if (seenKeys[$.key] !== undefined) {
                 foundClash = true

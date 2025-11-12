@@ -1,7 +1,6 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$ as op_to_character_list } from "exupery-standard-library/dist/implementation/algorithms/operations/impure/text/to_character_list"
 import { Signature } from "../../../../../interface/algorithms/operations/impure/text/escape_character"
 
 
@@ -13,7 +12,7 @@ export const $$ = (
     }
 ): string => {
     return _ea.build_text(($i) => {
-        const characters = op_to_character_list($)
+        const characters = _ea.text_to_character_list($)
         const length = characters.__get_number_of_elements()
 
         let position = 0
