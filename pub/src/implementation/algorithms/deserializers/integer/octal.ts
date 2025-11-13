@@ -20,17 +20,24 @@ export const $$ = ($: string): number => {
         startIndex = 1
     }
     
-    // Parse digits from left to right
+    // Check for "0o" prefix
+    if (characters.__get_number_of_elements() > startIndex + 1 && 
+        get_character_at(startIndex) === 48 && // '0'
+        get_character_at(startIndex + 1) === 111) { // 'o'
+        startIndex += 2
+    }
+    
+    // Parse octal digits from left to right
     for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         
-        // Check if character is a digit (48-57 for '0'-'9')
-        if (charCode >= 48 && charCode <= 57) {
+        // Check if character is an octal digit (48-55 for '0'-'7')
+        if (charCode >= 48 && charCode <= 55) { // '0'-'7'
             const digit = charCode - 48
-            result = result * 10 + digit
+            result = result * 8 + digit
         } else {
             // Invalid character
-            _ea.deprecated_panic(`Invalid character in decimal string`)
+            _ea.deprecated_panic(`Invalid character in octal string`)
         }
     }
     

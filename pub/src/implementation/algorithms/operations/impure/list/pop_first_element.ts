@@ -3,16 +3,16 @@ import * as _ea from 'exupery-core-alg'
 import { Signature } from "../../../../../interface/algorithms/operations/impure/list/remove_first_element"
 
 
-export type Array_And_Element<T> = {
-    'array': _et.Array<T>
+export type Element_And_Rest<T> = {
     'element': T
+    'rest': _et.Array<T>
 }
 
-export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Array_And_Element<T>> => {
+export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Element_And_Rest<T>> => {
     const arr = $
     return $.__get_element_at(0).map(
         ($) => ({
-            'array': _ea.build_list(($i) => {
+            'rest': _ea.build_list(($i) => {
                 let is_first = true
                 arr.__for_each(($) => {
                     if (!is_first) {

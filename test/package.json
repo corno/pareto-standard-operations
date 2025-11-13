@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "exupery-core-bin": "^0.3.10",
-    "exupery-core-dev": "^0.3.1"
+    "exupery-core-dev": "^0.3.1",
+    "pub": "file:../pub"
   }
 }

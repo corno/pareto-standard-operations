@@ -1,4 +1,51 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: string): number => _ea.deprecated_panic("IMPLEMENT!")
+export const $$ = ($: string): number => {
+    const characters = _ea.text_to_character_list($)
+    let result = 0
+    let isNegative = false
+    let startIndex = 0
+    
+    const get_character_at = (index: number): number => {
+        return characters.__get_element_at(index).transform(
+            ($) => $,
+            () => _ea.deprecated_panic(`index out of bounds`)
+        )
+    }
+    
+    // Check for negative sign
+    if (characters.__get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
+        isNegative = true
+        startIndex = 1
+    }
+    
+    // Check for "0x" prefix
+    if (characters.__get_number_of_elements() > startIndex + 1 && 
+        get_character_at(startIndex) === 48 && // '0'
+        get_character_at(startIndex + 1) === 120) { // 'x'
+        startIndex += 2
+    }
+    
+    // Parse hex digits from left to right
+    for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
+        const charCode = get_character_at(i)
+        let digit: number
+        
+        // Check if character is a hex digit
+        if (charCode >= 48 && charCode <= 57) { // '0'-'9'
+            digit = charCode - 48
+        } else if (charCode >= 65 && charCode <= 70) { // 'A'-'F'
+            digit = charCode - 65 + 10
+        } else if (charCode >= 97 && charCode <= 102) { // 'a'-'f'
+            digit = charCode - 97 + 10
+        } else {
+            // Invalid character
+            _ea.deprecated_panic(`Invalid character in hexadecimal string`)
+        }
+        
+        result = result * 16 + digit
+    }
+    
+    return isNegative ? -result : result
+}

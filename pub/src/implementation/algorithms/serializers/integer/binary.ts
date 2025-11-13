@@ -8,15 +8,15 @@ export const $$ = ($: number): string => {
             $ = -$
         }
         
-        // Add "0x" prefix
+        // Add "0b" prefix
         $i['add character'](48) // '0'
-        $i['add character'](120) // 'x'
+        $i['add character'](98) // 'b'
         
         const digits = _ea.build_list<number>(($i) => {
             do {
-                const digit = $ % 16
+                const digit = $ % 2
                 $i['add element'](digit)
-                $ = _ea.integer_division($, 16)
+                $ = _ea.integer_division($, 2)
             } while ($ > 0)
 
         })
@@ -26,11 +26,7 @@ export const $$ = ($: number): string => {
                 ($) => $,
                 () => _ea.deprecated_panic(`index out of bounds`)
             )
-            if (digit < 10) {
-                $i['add character'](48 + digit) // '0'-'9'
-            } else {
-                $i['add character'](65 + digit - 10) // 'A'-'F'
-            }
+            $i['add character'](48 + digit) // '0'-'1'
         }
     })
 }
