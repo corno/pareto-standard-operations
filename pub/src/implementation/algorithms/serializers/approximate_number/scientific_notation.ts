@@ -3,9 +3,24 @@ import * as _ea from 'exupery-core-alg'
 
 export const $$ = ($: number, $p: { 'digits': number }): string => {
     return _ea.build_text(($i) => {
-        // Handle special cases
+        // Handle special case for zero in scientific notation
         if ($ === 0) {
             $i['add character'](48) // '0'
+            
+            // Add decimal point if we have more than 1 digit
+            if ($p.digits > 1) {
+                $i['add character'](46) // '.'
+                
+                // Add the required number of zeros after decimal point
+                for (let i = 0; i < $p.digits - 1; i++) {
+                    $i['add character'](48) // '0'
+                }
+            }
+            
+            // Add exponent part for zero: e+0
+            $i['add character'](101) // 'e'
+            $i['add character'](43)  // '+'
+            $i['add character'](48)  // '0'
             return
         }
         
