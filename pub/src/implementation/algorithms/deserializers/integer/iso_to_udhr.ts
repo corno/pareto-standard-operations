@@ -69,6 +69,29 @@ export const $$ = ($: string): number => {
 
     const iso_date = parse_iso_date(characters)
 
+    // Validate month (1-12)
+    if (iso_date.month < 1 || iso_date.month > 12) {
+        _ea.deprecated_panic(`Invalid month: ${iso_date.month}. Month must be between 1 and 12`)
+    }
+
+    // Validate day (1-31, depending on month)
+    if (iso_date.day < 1) {
+        _ea.deprecated_panic(`Invalid day: ${iso_date.day}. Day must be at least 1`)
+    }
+
+    // Check days per month
+    const days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    let max_day = days_in_month[iso_date.month - 1]
+    
+    // Adjust for leap year in February
+    if (iso_date.month === 2 && is_leap_year(iso_date.year)) {
+        max_day = 29
+    }
+    
+    if (iso_date.day > max_day) {
+        _ea.deprecated_panic(`Invalid day: ${iso_date.day}. Month ${iso_date.month} has at most ${max_day} days`)
+    }
+
     const full_years = iso_date.year - 1
     const leap_days_before_current_year =
         + _ea.integer_division(full_years, 4)

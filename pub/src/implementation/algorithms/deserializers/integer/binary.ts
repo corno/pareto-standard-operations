@@ -7,6 +7,11 @@ export const $$ = ($: string): number => {
     let isNegative = false
     let startIndex = 0
     
+    // Check for empty string
+    if (characters.__get_number_of_elements() === 0) {
+        _ea.deprecated_panic(`Empty string is not a valid binary number`)
+    }
+    
     const get_character_at = (index: number): number => {
         return characters.__get_element_at(index).transform(
             ($) => $,
@@ -20,11 +25,17 @@ export const $$ = ($: string): number => {
         startIndex = 1
     }
     
-    // Check for "0b" prefix
-    if (characters.__get_number_of_elements() > startIndex + 1 && 
-        get_character_at(startIndex) === 48 && // '0'
-        get_character_at(startIndex + 1) === 98) { // 'b'
-        startIndex += 2
+    // Check for "0b" prefix - REQUIRE it for binary
+    if (characters.__get_number_of_elements() <= startIndex + 1 ||
+        get_character_at(startIndex) !== 48 || // '0'
+        get_character_at(startIndex + 1) !== 98) { // 'b'
+        _ea.deprecated_panic(`Binary number must have '0b' prefix`)
+    }
+    startIndex += 2
+    
+    // Check if there are digits after the prefix
+    if (startIndex >= characters.__get_number_of_elements()) {
+        _ea.deprecated_panic(`Binary number must have digits after '0b' prefix`)
     }
     
     // Parse binary digits from left to right

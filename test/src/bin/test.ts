@@ -7,7 +7,12 @@ import * as _et from 'exupery-core-types'
 
 import * as generic from "../interface/generic"
 
-import { run_tests_without_parameters, run_tests_with_parameters } from "../implementation/generic"
+import { 
+    run_refiner_tests_with_parameters,
+    run_refiner_tests_without_parameters,
+    run_transformer_tests_with_parameters,
+    run_transformer_tests_without_parameters,
+} from "../implementation/generic"
 
 import { $$ as op_is_empty } from "pareto-standard-operations/dist/implementation/algorithms/operations/impure/dictionary/is_empty"
 import { $$ as op_filter } from "pareto-standard-operations/dist/implementation/algorithms/operations/pure/dictionary/filter"
@@ -111,29 +116,29 @@ const run_tests = (): generic.Results => {
     const results: generic.Results = _ea.dictionary_literal({
         "serializers": ['group', _ea.dictionary_literal({
             "integer": ['group', _ea.dictionary_literal({
-                "decimal": ['group', run_tests_without_parameters(TEST_DATA.serializers.integer.decimal, s_decimal)], //do all like this one
-                "hexadecimal": ['group', run_tests_without_parameters(TEST_DATA.serializers.integer.hexadecimal, s_hexadecimal)],
-                "binary": ['group', run_tests_without_parameters(TEST_DATA.serializers.integer.binary, s_binary)],
-                "octal": ['group', run_tests_without_parameters(TEST_DATA.serializers.integer.octal, s_octal)],
-                "udhr to iso": ['group', run_tests_without_parameters(TEST_DATA.serializers.integer['udhr to iso'], s_udhr_to_iso)],
+                "decimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.decimal, s_decimal)], //do all like this one
+                "hexadecimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.hexadecimal, s_hexadecimal)],
+                "binary": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.binary, s_binary)],
+                "octal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.octal, s_octal)],
+                "udhr to iso": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer['udhr to iso'], s_udhr_to_iso)],
             })],
             "boolean": ['group', _ea.dictionary_literal({
-                "true false": ['group', run_tests_without_parameters(TEST_DATA.serializers.boolean['true false'], s_boolean_true_false)],
+                "true false": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.boolean['true false'], s_boolean_true_false)],
             })],
             "approximate_number": ['group', _ea.dictionary_literal({
-                "scientific notation": ['group', run_tests_with_parameters(TEST_DATA.serializers.approximate_number['scientific notation'], s_approx_scientific)],
+                "scientific notation": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.approximate_number['scientific notation'], s_approx_scientific)],
             })],
         })],
         "deserializers": ['group', _ea.dictionary_literal({
             "integer": ['group', _ea.dictionary_literal({
-                "decimal": ['group', run_tests_without_parameters(TEST_DATA.deserializers.integer.decimal, d_decimal)],
-                "hexadecimal": ['group', run_tests_without_parameters(TEST_DATA.deserializers.integer.hexadecimal, d_hexadecimal)],
-                "binary": ['group', run_tests_without_parameters(TEST_DATA.deserializers.integer.binary, d_binary)],
-                "octal": ['group', run_tests_without_parameters(TEST_DATA.deserializers.integer.octal, d_octal)],
-                "iso to udhr": ['group', run_tests_without_parameters(TEST_DATA.deserializers.integer['iso to udhr'], d_iso_to_udhr)],
+                "decimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.decimal, d_decimal)],
+                "hexadecimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.hexadecimal, d_hexadecimal)],
+                "binary": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.binary, d_binary)],
+                "octal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.octal, d_octal)],
+                "iso to udhr": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer['iso to udhr'], d_iso_to_udhr)],
             })],
             "boolean": ['group', _ea.dictionary_literal({
-                "true false": ['group', run_tests_without_parameters(TEST_DATA.deserializers.boolean['true false'], d_true_false)],
+                "true false": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.boolean['true false'], d_true_false)],
             })],
             // "approximate_number": ['group', _ea.dictionary_literal({
             //     "scientific notation": ['group', TEST_DATA.deserializers.approximate_number['scientific notation'].map(($) => ['test', { 'passed': (() => {

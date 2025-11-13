@@ -7,6 +7,11 @@ export const $$ = ($: string): number => {
     let isNegative = false
     let startIndex = 0
     
+    // Check for empty string
+    if (characters.__get_number_of_elements() === 0) {
+        _ea.deprecated_panic(`Empty string is not a valid octal number`)
+    }
+    
     const get_character_at = (index: number): number => {
         return characters.__get_element_at(index).transform(
             ($) => $,
@@ -20,11 +25,17 @@ export const $$ = ($: string): number => {
         startIndex = 1
     }
     
-    // Check for "0o" prefix
-    if (characters.__get_number_of_elements() > startIndex + 1 && 
-        get_character_at(startIndex) === 48 && // '0'
-        get_character_at(startIndex + 1) === 111) { // 'o'
-        startIndex += 2
+    // Check for "0o" prefix - REQUIRE it for octal
+    if (characters.__get_number_of_elements() <= startIndex + 1 ||
+        get_character_at(startIndex) !== 48 || // '0'
+        get_character_at(startIndex + 1) !== 111) { // 'o'
+        _ea.deprecated_panic(`Octal number must have '0o' prefix`)
+    }
+    startIndex += 2
+    
+    // Check if there are digits after the prefix
+    if (startIndex >= characters.__get_number_of_elements()) {
+        _ea.deprecated_panic(`Octal number must have digits after '0o' prefix`)
     }
     
     // Parse octal digits from left to right

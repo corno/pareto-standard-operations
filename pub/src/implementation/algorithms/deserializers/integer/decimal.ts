@@ -7,6 +7,11 @@ export const $$ = ($: string): number => {
     let isNegative = false
     let startIndex = 0
     
+    // Check for empty string
+    if (characters.__get_number_of_elements() === 0) {
+        _ea.deprecated_panic(`Empty string is not a valid decimal number`)
+    }
+    
     const get_character_at = (index: number): number => {
         return characters.__get_element_at(index).transform(
             ($) => $,
