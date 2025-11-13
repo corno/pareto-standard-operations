@@ -17,6 +17,9 @@ export type Test_Set = {
         'approximate_number': {
             'scientific notation': _et.Dictionary<generic.Transformer_With_Parameters<number, { 'digits': number }, string>>
         }
+        'text': {
+            'pad left': _et.Dictionary<generic.Transformer_With_Parameters<string, { 'desired length': number, 'pad character': number }, string>>
+        }
     }
     'deserializers': {
         'integer': {

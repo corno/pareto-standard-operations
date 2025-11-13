@@ -28,6 +28,7 @@ import { $$ as s_octal } from "pub/dist/implementation/algorithms/serializers/in
 import { $$ as s_udhr_to_iso } from "pub/dist/implementation/algorithms/serializers/integer/udhr_to_iso"
 import { $$ as s_boolean_true_false } from "pub/dist/implementation/algorithms/serializers/boolean/true_false"
 import { $$ as s_approx_scientific } from "pub/dist/implementation/algorithms/serializers/approximate_number/scientific_notation"
+import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/serializers/text/pad_left"
 
 // Import deserializers
 import { $$ as d_decimal } from "pub/dist/implementation/algorithms/deserializers/integer/decimal"
@@ -37,35 +38,6 @@ import { $$ as d_octal } from "pub/dist/implementation/algorithms/deserializers/
 import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/deserializers/integer/iso_to_udhr"
 import { $$ as d_true_false } from "pub/dist/implementation/algorithms/deserializers/boolean/true_false"
 import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/deserializers/approximate_number/scientific_notation"
-
-// Test helper functions with colored logging
-const log_test_result = (test_name: string, passed: boolean, details?: string) => {
-    const status = passed ? "✓ PASS" : "✗ FAIL"
-    const message = details ? `${test_name}: ${status} - ${details}` : `${test_name}: ${status}`
-    _ed.log_debug_message(message, () => { })
-}
-
-const test_individual_case = (
-    format_name: string,
-    test_name: string,
-    test_function: () => boolean,
-) => {
-    let passed = false
-    try {
-        passed = test_function()
-    } catch (e) {
-        passed = false
-    }
-
-    log_test_result(`${format_name} [${test_name}]`, passed)
-
-    if (!passed) {
-        // Instead of panicking, let's log more details for debugging
-        _ed.log_debug_message(`TEST FAILED: ${format_name} [${test_name}]`, () => { })
-        // Don't panic for now to see all test results
-        // _ea.deprecated_panic(`${format_name} test [${test_name}] failed`)
-    }
-}
 
 // Pretty print results tree with colors and indentation
 const pretty_print_results = (results: generic.Results, indent: number = 0): void => {
@@ -86,7 +58,7 @@ const pretty_print_results = (results: generic.Results, indent: number = 0): voi
             case 'test':
                 const passed = entry[1].passed
                 const status_icon = passed ? "✅" : "❌"
-                const status_text = passed ? "PASS" : "FAIL"
+                const status_text = passed ? "PASS" : `FAIL`
                 _ed.log_debug_message(`${indent_str}${status_icon} ${key}: ${status_text}`, () => { })
                 break
             default:
@@ -127,6 +99,9 @@ const run_tests = (): generic.Results => {
             })],
             "approximate_number": ['group', _ea.dictionary_literal({
                 "scientific notation": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.approximate_number['scientific notation'], s_approx_scientific)],
+            })],
+            "text": ['group', _ea.dictionary_literal({
+                "pad left": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.text['pad left'], s_pad_left)],
             })],
         })],
         "deserializers": ['group', _ea.dictionary_literal({

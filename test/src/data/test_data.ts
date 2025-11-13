@@ -85,15 +85,43 @@ export const TEST_DATA: d.Test_Set = {
                 "udhr day zero": { 'input': 0, 'expected': "1948-12-10" },
                 "udhr day one": { 'input': 1, 'expected': "1948-12-11" },
                 "udhr day negative one": { 'input': -1, 'expected': "1948-12-09" },
-                
+
                 // Known working value from test.ts
                 "udhr 22804": { 'input': 22804, 'expected': "2011-05-18" },
-                
+
                 // Year 2000 test case
                 "year 2000": { 'input': 18649, 'expected': "2000-01-01" },
-                
+
+                // Test different months to cover all branches
+                "february test": { 'input': 18680, 'expected': "2000-02-01" },
+                "march test": { 'input': 18709, 'expected': "2000-03-01" },
+                "april test": { 'input': 18740, 'expected': "2000-04-01" },
+                "may test": { 'input': 18770, 'expected': "2000-05-01" },
+                "june test": { 'input': 18801, 'expected': "2000-06-01" },
+                "july test": { 'input': 18831, 'expected': "2000-07-01" },
+                "august test": { 'input': 18862, 'expected': "2000-08-01" },
+                "september test": { 'input': 18893, 'expected': "2000-09-01" },
+                "october test": { 'input': 18923, 'expected': "2000-10-01" },
+                "november test": { 'input': 18954, 'expected': "2000-11-01" },
+                "december test": { 'input': 18984, 'expected': "2000-12-01" },
+
+                // Test different year/month/day formatting branches
+                "leap year february": { 'input': 18709, 'expected': "2000-03-01" },
+                "single digit month": { 'input': 18680, 'expected': "2000-02-01" },
+                "double digit month": { 'input': 18923, 'expected': "2000-10-01" },
+                "single digit day": { 'input': 18658, 'expected': "2000-01-10" },
+                "double digit day": { 'input': 18668, 'expected': "2000-01-20" },
+                "edge case modulo zero": { 'input': 0, 'expected': "1948-12-10" },
+
+                // Test specific edge cases for remaining branch coverage
+                "day before epoch": { 'input': -1, 'expected': "1948-12-09" },
+                "two years before": { 'input': -730, 'expected': "1946-12-11" },
+
                 // Only test the basic year boundary that actually works
-                "year 1 end": { 'input': -711106, 'expected': "0001-12-31" }
+                "year 1 end": { 'input': -711106, 'expected': "0001-12-31" },
+
+                "dec 31 in leap year": { 'input': 19014, 'expected': "2000-12-31" },
+
             })
         },
         'boolean': {
@@ -115,7 +143,43 @@ export const TEST_DATA: d.Test_Set = {
                 "negative tenth 3 digits": { 'input': -0.1, 'parameters': { 'digits': 3 }, 'expected': "-1.00e-1" },
                 "pi 2 digits": { 'input': 3.14159, 'parameters': { 'digits': 2 }, 'expected': "3.1e+0" },
                 "pi 4 digits": { 'input': 3.14159, 'parameters': { 'digits': 4 }, 'expected': "3.142e+0" },
-                "e 3 digits": { 'input': 2.718, 'parameters': { 'digits': 3 }, 'expected': "2.72e+0" }
+                "e 3 digits": { 'input': 2.718, 'parameters': { 'digits': 3 }, 'expected': "2.72e+0" },
+                "very small 1 digit": { 'input': 0.0001, 'parameters': { 'digits': 1 }, 'expected': "1e-4" },
+                "extremely small 3 digits": { 'input': 0.0000001, 'parameters': { 'digits': 3 }, 'expected': "1.00e-7" },
+                "number rounds to zero": { 'input': 0.00000001, 'parameters': { 'digits': 5 }, 'expected': "1.0000e-8" }
+            })
+        },
+        'text': {
+            'pad left': _ea.dictionary_literal({
+                // Basic padding scenarios
+                "no padding needed": { 'input': "hello", 'parameters': { 'desired length': 5, 'pad character': 48 }, 'expected': "hello" },
+                "shorter needs padding": { 'input': "hi", 'parameters': { 'desired length': 5, 'pad character': 48 }, 'expected': "000hi" },
+
+                // Zero character (ASCII 48) padding
+                "pad with zero": { 'input': "123", 'parameters': { 'desired length': 6, 'pad character': 48 }, 'expected': "000123" },
+                "pad single char": { 'input': "A", 'parameters': { 'desired length': 4, 'pad character': 48 }, 'expected': "000A" },
+
+                // Space character (ASCII 32) padding
+                "pad with space": { 'input': "test", 'parameters': { 'desired length': 8, 'pad character': 32 }, 'expected': "    test" },
+
+                // Different pad characters
+                "pad with asterisk": { 'input': "abc", 'parameters': { 'desired length': 6, 'pad character': 42 }, 'expected': "***abc" },
+                "pad with x": { 'input': "def", 'parameters': { 'desired length': 7, 'pad character': 120 }, 'expected': "xxxxdef" },
+                "pad with dash": { 'input': "text", 'parameters': { 'desired length': 10, 'pad character': 45 }, 'expected': "------text" },
+
+                // Edge cases
+                "empty string": { 'input': "", 'parameters': { 'desired length': 3, 'pad character': 48 }, 'expected': "000" },
+                "zero desired length": { 'input': "test", 'parameters': { 'desired length': 0, 'pad character': 48 }, 'expected': "test" },
+                "already exact length": { 'input': "exact", 'parameters': { 'desired length': 5, 'pad character': 48 }, 'expected': "exact" },
+                "longer than desired": { 'input': "toolong", 'parameters': { 'desired length': 4, 'pad character': 48 }, 'expected': "toolong" },
+
+                // Unicode and special characters in input
+                "unicode input": { 'input': "café", 'parameters': { 'desired length': 8, 'pad character': 48 }, 'expected': "0000café" },
+                "special chars input": { 'input': "@#$", 'parameters': { 'desired length': 6, 'pad character': 48 }, 'expected': "000@#$" },
+
+                // Different padding amounts
+                "one pad": { 'input': "word", 'parameters': { 'desired length': 5, 'pad character': 48 }, 'expected': "0word" },
+                "many pads": { 'input': "x", 'parameters': { 'desired length': 10, 'pad character': 48 }, 'expected': "000000000x" }
             })
         }
     },
@@ -170,6 +234,7 @@ export const TEST_DATA: d.Test_Set = {
                 "uint16 max": { 'input': "0xFFFF", 'expected': _ea.set(65535) },
                 "megabyte": { 'input': "0x100000", 'expected': _ea.set(1048576) },
                 // Invalid input cases
+                "empty string": { 'input': "", 'expected': _ea.not_set() },
                 "no prefix": { 'input': "FF", 'expected': _ea.not_set() },
                 "wrong prefix": { 'input': "0hFF", 'expected': _ea.not_set() },
                 "empty after prefix": { 'input': "0x", 'expected': _ea.not_set() },
@@ -199,6 +264,7 @@ export const TEST_DATA: d.Test_Set = {
                 "uint16 max": { 'input': "0b1111111111111111", 'expected': _ea.set(65535) },
                 "megabyte": { 'input': "0b100000000000000000000", 'expected': _ea.set(1048576) },
                 // Invalid input cases
+                "empty string": { 'input': "", 'expected': _ea.not_set() },
                 "no prefix": { 'input': "1010", 'expected': _ea.not_set() },
                 "wrong prefix": { 'input': "0c1010", 'expected': _ea.not_set() },
                 "empty after prefix": { 'input': "0b", 'expected': _ea.not_set() },
@@ -229,6 +295,7 @@ export const TEST_DATA: d.Test_Set = {
                 "uint16 max": { 'input': "0o177777", 'expected': _ea.set(65535) },
                 "megabyte": { 'input': "0o4000000", 'expected': _ea.set(1048576) },
                 // Invalid input cases
+                "empty string": { 'input': "", 'expected': _ea.not_set() },
                 "no prefix": { 'input': "377", 'expected': _ea.not_set() },
                 "wrong prefix": { 'input': "0p377", 'expected': _ea.not_set() },
                 "empty after prefix": { 'input': "0o", 'expected': _ea.not_set() },
@@ -250,25 +317,26 @@ export const TEST_DATA: d.Test_Set = {
                 "udhr day zero": { 'input': "1948-12-10", 'expected': _ea.set(0) },
                 "udhr day one": { 'input': "1948-12-11", 'expected': _ea.set(1) },
                 "udhr day negative one": { 'input': "1948-12-09", 'expected': _ea.set(-1) },
-                
+
                 // Known working value from test.ts
                 "iso 2011 05 18": { 'input': "2011-05-18", 'expected': _ea.set(22804) },
-                
+
                 // Year 2000 test case
                 "year 2000": { 'input': "2000-01-01", 'expected': _ea.set(18649) },
-                
+
                 // Only test the basic year boundary that actually works  
                 "dec 31 0001": { 'input': "0001-12-31", 'expected': _ea.set(-711106) },
-                
+
                 // Years before UDHR - these work according to test.ts
                 "one year before": { 'input': "1947-12-10", 'expected': _ea.set(-366) },
                 "two years before": { 'input': "1946-12-10", 'expected': _ea.set(-731) },
-                
+
                 // Invalid input cases
                 "empty string": { 'input': "", 'expected': _ea.not_set() },
                 "not a date": { 'input': "not-a-date", 'expected': _ea.not_set() },
                 "wrong format": { 'input': "12/31/2000", 'expected': _ea.not_set() },
                 "wrong separator": { 'input': "2000/12/31", 'expected': _ea.not_set() },
+                "wrong separator 2": { 'input': "2000-12x31", 'expected': _ea.not_set() },
                 "missing year": { 'input': "-12-31", 'expected': _ea.not_set() },
                 "missing month": { 'input': "2000--31", 'expected': _ea.not_set() },
                 "missing day": { 'input': "2000-12-", 'expected': _ea.not_set() },
@@ -283,7 +351,9 @@ export const TEST_DATA: d.Test_Set = {
                 "negative year": { 'input': "-2000-12-31", 'expected': _ea.not_set() },
                 "february 30": { 'input': "2000-02-30", 'expected': _ea.not_set() },
                 "february 29 non leap year": { 'input': "1999-02-29", 'expected': _ea.not_set() },
-                "space in date": { 'input': "2000-12 -31", 'expected': _ea.not_set() }
+                "space in date": { 'input': "2000-12 -31", 'expected': _ea.not_set() },
+                "char before digit": { 'input': "200/-12-31", 'expected': _ea.not_set() },
+                "char after digit": { 'input': "200:-12-31", 'expected': _ea.not_set() },
             })
         },
         'boolean': {

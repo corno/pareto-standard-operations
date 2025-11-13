@@ -1,4 +1,5 @@
 import * as _et from 'exupery-core-types'
+import * as _ed from 'exupery-core-dev'
 
 import * as generic from "../interface/generic"
 
@@ -44,9 +45,16 @@ export const run_refiner_tests_without_parameters = <Input, Expected>($: _et.Dic
     return $.map(($) => {
         try {
             const actual = implementation($.input)
+            $.expected.map(
+                ($) => {
+                    if (actual !== $) {
+                        _ed.log_debug_message(`Expected value does not match actual value: ${actual}`, () => {})
+                    }
+                }
+            )
             return ['test', {
                 'passed': $.expected.transform(
-                    (expected) => actual === expected,
+                    ($) => actual === $,
                     () => false
                 )
             }]

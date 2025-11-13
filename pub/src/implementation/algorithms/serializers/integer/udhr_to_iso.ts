@@ -1,6 +1,7 @@
 import * as _ea from 'exupery-core-alg'
 
 import { $$ as s_decimal } from "./decimal"
+import { $$ as pad_left } from "../text/pad_left"
 
 /**
  * 
@@ -32,24 +33,27 @@ export const $$ = (udhr_day: number): string => {
         const number_of_days_in_1_year = 365
 
         const number_of_400_year_blocks = _ea.integer_division(total_days, number_of_days_in_400_years)
-        const _400_years_modulo = total_days % number_of_days_in_400_years
+        const remaining_days_in_the_last_400_years = total_days % number_of_days_in_400_years
 
-        const number_of_100_year_blocks = _ea.integer_division(_400_years_modulo, number_of_days_in_100_years)
-        const _100_years_modulo = _400_years_modulo % number_of_days_in_100_years
+        const number_of_100_year_blocks = _ea.integer_division(remaining_days_in_the_last_400_years, number_of_days_in_100_years)
+        const remaining_days_in_the_last_100_years = remaining_days_in_the_last_400_years % number_of_days_in_100_years
 
-        const number_of_4_year_blocks = _ea.integer_division(_100_years_modulo, number_of_days_in_4_years)
-        const _4_years_modulo = _100_years_modulo % number_of_days_in_4_years
+        const number_of_4_year_blocks = _ea.integer_division(remaining_days_in_the_last_100_years, number_of_days_in_4_years)
+        const remaining_days_in_the_last_4_years = remaining_days_in_the_last_100_years % number_of_days_in_4_years
 
-        const number_of_1_year_blocks = _ea.integer_division(_4_years_modulo, number_of_days_in_1_year)
-        const _1_year_modulo = _4_years_modulo % number_of_days_in_1_year
+        const number_of_1_year_blocks = _ea.integer_division(remaining_days_in_the_last_4_years, number_of_days_in_1_year)
+        const remaining_days_in_the_last_year = remaining_days_in_the_last_4_years % number_of_days_in_1_year
 
         const base_years = number_of_400_year_blocks * 400 + number_of_100_year_blocks * 100 + number_of_4_year_blocks * 4 + number_of_1_year_blocks * 1
 
-        const days_in_current_year = _1_year_modulo === 0
+        // When remaining_days_in_the_last_year === 0, we're at the end of a year boundary
+        const days_in_current_year = remaining_days_in_the_last_year === 0
+            // Special case: end of year, need full year length (leap or non-leap)
             ? (is_leap_year(base_years) ? 366 : 365)
-            : _1_year_modulo
+            // Normal case: partial year, use the remaining days
+            : remaining_days_in_the_last_year
 
-        const number_of_years = _1_year_modulo === 0
+        const number_of_years = remaining_days_in_the_last_year === 0
             ? base_years - 1
             : base_years
 
@@ -98,14 +102,11 @@ export const $$ = (udhr_day: number): string => {
     }
     const iso_date = uhdr_to_iso_imp(udhr_day)
 
-    // Format with leading zeros for year (4 digits), month and day (2 digits)
-    const year_str = iso_date.year < 1000 
-        ? (iso_date.year < 100 
-            ? (iso_date.year < 10 ? `000${s_decimal(iso_date.year)}` : `00${s_decimal(iso_date.year)}`) 
-            : `0${s_decimal(iso_date.year)}`)
-        : s_decimal(iso_date.year)
-    const month_str = iso_date.month < 10 ? `0${s_decimal(iso_date.month)}` : s_decimal(iso_date.month)
-    const day_str = iso_date.day < 10 ? `0${s_decimal(iso_date.day)}` : s_decimal(iso_date.day)
+    // Format with leading zeros using pad_left function
+    // Year: 4 digits, Month and Day: 2 digits
+    const year_str = pad_left(s_decimal(iso_date.year), { 'desired length': 4, 'pad character': 48 }) // '0'
+    const month_str = pad_left(s_decimal(iso_date.month), { 'desired length': 2, 'pad character': 48 }) // '0'  
+    const day_str = pad_left(s_decimal(iso_date.day), { 'desired length': 2, 'pad character': 48 }) // '0'
 
     return `${year_str}-${month_str}-${day_str}`
 }

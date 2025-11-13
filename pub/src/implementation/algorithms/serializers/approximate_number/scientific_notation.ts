@@ -59,15 +59,13 @@ export const $$ = ($: number, $p: { 'digits': number }): string => {
         // Convert mantissa to string
         const digits = _ea.build_list<number>(($i) => {
             let temp = mantissa_scaled
-            if (temp === 0) {
-                $i['add element'](0)
-            } else {
-                do {
-                    const digit = temp % 10
-                    $i['add element'](digit)
-                    temp = _ea.integer_division(temp, 10)
-                } while (temp > 0)
-            }
+            // temp is always > 0 here since mantissa_scaled = integer_division(mantissa * scale_factor + 0.5, 1)
+            // where mantissa >= 1.0 (normalized) and scale_factor >= 1, so result >= 1
+            do {
+                const digit = temp % 10
+                $i['add element'](digit)
+                temp = _ea.integer_division(temp, 10)
+            } while (temp > 0)
         })
         
         // Add leading digit
