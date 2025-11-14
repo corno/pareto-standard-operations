@@ -2,7 +2,7 @@ import * as _et from 'exupery-core-types'
 import { $$$ } from "../../../../interface/integer/octal/deserializer"
 import * as _ea from 'exupery-core-alg'
 
-export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
+export const $$: $$$ = ($, abort) => {
     const characters = _ea.text_to_character_list($)
     let result = 0
     let isNegative = false

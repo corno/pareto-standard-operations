@@ -3,10 +3,7 @@ import * as _et from 'exupery-core-types'
 
 import { $$$ } from '../../../../interface/text/pad_left/serializer'
 
-export const $$: $$$ = ($: string, $p: {
-    'desired length': number,
-    'pad character': number
-}): string => {
+export const $$: $$$ = ($, $p) => {
     return _ea.build_text(($i) => {
         const characters = _ea.text_to_character_list($)
         const currentLength = characters.__get_number_of_elements()

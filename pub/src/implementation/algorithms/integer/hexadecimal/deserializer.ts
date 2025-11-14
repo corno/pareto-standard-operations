@@ -3,7 +3,7 @@ import * as _ea from 'exupery-core-alg'
 
 import { $$$ } from "../../../../interface/integer/hexadecimal/deserializer"
 
-export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
+export const $$: $$$ = ($, abort) => {
     const characters = _ea.text_to_character_list($)
     let result = 0
     let isNegative = false
@@ -54,7 +54,7 @@ export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
             digit = charCode - 97 + 10
         } else {
             // Invalid character
-            abort(`Invalid character in hexadecimal string`)
+            return abort(`Invalid character in hexadecimal string`)
         }
         
         result = result * 16 + digit

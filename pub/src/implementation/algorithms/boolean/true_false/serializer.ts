@@ -3,6 +3,6 @@ import * as _ea from 'exupery-core-alg'
 
 import { $$$ } from '../../../../interface/boolean/true_false/serializer'
 
-export const $$: $$$ = ($: boolean): string => {
+export const $$: $$$ = ($) => {
     return $ ? "true" : "false"
 }

@@ -3,7 +3,7 @@ import * as _ea from 'exupery-core-alg'
 
 import { $$$ } from '../../../../interface/integer/octal/serializer'
 
-export const $$: $$$ = ($: number): string => {
+export const $$: $$$ = ($) => {
     return _ea.build_text(($i) => {
         if ($ < 0) {
             $i['add character'](45) // '-'

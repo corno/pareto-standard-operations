@@ -3,7 +3,7 @@ import * as _ea from 'exupery-core-alg'
 
 import { $$$ } from "../../../../interface/boolean/true_false/deserializer"
 
-export const $$: $$$ = ($: string, abort: (error: string) => never): boolean => $ === "true"
+export const $$: $$$ = ($, abort) => $ === "true"
     ? true
     : $ === "false"
         ? false
