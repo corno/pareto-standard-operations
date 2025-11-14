@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$$ } from '../../../../interface/approximate_number/scientific_notation/serializer'
+import { $$$ } from "../../../../interface/approximate_number/scientific_notation/serializer"
 
 export const $$: $$$ = ($, $p) => {
     return _ea.build_text(($i) => {

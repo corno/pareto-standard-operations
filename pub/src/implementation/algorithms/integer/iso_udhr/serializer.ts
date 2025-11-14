@@ -1,6 +1,6 @@
 import * as _ea from 'exupery-core-alg'
 
-import { $$$ } from '../../../../interface/integer/iso_udhr/serializer'
+import { $$$ } from "../../../../interface/integer/iso_udhr/serializer"
 import { $$ as s_decimal } from "../decimal/serializer"
 import { $$ as pad_left } from "../../text/pad_left/serializer"
 

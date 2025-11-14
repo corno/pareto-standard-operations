@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$$ } from '../../../../interface/integer/hexadecimal/serializer'
+import { $$$ } from "../../../../interface/integer/hexadecimal/serializer"
 
 export const $$: $$$ = ($) => {
     return _ea.build_text(($i) => {
