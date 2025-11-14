@@ -24,10 +24,10 @@ export const run_transformer_tests_without_parameters = <Input, Expected>($: _et
     })
 }
 
-export const run_refiner_tests_with_parameters = <Input, Parameters, Expected>(tests: _et.Dictionary<generic.Refiner_With_Parameters<Input, Parameters, Expected>>, implementation: ($: Input, parameters: Parameters) => Expected): generic.Results => {
+export const run_refiner_tests_with_parameters = <Input, Parameters, Expected>(tests: _et.Dictionary<generic.Refiner_With_Parameters<Input, Parameters, Expected>>, implementation: ($: Input, parameters: Parameters, abort: (error: string) => never) => Expected): generic.Results => {
     return tests.map(($) => {
         try {
-            const actual = implementation($.input, $.parameters)
+            const actual = implementation($.input, $.parameters, (error: string) => _ea.deprecated_panic(error))
             return ['test', {
                 'passed': $.expected.transform(
                     ($) => actual === $,
@@ -45,10 +45,10 @@ export const run_refiner_tests_with_parameters = <Input, Parameters, Expected>(t
     })
 }
 
-export const run_refiner_tests_without_parameters = <Input, Expected>($: _et.Dictionary<generic.Refiner_Without_Parameters<Input, Expected>>, implementation: ($: Input) => Expected): generic.Results => {
+export const run_refiner_tests_without_parameters = <Input, Expected>($: _et.Dictionary<generic.Refiner_Without_Parameters<Input, Expected>>, implementation: ($: Input, abort: (error: string) => never) => Expected): generic.Results => {
     return $.map(($) => {
         try {
-            const actual = implementation($.input)
+            const actual = implementation($.input, (error: string) => _ea.deprecated_panic(error))
             $.expected.map(
                 ($) => {
                     if (actual !== $) {

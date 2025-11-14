@@ -1,13 +1,15 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
+import { $$$ } from "../../../../interface/integer/iso_udhr/deserializer"
+
 /**
  * 
  * uhdr is a numerical representation of dates where day 0 is 1948-12-10 (the date of the adoption of the Universal Declaration of Human Rights)
  * 
  * This function converts an ISO 8601 date string (YYYY-MM-DD) to a udhr day number
  */
-export const $$ = ($: string): number => {
+export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
 
     const iso_day_0_offset = - 711471 // the number of days that iso day 1 (0001-01-01) is offset relative to udhr day 0 (1948-12-10)
 
@@ -34,7 +36,7 @@ export const $$ = ($: string): number => {
         const get_certain_character_at = (characters: _et.Array<number>, index: number): number => {
             return characters.__get_element_at(index).transform(
                 ($) => $,
-                () => _ea.deprecated_panic(`index out of bounds`)
+                () => abort(`index out of bounds`)
             )
         }
 
@@ -42,7 +44,7 @@ export const $$ = ($: string): number => {
             let result = 0
             for (let i = start; i < end; i++) {
                 const digit = get_certain_character_at(characters, i) - 48
-                if (digit < 0 || digit > 9) return _ea.deprecated_panic(`invalid date format`)
+                if (digit < 0 || digit > 9) return abort(`invalid date format`)
                 result = result * 10 + digit
             }
             return result
@@ -51,13 +53,13 @@ export const $$ = ($: string): number => {
 
         //validate format
         if (characters.__get_number_of_elements() !== 10) { // YYYY-MM-DD
-            return _ea.deprecated_panic(`invalid date format`)
+            return abort(`invalid date format`)
         }
         if (get_certain_character_at(characters, 4) !== dash) { // -
-            return _ea.deprecated_panic(`invalid date format`)
+            return abort(`invalid date format`)
         }
         if (get_certain_character_at(characters, 7) !== dash) { // -
-            return _ea.deprecated_panic(`invalid date format`)
+            return abort(`invalid date format`)
         }
         return {
             year: string_to_number(characters, 0, 4),
@@ -71,12 +73,12 @@ export const $$ = ($: string): number => {
 
     // Validate month (1-12)
     if (iso_date.month < 1 || iso_date.month > 12) {
-        _ea.deprecated_panic(`Invalid month: ${iso_date.month}. Month must be between 1 and 12`)
+        abort(`Invalid month: ${iso_date.month}. Month must be between 1 and 12`)
     }
 
     // Validate day (1-31, depending on month)
     if (iso_date.day < 1) {
-        _ea.deprecated_panic(`Invalid day: ${iso_date.day}. Day must be at least 1`)
+        abort(`Invalid day: ${iso_date.day}. Day must be at least 1`)
     }
 
     // Check days per month
@@ -89,7 +91,7 @@ export const $$ = ($: string): number => {
     }
     
     if (iso_date.day > max_day) {
-        _ea.deprecated_panic(`Invalid day: ${iso_date.day}. Month ${iso_date.month} has at most ${max_day} days`)
+        abort(`Invalid day: ${iso_date.day}. Month ${iso_date.month} has at most ${max_day} days`)
     }
 
     const full_years = iso_date.year - 1

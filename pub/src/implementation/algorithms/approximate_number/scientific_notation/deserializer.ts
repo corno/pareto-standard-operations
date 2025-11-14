@@ -1,6 +1,8 @@
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: string): number => {
+import { $$$ } from "../../../../interface/approximate_number/scientific_notation/deserializer"
+
+export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
     const characters = _ea.text_to_character_list($)
     let result = 0
     let isNegative = false
@@ -15,7 +17,7 @@ export const $$ = ($: string): number => {
     const get_character_at = (index: number): number => {
         return characters.__get_element_at(index).transform(
             ($) => $,
-            () => _ea.deprecated_panic(`index out of bounds`)
+            () => abort(`index out of bounds`)
         )
     }
     
@@ -31,12 +33,12 @@ export const $$ = ($: string): number => {
         
         if (charCode === 46) { // '.'
             if (hasDecimal || inExponent) {
-                _ea.deprecated_panic(`Invalid decimal format: multiple decimal points or decimal in exponent`)
+                abort(`Invalid decimal format: multiple decimal points or decimal in exponent`)
             }
             hasDecimal = true
         } else if (charCode === 101 || charCode === 69) { // 'e' or 'E'
             if (inExponent) {
-                _ea.deprecated_panic(`Invalid decimal format: multiple exponent markers`)
+                abort(`Invalid decimal format: multiple exponent markers`)
             }
             inExponent = true
             // Check for exponent sign
@@ -61,7 +63,7 @@ export const $$ = ($: string): number => {
                 result = result * 10 + digit
             }
         } else {
-            _ea.deprecated_panic(`Invalid character in decimal string`)
+            abort(`Invalid character in decimal string`)
         }
     }
     

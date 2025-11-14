@@ -1,7 +1,9 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: string): number => {
+import { $$$ } from "../../../../interface/integer/hexadecimal/deserializer"
+
+export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
     const characters = _ea.text_to_character_list($)
     let result = 0
     let isNegative = false
@@ -9,13 +11,13 @@ export const $$ = ($: string): number => {
     
     // Check for empty string
     if (characters.__get_number_of_elements() === 0) {
-        _ea.deprecated_panic(`Empty string is not a valid hexadecimal number`)
+        abort(`Empty string is not a valid hexadecimal number`)
     }
     
     const get_character_at = (index: number): number => {
         return characters.__get_element_at(index).transform(
             ($) => $,
-            () => _ea.deprecated_panic(`index out of bounds`)
+            () => abort(`index out of bounds`)
         )
     }
     
@@ -29,13 +31,13 @@ export const $$ = ($: string): number => {
     if (characters.__get_number_of_elements() <= startIndex + 1 ||
         get_character_at(startIndex) !== 48 || // '0'
         get_character_at(startIndex + 1) !== 120) { // 'x'
-        _ea.deprecated_panic(`Hexadecimal number must have '0x' prefix`)
+        abort(`Hexadecimal number must have '0x' prefix`)
     }
     startIndex += 2
     
     // Check if there are digits after the prefix
     if (startIndex >= characters.__get_number_of_elements()) {
-        _ea.deprecated_panic(`Hexadecimal number must have digits after '0x' prefix`)
+        abort(`Hexadecimal number must have digits after '0x' prefix`)
     }
     
     // Parse hex digits from left to right
@@ -52,7 +54,7 @@ export const $$ = ($: string): number => {
             digit = charCode - 97 + 10
         } else {
             // Invalid character
-            _ea.deprecated_panic(`Invalid character in hexadecimal string`)
+            abort(`Invalid character in hexadecimal string`)
         }
         
         result = result * 16 + digit

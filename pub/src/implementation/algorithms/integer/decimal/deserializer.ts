@@ -1,7 +1,9 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: string): number => {
+import { $$$ } from "../../../../interface/integer/decimal/deserializer"
+
+export const $$: $$$ = ($: string, abort: (error: string) => never): number => {
     const characters = _ea.text_to_character_list($)
     let result = 0
     let isNegative = false
@@ -9,13 +11,13 @@ export const $$ = ($: string): number => {
     
     // Check for empty string
     if (characters.__get_number_of_elements() === 0) {
-        _ea.deprecated_panic(`Empty string is not a valid decimal number`)
+        abort(`Empty string is not a valid decimal number`)
     }
     
     const get_character_at = (index: number): number => {
         return characters.__get_element_at(index).transform(
             ($) => $,
-            () => _ea.deprecated_panic(`index out of bounds`)
+            () => abort(`index out of bounds`)
         )
     }
     
@@ -35,7 +37,7 @@ export const $$ = ($: string): number => {
             result = result * 10 + digit
         } else {
             // Invalid character
-            _ea.deprecated_panic(`Invalid character in decimal string`)
+            abort(`Invalid character in decimal string`)
         }
     }
     
