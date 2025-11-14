@@ -23,10 +23,15 @@ export type Refiner_With_Parameters<Input, Parameters, Expected> = {
 }
 
 // Type definitions for test results
+
+
+export type Results = Branch
+
+export type Branch = _et.Dictionary<Result_Entry>
+
 export type Result_Entry =
 | ['test', {
     'passed': boolean
 }]
-| ['group', Results]
+| ['group', Branch]
 
-export type Results = _et.Dictionary<Result_Entry>
