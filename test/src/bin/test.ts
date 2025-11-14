@@ -19,61 +19,64 @@ import {
 import { TEST_DATA } from "../data/test_data"
 
 // Import serializers
-import { $$ as s_decimal } from "pub/dist/implementation/algorithms/serializers/integer/decimal"
-import { $$ as s_hexadecimal } from "pub/dist/implementation/algorithms/serializers/integer/hexadecimal"
-import { $$ as s_binary } from "pub/dist/implementation/algorithms/serializers/integer/binary"
-import { $$ as s_octal } from "pub/dist/implementation/algorithms/serializers/integer/octal"
-import { $$ as s_udhr_to_iso } from "pub/dist/implementation/algorithms/serializers/integer/udhr_to_iso"
-import { $$ as s_boolean_true_false } from "pub/dist/implementation/algorithms/serializers/boolean/true_false"
-import { $$ as s_approx_scientific } from "pub/dist/implementation/algorithms/serializers/approximate_number/scientific_notation"
-import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/serializers/text/pad_left"
+import { $$ as s_decimal } from "pub/dist/implementation/algorithms/integer/decimal/serializer"
+import { $$ as s_hexadecimal } from "pub/dist/implementation/algorithms/integer/hexadecimal/serializer"
+import { $$ as s_binary } from "pub/dist/implementation/algorithms/integer/binary/serializer"
+import { $$ as s_octal } from "pub/dist/implementation/algorithms/integer/octal/serializer"
+import { $$ as s_udhr_to_iso } from "pub/dist/implementation/algorithms/integer/udhr_to_iso/serializer"
+import { $$ as s_boolean_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/serializer"
+import { $$ as s_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/serializer"
+import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/text/pad_left/serializer"
 
 // Import deserializers
-import { $$ as d_decimal } from "pub/dist/implementation/algorithms/deserializers/integer/decimal"
-import { $$ as d_hexadecimal } from "pub/dist/implementation/algorithms/deserializers/integer/hexadecimal"
-import { $$ as d_binary } from "pub/dist/implementation/algorithms/deserializers/integer/binary"
-import { $$ as d_octal } from "pub/dist/implementation/algorithms/deserializers/integer/octal"
-import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/deserializers/integer/iso_to_udhr"
-import { $$ as d_true_false } from "pub/dist/implementation/algorithms/deserializers/boolean/true_false"
-import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/deserializers/approximate_number/scientific_notation"
+import { $$ as d_decimal } from "pub/dist/implementation/algorithms/integer/decimal/deserializer"
+import { $$ as d_hexadecimal } from "pub/dist/implementation/algorithms/integer/hexadecimal/deserializer"
+import { $$ as d_binary } from "pub/dist/implementation/algorithms/integer/binary/deserializer"
+import { $$ as d_octal } from "pub/dist/implementation/algorithms/integer/octal/deserializer"
+import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/integer/iso_to_udhr/deserializer"
+import { $$ as d_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/deserializer"
+import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/deserializer"
 
 
 run_tests(_ea.dictionary_literal({
-    "serializers": ['group', _ea.dictionary_literal({
-        "integer": ['group', _ea.dictionary_literal({
-            "decimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.decimal, s_decimal)], //do all like this one
-            "hexadecimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.hexadecimal, s_hexadecimal)],
-            "binary": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.binary, s_binary)],
-            "octal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.octal, s_octal)],
-            "udhr to iso": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer['udhr to iso'], s_udhr_to_iso)],
+    "integer": ['group', _ea.dictionary_literal({
+        "decimal": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.decimal.serializer, s_decimal)],
+            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.decimal.deserializer, d_decimal)],
         })],
-        "boolean": ['group', _ea.dictionary_literal({
-            "true false": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.boolean['true false'], s_boolean_true_false)],
+        "hexadecimal": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.hexadecimal.serializer, s_hexadecimal)],
+            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.hexadecimal.deserializer, d_hexadecimal)],
         })],
-        "approximate_number": ['group', _ea.dictionary_literal({
-            "scientific notation": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.approximate_number['scientific notation'], s_approx_scientific)],
+        "binary": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.binary.serializer, s_binary)],
+            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.binary.deserializer, d_binary)],
         })],
-        "text": ['group', _ea.dictionary_literal({
-            "pad left": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.text['pad left'], s_pad_left)],
+        "octal": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.octal.serializer, s_octal)],
+            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.octal.deserializer, d_octal)],
+        })],
+        "udhr_to_iso": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.iso_udhr.serializer, s_udhr_to_iso)],
+        })],
+        "iso_to_udhr": ['group', _ea.dictionary_literal({
+            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.iso_udhr.deserializer, d_iso_to_udhr)],
         })],
     })],
-    "deserializers": ['group', _ea.dictionary_literal({
-        "integer": ['group', _ea.dictionary_literal({
-            "decimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.decimal, d_decimal)],
-            "hexadecimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.hexadecimal, d_hexadecimal)],
-            "binary": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.binary, d_binary)],
-            "octal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.octal, d_octal)],
-            "iso to udhr": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer['iso to udhr'], d_iso_to_udhr)],
+    "boolean": ['group', _ea.dictionary_literal({
+        "true_false": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.boolean.true_false.serializer, s_boolean_true_false)],
+            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.boolean.true_false.deserializer, d_true_false)],
         })],
-        "boolean": ['group', _ea.dictionary_literal({
-            "true false": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.boolean['true false'], d_true_false)],
+    })],
+    "approximate_number": ['group', _ea.dictionary_literal({
+        "scientific_notation": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.approximate_number.scientific_notation.serializer, s_approx_scientific)],
         })],
-        // "approximate_number": ['group', _ea.dictionary_literal({
-        //     "scientific notation": ['group', TEST_DATA.deserializers.approximate_number['scientific notation'].map(($) => ['test', { 'passed': (() => {
-        //         const result = d_approx_scientific($.input)
-        //         const diff = result > $.expected ? result - $.expected : $.expected - result
-        //         return diff <= $.tolerance
-        //     })() }])],
-        // })],
+    })],
+    "text": ['group', _ea.dictionary_literal({
+        "pad_left": ['group', _ea.dictionary_literal({
+            "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.text.pad_left.serializer, s_pad_left)],
+        })],
     })],
 }))
