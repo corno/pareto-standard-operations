@@ -97,12 +97,12 @@ const has_passed = (results: generic.Results): boolean => {
 
 export type Resources = {
     procedures: {
-        'log error': _easync.Guaranteed_Procedure<d_log.Parameters, null>
-        'log': _easync.Guaranteed_Procedure<d_log.Parameters, null>
+        'log error': _et.Guaranteed_Procedure<d_log.Parameters, null>
+        'log': _et.Guaranteed_Procedure<d_log.Parameters, null>
     }
 }
 
-export const run_tests: _easync.Unguaranteed_Procedure<generic.Results, _eb.Error, Resources> = (
+export const run_tests: _et.Unguaranteed_Procedure<generic.Results, _eb.Error, Resources> = (
     test_results: generic.Results,
     resources: Resources
 ) => {

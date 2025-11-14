@@ -25,7 +25,7 @@ import { $$ as s_decimal } from "pub/dist/implementation/algorithms/integer/deci
 import { $$ as s_hexadecimal } from "pub/dist/implementation/algorithms/integer/hexadecimal/serializer"
 import { $$ as s_binary } from "pub/dist/implementation/algorithms/integer/binary/serializer"
 import { $$ as s_octal } from "pub/dist/implementation/algorithms/integer/octal/serializer"
-import { $$ as s_udhr_to_iso } from "pub/dist/implementation/algorithms/integer/udhr_to_iso/serializer"
+import { $$ as s_udhr_to_iso } from "pub/dist/implementation/algorithms/integer/iso_udhr/serializer"
 import { $$ as s_boolean_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/serializer"
 import { $$ as s_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/serializer"
 import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/text/pad_left/serializer"
@@ -35,7 +35,7 @@ import { $$ as d_decimal } from "pub/dist/implementation/algorithms/integer/deci
 import { $$ as d_hexadecimal } from "pub/dist/implementation/algorithms/integer/hexadecimal/deserializer"
 import { $$ as d_binary } from "pub/dist/implementation/algorithms/integer/binary/deserializer"
 import { $$ as d_octal } from "pub/dist/implementation/algorithms/integer/octal/deserializer"
-import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/integer/iso_to_udhr/deserializer"
+import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/integer/iso_udhr/deserializer"
 import { $$ as d_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/deserializer"
 import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/deserializer"
 
