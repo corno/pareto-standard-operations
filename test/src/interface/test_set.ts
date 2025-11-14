@@ -1,6 +1,8 @@
 import * as _et from 'exupery-core-types'
 
 import * as generic from "./generic"
+import { Parameters as ScientificNotationParameters } from "pub/dist/interface/approximate_number/scientific_notation/serializer"
+import { Parameters as PadLeftParameters } from "pub/dist/interface/text/pad_left/serializer"
 
 export type Test_Set = {
     'integer': {
@@ -33,13 +35,13 @@ export type Test_Set = {
     }
     'approximate_number': {
         'scientific_notation': {
-            'serializer': _et.Dictionary<generic.Transformer_With_Parameters<number, { 'digits': number }, string>>
-            'deserializer': _et.Dictionary<generic.Refiner_With_Parameters<string, { 'digits': number }, number>>
+            'serializer': _et.Dictionary<generic.Transformer_With_Parameters<number, ScientificNotationParameters, string>>
+            'deserializer': _et.Dictionary<generic.Refiner_With_Parameters<string, ScientificNotationParameters, number>>
         }
     }
     'text': {
         'pad_left': {
-            'serializer': _et.Dictionary<generic.Transformer_With_Parameters<string, { 'desired length': number, 'pad character': number }, string>>
+            'serializer': _et.Dictionary<generic.Transformer_With_Parameters<string, PadLeftParameters, string>>
         }
     }
 }
