@@ -1,7 +1,9 @@
 import * as _ea from 'exupery-core-alg'
 import * as _et from 'exupery-core-types'
 
-export const $$ = ($: string, $p: {
+import { $$$ } from '../../../../interface/text/pad_left/serializer'
+
+export const $$: $$$ = ($: string, $p: {
     'desired length': number,
     'pad character': number
 }): string => {

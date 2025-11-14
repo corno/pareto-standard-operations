@@ -1,5 +1,6 @@
 import * as _ea from 'exupery-core-alg'
 
+import { $$$ } from '../../../../interface/integer/iso_udhr/serializer'
 import { $$ as s_decimal } from "../decimal/serializer"
 import { $$ as pad_left } from "../../text/pad_left/serializer"
 
@@ -9,7 +10,7 @@ import { $$ as pad_left } from "../../text/pad_left/serializer"
  * 
  * This function converts a udhr day number to an ISO 8601 date string (YYYY-MM-DD)
  */
-export const $$ = (udhr_day: number): string => {
+export const $$: $$$ = (udhr_day: number): string => {
 
     const iso_day_0_offset = - 711471 // the number of days that iso day 1 (0001-01-01) is offset relative to udhr day 0 (1948-12-10)
 

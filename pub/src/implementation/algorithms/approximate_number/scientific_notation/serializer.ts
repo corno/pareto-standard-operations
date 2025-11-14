@@ -1,7 +1,9 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: number, $p: { 'digits': number }): string => {
+import { $$$ } from '../../../../interface/approximate_number/scientific_notation/serializer'
+
+export const $$: $$$ = ($: number, $p: { 'digits': number }): string => {
     return _ea.build_text(($i) => {
         // Handle special case for zero in scientific notation
         if ($ === 0) {

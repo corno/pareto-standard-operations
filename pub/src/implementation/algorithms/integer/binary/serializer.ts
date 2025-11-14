@@ -1,7 +1,9 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: number): string => {
+import { $$$ } from '../../../../interface/integer/binary/serializer'
+
+export const $$: $$$ = ($: number): string => {
     return _ea.build_text(($i) => {
         if ($ < 0) {
             $i['add character'](45) // '-'
