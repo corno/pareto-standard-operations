@@ -7,15 +7,13 @@ import * as _et from 'exupery-core-types'
 
 import * as generic from "../interface/generic"
 
-import { 
+import {
     run_refiner_tests_with_parameters,
     run_refiner_tests_without_parameters,
+    run_tests,
     run_transformer_tests_with_parameters,
     run_transformer_tests_without_parameters,
 } from "../implementation/generic"
-
-import { $$ as op_is_empty } from "pareto-standard-operations/dist/implementation/algorithms/operations/impure/dictionary/is_empty"
-import { $$ as op_filter } from "pareto-standard-operations/dist/implementation/algorithms/operations/pure/dictionary/filter"
 
 // Import test data
 import { TEST_DATA } from "../data/test_data"
@@ -39,108 +37,43 @@ import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/deserial
 import { $$ as d_true_false } from "pub/dist/implementation/algorithms/deserializers/boolean/true_false"
 import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/deserializers/approximate_number/scientific_notation"
 
-// Pretty print results tree with colors and indentation
-const pretty_print_results = (results: generic.Results, indent: number = 0): void => {
-    const indent_str = (() => {
-        let result = ""
-        for (let i = 0; i < indent; i++) {
-            result += "  "
-        }
-        return result
-    })()
 
-    results.map((entry, key) => {
-        switch (entry[0]) {
-            case 'group':
-                _ed.log_debug_message(`${indent_str}📁 ${key}`, () => { })
-                pretty_print_results(entry[1], indent + 1)
-                break
-            case 'test':
-                const passed = entry[1].passed
-                const status_icon = passed ? "✅" : "❌"
-                const status_text = passed ? "PASS" : `FAIL`
-                _ed.log_debug_message(`${indent_str}${status_icon} ${key}: ${status_text}`, () => { })
-                break
-            default:
-                // This should never happen due to the type system
-                _ed.log_debug_message(`${indent_str}❓ ${key}: Unknown entry type`, () => { })
-        }
-    })
-}
-
-const has_passed = (results: generic.Results): boolean => {
-    return op_is_empty(op_filter<null>(results.map(($) => {
-        return _ea.cc($, ($) => {
-            switch ($[0]) {
-                case 'test': return _ea.ss($, ($) => $.passed ? _ea.not_set() : _ea.set(null))
-                case 'group': return _ea.ss($, ($) => has_passed($) ? _ea.not_set() : _ea.set(null))
-                default: return _ea.au($[0])
-            }
-        })
-    })))
-}
-
-// Execute tests using dictionary mapping
-const run_tests = (): generic.Results => {
-    _ed.log_debug_message("--- Testing Integer Serializers ---", () => { })
-
-
-    const results: generic.Results = _ea.dictionary_literal({
-        "serializers": ['group', _ea.dictionary_literal({
-            "integer": ['group', _ea.dictionary_literal({
-                "decimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.decimal, s_decimal)], //do all like this one
-                "hexadecimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.hexadecimal, s_hexadecimal)],
-                "binary": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.binary, s_binary)],
-                "octal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.octal, s_octal)],
-                "udhr to iso": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer['udhr to iso'], s_udhr_to_iso)],
-            })],
-            "boolean": ['group', _ea.dictionary_literal({
-                "true false": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.boolean['true false'], s_boolean_true_false)],
-            })],
-            "approximate_number": ['group', _ea.dictionary_literal({
-                "scientific notation": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.approximate_number['scientific notation'], s_approx_scientific)],
-            })],
-            "text": ['group', _ea.dictionary_literal({
-                "pad left": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.text['pad left'], s_pad_left)],
-            })],
+run_tests(_ea.dictionary_literal({
+    "serializers": ['group', _ea.dictionary_literal({
+        "integer": ['group', _ea.dictionary_literal({
+            "decimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.decimal, s_decimal)], //do all like this one
+            "hexadecimal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.hexadecimal, s_hexadecimal)],
+            "binary": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.binary, s_binary)],
+            "octal": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer.octal, s_octal)],
+            "udhr to iso": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.integer['udhr to iso'], s_udhr_to_iso)],
         })],
-        "deserializers": ['group', _ea.dictionary_literal({
-            "integer": ['group', _ea.dictionary_literal({
-                "decimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.decimal, d_decimal)],
-                "hexadecimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.hexadecimal, d_hexadecimal)],
-                "binary": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.binary, d_binary)],
-                "octal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.octal, d_octal)],
-                "iso to udhr": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer['iso to udhr'], d_iso_to_udhr)],
-            })],
-            "boolean": ['group', _ea.dictionary_literal({
-                "true false": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.boolean['true false'], d_true_false)],
-            })],
-            // "approximate_number": ['group', _ea.dictionary_literal({
-            //     "scientific notation": ['group', TEST_DATA.deserializers.approximate_number['scientific notation'].map(($) => ['test', { 'passed': (() => {
-            //         const result = d_approx_scientific($.input)
-            //         const diff = result > $.expected ? result - $.expected : $.expected - result
-            //         return diff <= $.tolerance
-            //     })() }])],
-            // })],
+        "boolean": ['group', _ea.dictionary_literal({
+            "true false": ['group', run_transformer_tests_without_parameters(TEST_DATA.serializers.boolean['true false'], s_boolean_true_false)],
         })],
-    })
-
-    return results
-}
-// Run all tests
-_ed.log_debug_message("=== Starting Comprehensive Serializer/Deserializer Tests ===", () => { })
-
-const test_results = run_tests()
-
-const success = has_passed(test_results)
-
-
-
-pretty_print_results(test_results)
-
-if (!success) {
-    _ed.log_debug_message("Some tests failed. Please check the results above.", () => { })
-    _ea.deprecated_panic("Some tests failed.")
-} else {
-    _ed.log_debug_message("All tests passed successfully!", () => { })
-}
+        "approximate_number": ['group', _ea.dictionary_literal({
+            "scientific notation": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.approximate_number['scientific notation'], s_approx_scientific)],
+        })],
+        "text": ['group', _ea.dictionary_literal({
+            "pad left": ['group', run_transformer_tests_with_parameters(TEST_DATA.serializers.text['pad left'], s_pad_left)],
+        })],
+    })],
+    "deserializers": ['group', _ea.dictionary_literal({
+        "integer": ['group', _ea.dictionary_literal({
+            "decimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.decimal, d_decimal)],
+            "hexadecimal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.hexadecimal, d_hexadecimal)],
+            "binary": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.binary, d_binary)],
+            "octal": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer.octal, d_octal)],
+            "iso to udhr": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.integer['iso to udhr'], d_iso_to_udhr)],
+        })],
+        "boolean": ['group', _ea.dictionary_literal({
+            "true false": ['group', run_refiner_tests_without_parameters(TEST_DATA.deserializers.boolean['true false'], d_true_false)],
+        })],
+        // "approximate_number": ['group', _ea.dictionary_literal({
+        //     "scientific notation": ['group', TEST_DATA.deserializers.approximate_number['scientific notation'].map(($) => ['test', { 'passed': (() => {
+        //         const result = d_approx_scientific($.input)
+        //         const diff = result > $.expected ? result - $.expected : $.expected - result
+        //         return diff <= $.tolerance
+        //     })() }])],
+        // })],
+    })],
+}))
