@@ -1,10 +1,10 @@
 import * as _et from 'exupery-core-types'
 import * as _ed from 'exupery-core-dev'
 import * as _ea from 'exupery-core-alg'
-import * as _eb from 'exupery-core-bin'
 import * as _easync from 'exupery-core-async'
 
 import * as d_log from "exupery-resources/dist/interface/generated/pareto/schemas/log_error/data_types/target"
+import * as d_main from "exupery-resources/dist/interface/temp_main"
 
 import * as generic from "../interface/generic"
 
@@ -96,16 +96,14 @@ const has_passed = (results: generic.Results): boolean => {
 }
 
 export type Resources = {
-    procedures: {
+    'commands': {
         'log error': _et.Command<d_log.Parameters, null>
         'log': _et.Command<d_log.Parameters, null>
     }
 }
 
-export const run_tests: _et.Command_Procedure<generic.Results, _eb.Error, Resources> = (
-    resources: Resources
-) => {
-    return ($p) => _easync.__create_procedure_promise<_eb.Error>({
+export const run_tests: _et.Command_Procedure<generic.Results, d_main.Error, Resources> = _easync.create_command_procedure(
+    ($r, $p) => _easync.__create_procedure_promise<d_main.Error>({
         'execute': (on_success, on_error) => {
 
             // Run all tests
@@ -152,4 +150,4 @@ export const run_tests: _et.Command_Procedure<generic.Results, _eb.Error, Resour
             }
         }
     })
-}
+)
