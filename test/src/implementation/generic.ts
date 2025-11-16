@@ -11,8 +11,8 @@ import * as generic from "../interface/generic"
 import { $$ as op_is_empty } from "pareto-standard-operations/dist/implementation/algorithms/operations/impure/dictionary/is_empty"
 import { $$ as op_filter } from "pareto-standard-operations/dist/implementation/algorithms/operations/pure/dictionary/filter"
 
-import { $$ as p_log_error } from "pareto-fountain-pen/dist/implementation/algorithms/procedures/guaranteed/console_error"
-import { $$ as p_log } from "pareto-fountain-pen/dist/implementation/algorithms/procedures/guaranteed/console_log"
+import { $$ as p_log_error } from "pareto-fountain-pen/dist/implementation/algorithms/procedures/console_error"
+import { $$ as p_log } from "pareto-fountain-pen/dist/implementation/algorithms/procedures/console_log"
 
 import * as t_test_result_to_text from "./generic/transformers/test_result/text"
 
@@ -97,59 +97,59 @@ const has_passed = (results: generic.Results): boolean => {
 
 export type Resources = {
     procedures: {
-        'log error': _et.Guaranteed_Procedure<d_log.Parameters, null>
-        'log': _et.Guaranteed_Procedure<d_log.Parameters, null>
+        'log error': _et.Command<d_log.Parameters, null>
+        'log': _et.Command<d_log.Parameters, null>
     }
 }
 
-export const run_tests: _et.Unguaranteed_Procedure<generic.Results, _eb.Error, Resources> = (
-    test_results: generic.Results,
+export const run_tests: _et.Command_Procedure<generic.Results, _eb.Error, Resources> = (
     resources: Resources
 ) => {
-    return _easync.__create_unguaranteed_procedure({
-        'execute': (on_success, on_exception) => {
+    return ($p) => _easync.__create_procedure_promise<_eb.Error>({
+        'execute': (on_success, on_error) => {
 
             // Run all tests
             _ed.log_debug_message("=== Starting Comprehensive Serializer/Deserializer Tests ===", () => { })
 
 
-            const success = has_passed(test_results)
+            const success = has_passed($p)
 
-            const pretty_printed = t_test_result_to_text.Results(test_results)
+            const pretty_printed = t_test_result_to_text.Results($p)
 
             if (!success) {
                 _ed.log_debug_message("Some tests failed. Please check the results.", () => { })
-                p_log_error({
+                p_log_error(resources)({
                     'group': pretty_printed,
                     'indentation': `   `
-                }, {
-                    'procedures': {
-                        'log error': resources.procedures['log error'],
-                    }
                 }).__start(
                     () => {
-                        on_exception({
+                        on_error({
                             'exit code': 1,
                         })
 
+                    },
+                    () => {
+                        on_error({
+                            'exit code': 1,
+                        })
                     }
                 )
             } else {
                 _ed.log_debug_message("All tests passed successfully!", () => { })
-                p_log({
+                p_log(resources)({
                     'group': pretty_printed,
                     'indentation': `   `
-                }, {
-                    'procedures': {
-                        'log': resources.procedures['log'],
-                    }
                 }).__start(
                     () => {
                         on_success()
+                    },
+                    () => {
+                        on_error({
+                            'exit code': 1,
+                        })
                     }
                 )
             }
         }
     })
-
 }
