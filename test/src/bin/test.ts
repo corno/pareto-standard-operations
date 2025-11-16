@@ -12,10 +12,13 @@ import {
     Resources,
     run_refiner_tests_with_parameters,
     run_refiner_tests_without_parameters,
-    run_tests,
     run_transformer_tests_with_parameters,
     run_transformer_tests_without_parameters,
 } from "../implementation/generic"
+
+import { $$ as p_run_tests } from "../implementation/procedures/commands/run_tests"
+
+import * as d_main from "exupery-resources/dist/interface/temp_main"
 
 // Import test data
 import { TEST_DATA } from "../data/test_data"
@@ -40,63 +43,60 @@ import { $$ as d_true_false } from "pub/dist/implementation/algorithms/boolean/t
 import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/deserializer"
 
 _eb.run_main_procedure(
-    ($r) => {
-        return ($p) => _easync.__create_procedure_promise<_eb.Error>({
-            'execute': (on_success, on_error) => {
-
-                run_tests({
-                    'procedures': {
-                        'log error': $r.commands['log error'],
-                        'log': $r.commands['log'],
-                    }
-                })(
-                    _ea.dictionary_literal({
-                        "integer": ['group', _ea.dictionary_literal({
-                            "decimal": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.decimal.serializer, s_decimal)],
-                                "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.decimal.deserializer, d_decimal)],
-                            })],
-                            "hexadecimal": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.hexadecimal.serializer, s_hexadecimal)],
-                                "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.hexadecimal.deserializer, d_hexadecimal)],
-                            })],
-                            "binary": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.binary.serializer, s_binary)],
-                                "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.binary.deserializer, d_binary)],
-                            })],
-                            "octal": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.octal.serializer, s_octal)],
-                                "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.octal.deserializer, d_octal)],
-                            })],
-                            "udhr_to_iso": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.iso_udhr.serializer, s_udhr_to_iso)],
-                            })],
-                            "iso_to_udhr": ['group', _ea.dictionary_literal({
-                                "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.iso_udhr.deserializer, d_iso_to_udhr)],
-                            })],
+    ($rr) => {
+        return _easync.create_command_procedure<d_main.Parameters, d_main.Error, {}>(
+            ($r, $p) => p_run_tests({
+                'commands': {
+                    'log error': $rr.commands['log error'],
+                    'log': $rr.commands.log,
+                }
+            }).execute.direct(
+                ($): d_main.Error => ({
+                    'exit code': 1
+                }),
+                _ea.dictionary_literal({
+                    "integer": ['group', _ea.dictionary_literal({
+                        "decimal": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.decimal.serializer, s_decimal)],
+                            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.decimal.deserializer, d_decimal)],
                         })],
-                        "boolean": ['group', _ea.dictionary_literal({
-                            "true_false": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.boolean.true_false.serializer, s_boolean_true_false)],
-                                "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.boolean.true_false.deserializer, d_true_false)],
-                            })],
+                        "hexadecimal": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.hexadecimal.serializer, s_hexadecimal)],
+                            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.hexadecimal.deserializer, d_hexadecimal)],
                         })],
-                        "approximate_number": ['group', _ea.dictionary_literal({
-                            "scientific_notation": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.approximate_number.scientific_notation.serializer, s_approx_scientific)],
-                            })],
+                        "binary": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.binary.serializer, s_binary)],
+                            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.binary.deserializer, d_binary)],
                         })],
-                        "text": ['group', _ea.dictionary_literal({
-                            "pad_left": ['group', _ea.dictionary_literal({
-                                "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.text.pad_left.serializer, s_pad_left)],
-                            })],
+                        "octal": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.octal.serializer, s_octal)],
+                            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.octal.deserializer, d_octal)],
                         })],
-                    })
-                ).__start(
-                    on_success,
-                    on_error,
-                )
-            }
-        })
+                        "udhr_to_iso": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.iso_udhr.serializer, s_udhr_to_iso)],
+                        })],
+                        "iso_to_udhr": ['group', _ea.dictionary_literal({
+                            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.iso_udhr.deserializer, d_iso_to_udhr)],
+                        })],
+                    })],
+                    "boolean": ['group', _ea.dictionary_literal({
+                        "true_false": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.boolean.true_false.serializer, s_boolean_true_false)],
+                            "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.boolean.true_false.deserializer, d_true_false)],
+                        })],
+                    })],
+                    "approximate_number": ['group', _ea.dictionary_literal({
+                        "scientific_notation": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.approximate_number.scientific_notation.serializer, s_approx_scientific)],
+                        })],
+                    })],
+                    "text": ['group', _ea.dictionary_literal({
+                        "pad_left": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.text.pad_left.serializer, s_pad_left)],
+                        })],
+                    })],
+                })
+            )
+        )({})
     }
 )
