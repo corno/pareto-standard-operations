@@ -7,6 +7,6 @@
     "dist"
   ],
   "dependencies": {
-    "exupery-core-alg": "^0.5.7"
+    "exupery-core-alg": "^0.5.9"
   }
 }
