@@ -3,6 +3,7 @@ import * as _et from 'exupery-core-types'
 import * as generic from "./generic"
 import { Parameters as ScientificNotationParameters } from "pub/dist/interface/approximate_number/scientific_notation/serializer"
 import { Parameters as PadLeftParameters } from "pub/dist/interface/text/pad_left/serializer"
+import { Parameters as FractionalDecimalParameters } from "pub/dist/interface/integer/fractional_decimal/serializer"
 
 export type Test_Set = {
     'integer': {
@@ -25,6 +26,10 @@ export type Test_Set = {
         'iso_udhr': {
             'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<number, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, number>>
+        }
+        'fractional_decimal': {
+            'serializer': _et.Dictionary<generic.Transformer_With_Parameters<number, FractionalDecimalParameters, string>>
+            'deserializer': _et.Dictionary<generic.Refiner_With_Parameters<string, FractionalDecimalParameters, number>>
         }
     }
     'boolean': {

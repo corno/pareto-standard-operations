@@ -362,6 +362,76 @@ export const TEST_DATA: d.Test_Set = {
                 "char after digit": { 'input': "200:-12-31", 'expected': _ea.not_set() },
             }),
         },
+        'fractional_decimal': {
+            'deserializer': _ea.dictionary_literal({
+                // Basic valid cases - 2 fractional digits
+                "zero with 2 decimals": { 'input': "0.00", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(0) },
+                "one with 2 decimals": { 'input': "1.00", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(100) },
+                "one twenty three": { 'input': "1.23", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(123) },
+                "twelve dot thirty four": { 'input': "12.34", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(1234) },
+                "negative one twenty three": { 'input': "-1.23", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(-123) },
+                "negative twelve dot thirty four": { 'input': "-12.34", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(-1234) },
+                "hundred dot ninety nine": { 'input': "100.99", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(10099) },
+                "ten dot zero five": { 'input': "10.05", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(1005) },
+                
+                // Edge cases
+                "zero dot zero one": { 'input': "0.01", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(1) },
+                "zero dot ten": { 'input': "0.10", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(10) },
+                "large number": { 'input': "999.99", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.set(99999) },
+                
+                // Different fractional digit counts
+                "one fractional digit": { 'input': "1.2", 'parameters': { 'number of fractional digits': 1 }, 'expected': _ea.set(12) },
+                "three fractional digits": { 'input': "1.234", 'parameters': { 'number of fractional digits': 3 }, 'expected': _ea.set(1234) },
+                "four fractional digits": { 'input': "1.2345", 'parameters': { 'number of fractional digits': 4 }, 'expected': _ea.set(12345) },
+                "zero fractional digits": { 'input': "123.", 'parameters': { 'number of fractional digits': 0 }, 'expected': _ea.set(123) },
+                
+                // Invalid cases - wrong number of fractional digits
+                "one fractional digit when expecting two": { 'input': "1.2", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "three fractional digits when expecting two": { 'input': "1.234", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "no fractional digits when expecting two": { 'input': "123", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "empty fractional part": { 'input': "123.", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "decimal only": { 'input': ".23", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                
+                // Invalid characters
+                "empty string": { 'input': "", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "no decimal point": { 'input': "123", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "multiple decimal points": { 'input': "12.34.56", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "letter in number": { 'input': "1a.23", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "letter in decimal": { 'input': "12.3b", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "space in number": { 'input': "12 .34", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "leading space": { 'input': " 12.34", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "trailing space": { 'input': "12.34 ", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "plus sign": { 'input': "+12.34", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+                "double negative": { 'input': "--12.34", 'parameters': { 'number of fractional digits': 2 }, 'expected': _ea.not_set() },
+            }),
+            'serializer': _ea.dictionary_literal({
+                // Basic valid cases - 2 fractional digits
+                "zero with 2 decimals": { 'input': 0, 'parameters': { 'number of fractional digits': 2 }, 'expected': "0.00" },
+                "one with 2 decimals": { 'input': 100, 'parameters': { 'number of fractional digits': 2 }, 'expected': "1.00" },
+                "one twenty three": { 'input': 123, 'parameters': { 'number of fractional digits': 2 }, 'expected': "1.23" },
+                "twelve thirty four": { 'input': 1234, 'parameters': { 'number of fractional digits': 2 }, 'expected': "12.34" },
+                "negative one twenty three": { 'input': -123, 'parameters': { 'number of fractional digits': 2 }, 'expected': "-1.23" },
+                "negative twelve thirty four": { 'input': -1234, 'parameters': { 'number of fractional digits': 2 }, 'expected': "-12.34" },
+                "hundred ninety nine": { 'input': 10099, 'parameters': { 'number of fractional digits': 2 }, 'expected': "100.99" },
+                "ten zero five": { 'input': 1005, 'parameters': { 'number of fractional digits': 2 }, 'expected': "10.05" },
+                
+                // Edge cases
+                "zero zero one": { 'input': 1, 'parameters': { 'number of fractional digits': 2 }, 'expected': "0.01" },
+                "zero ten": { 'input': 10, 'parameters': { 'number of fractional digits': 2 }, 'expected': "0.10" },
+                "large number": { 'input': 99999, 'parameters': { 'number of fractional digits': 2 }, 'expected': "999.99" },
+                
+                // Different fractional digit counts
+                "one fractional digit": { 'input': 12, 'parameters': { 'number of fractional digits': 1 }, 'expected': "1.2" },
+                "three fractional digits": { 'input': 1234, 'parameters': { 'number of fractional digits': 3 }, 'expected': "1.234" },
+                "four fractional digits": { 'input': 12345, 'parameters': { 'number of fractional digits': 4 }, 'expected': "1.2345" },
+                "zero fractional digits": { 'input': 123, 'parameters': { 'number of fractional digits': 0 }, 'expected': "123." },
+                
+                // Zero cases with different fractional digits
+                "zero with 1 decimal": { 'input': 0, 'parameters': { 'number of fractional digits': 1 }, 'expected': "0.0" },
+                "zero with 3 decimals": { 'input': 0, 'parameters': { 'number of fractional digits': 3 }, 'expected': "0.000" },
+                "negative zero": { 'input': 0, 'parameters': { 'number of fractional digits': 2 }, 'expected': "0.00" },
+            }),
+        },
     },
     'text': {
         'pad_left': {

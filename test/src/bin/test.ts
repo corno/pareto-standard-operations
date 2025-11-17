@@ -29,6 +29,7 @@ import { $$ as s_hexadecimal } from "pub/dist/implementation/algorithms/integer/
 import { $$ as s_binary } from "pub/dist/implementation/algorithms/integer/binary/serializer"
 import { $$ as s_octal } from "pub/dist/implementation/algorithms/integer/octal/serializer"
 import { $$ as s_udhr_to_iso } from "pub/dist/implementation/algorithms/integer/iso_udhr/serializer"
+import { $$ as s_fractional_decimal } from "pub/dist/implementation/algorithms/integer/fractional_decimal/serializer"
 import { $$ as s_boolean_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/serializer"
 import { $$ as s_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/serializer"
 import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/text/pad_left/serializer"
@@ -39,6 +40,7 @@ import { $$ as d_hexadecimal } from "pub/dist/implementation/algorithms/integer/
 import { $$ as d_binary } from "pub/dist/implementation/algorithms/integer/binary/deserializer"
 import { $$ as d_octal } from "pub/dist/implementation/algorithms/integer/octal/deserializer"
 import { $$ as d_iso_to_udhr } from "pub/dist/implementation/algorithms/integer/iso_udhr/deserializer"
+import { $$ as d_fractional_decimal } from "pub/dist/implementation/algorithms/integer/fractional_decimal/deserializer"
 import { $$ as d_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/deserializer"
 import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/deserializer"
 
@@ -77,6 +79,10 @@ _eb.run_main_procedure(
                         })],
                         "iso_to_udhr": ['group', _ea.dictionary_literal({
                             "deserializer": ['group', run_refiner_tests_without_parameters(TEST_DATA.integer.iso_udhr.deserializer, d_iso_to_udhr)],
+                        })],
+                        "fractional_decimal": ['group', _ea.dictionary_literal({
+                            "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.integer.fractional_decimal.serializer, s_fractional_decimal)],
+                            "deserializer": ['group', run_refiner_tests_with_parameters(TEST_DATA.integer.fractional_decimal.deserializer, d_fractional_decimal)],
                         })],
                     })],
                     "boolean": ['group', _ea.dictionary_literal({
