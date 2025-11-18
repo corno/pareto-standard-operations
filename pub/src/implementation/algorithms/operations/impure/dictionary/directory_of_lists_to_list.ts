@@ -4,8 +4,8 @@ import { Signature } from "../../../../../interface/algorithms/operations/impure
 
 
 export const $$ = <T>(
-    $: _et.Dictionary<_et.Array<T>>,
-): _et.Array<T> => _ea.build_list(($i) => {
+    $: _et.Dictionary<_et.List<T>>,
+): _et.List<T> => _ea.build_list(($i) => {
     $.map(($, key) => {
         $.__for_each(($) => {
             $i['add element']($)

@@ -7,14 +7,14 @@ import * as d_test from "../../../interface/generic"
 import * as d_log_error from "exupery-resources/dist/interface/generated/pareto/schemas/log_error/data_types/target"
 import * as d_log from "exupery-resources/dist/interface/generated/pareto/schemas/log/data_types/target"
 
-export type Resources = {
-    'commands': {
-        'log error': _et.Command<d_log_error.Parameters, null>,
-        'log': _et.Command<d_log.Parameters, null>,
-    }
+export type Query_Resources = null
+
+export type Command_Resources = {
+    'log error': _et.Command<null, d_log_error.Parameters>,
+    'log': _et.Command<null, d_log.Parameters>,
 }
 
-export type Procedure = _et.Command_Procedure<d_test.Results, null, Resources>
+export type Procedure = _et.Command_Procedure<null, d_test.Results, Command_Resources, Query_Resources>
 
 import { $$ as op_is_empty } from "pareto-standard-operations/dist/implementation/algorithms/operations/impure/dictionary/is_empty"
 import { $$ as op_filter } from "pareto-standard-operations/dist/implementation/algorithms/operations/pure/dictionary/filter"
@@ -35,40 +35,40 @@ const has_passed = (results: d_test.Results): boolean => {
 }
 
 export const $$: Procedure = _easync.create_command_procedure(
-    ($r, $p) => _easync.p.sequence([
-        $r.commands.log.execute.direct(
-            ($) => $,
+    ($p, $cr) => _easync.p.sequence([
+        $cr.log.execute(
             {
-                'lines': _ea.array_literal([
+                'lines': _ea.list_literal([
                     `Running tests...`,
                 ])
-            }
+            },
+            ($) => $,
         ),
         _easync.p.conditional.direct(
             has_passed($p),
-            $r.commands.log.execute.direct(
-                ($) => $,
+            $cr.log.execute(
                 {
-                    'lines': op_flatten( _ea.array_literal([
-                       t_test_result_to_text.Results($p),
-                       _ea.array_literal([ 
-                        ``,
-                        `all tests successful.`
-                    ]),
+                    'lines': op_flatten(_ea.list_literal([
+                        t_test_result_to_text.Results($p),
+                        _ea.list_literal([
+                            ``,
+                            `all tests successful.`
+                        ]),
                     ]))
-                }
+                },
+                ($) => $,
             ),
-            $r.commands['log error'].execute.direct(
-                ($) => $,
+            $cr['log error'].execute(
                 {
-                    'lines': op_flatten( _ea.array_literal([
-                       t_test_result_to_text.Results($p),
-                       _ea.array_literal([ 
-                        ``,
-                        `some tests failed`
-                    ]),
+                    'lines': op_flatten(_ea.list_literal([
+                        t_test_result_to_text.Results($p),
+                        _ea.list_literal([
+                            ``,
+                            `some tests failed`
+                        ]),
                     ]))
-                }
+                },
+                ($) => $,
             ),
         )
     ])

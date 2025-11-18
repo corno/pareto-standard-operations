@@ -5,10 +5,10 @@ import { Signature } from "../../../../../interface/algorithms/operations/impure
 
 export type Element_And_Rest<T> = {
     'element': T
-    'rest': _et.Array<T>
+    'rest': _et.List<T>
 }
 
-export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<Element_And_Rest<T>> => {
+export const $$ = <T>($: _et.List<T>): _et.Optional_Value<Element_And_Rest<T>> => {
     const length = $.__get_number_of_elements()
     const arr = $
     return $.__get_element_at(length - 1).map(

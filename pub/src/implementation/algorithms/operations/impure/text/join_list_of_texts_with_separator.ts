@@ -3,7 +3,7 @@ import * as _ea from 'exupery-core-alg'
 import { Signature } from "../../../../../interface/algorithms/operations/impure/text/join_list_of_texts_with_separator"
 
 
-export const $$ = ($: _et.Array<string>, $p: { 'separator': string }): string => {
+export const $$ = ($: _et.List<string>, $p: { 'separator': string }): string => {
     let is_first = true
     return _ea.build_text(($i) => {
         $.__for_each(($) => {

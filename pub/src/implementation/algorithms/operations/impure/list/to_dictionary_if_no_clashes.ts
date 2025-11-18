@@ -3,7 +3,7 @@ import * as _ea from 'exupery-core-alg'
 import { Signature } from "../../../../../interface/algorithms/operations/impure/list/to_dictionary_if_no_clashes"
 
 
-export const $$ = <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Optional_Value<_et.Dictionary<T>> => {
+export const $$ = <T>($: _et.List<_et.Key_Value_Pair<T>>): _et.Optional_Value<_et.Dictionary<T>> => {
     const seenKeys: { [key: string]: null } = {}
     let foundClash: boolean = false
     const result = _ea.deprecated_build_dictionary<T>(($i) => {

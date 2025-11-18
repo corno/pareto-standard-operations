@@ -46,16 +46,14 @@ import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/ap
 
 _eb.run_main_procedure(
     ($rr) => {
-        return _easync.create_command_procedure<d_main.Parameters, d_main.Error, {}>(
-            ($r, $p) => p_run_tests({
-                'commands': {
+        return _easync.create_command_procedure<d_main.Error, d_main.Parameters, null, null>(
+            ($p, $r) => p_run_tests(
+                {
                     'log error': $rr.commands['log error'],
                     'log': $rr.commands.log,
-                }
-            }).execute.direct(
-                ($): d_main.Error => ({
-                    'exit code': 1
-                }),
+                },
+                null,
+            ).execute(
                 _ea.dictionary_literal({
                     "integer": ['group', _ea.dictionary_literal({
                         "decimal": ['group', _ea.dictionary_literal({
@@ -101,8 +99,11 @@ _eb.run_main_procedure(
                             "serializer": ['group', run_transformer_tests_with_parameters(TEST_DATA.text.pad_left.serializer, s_pad_left)],
                         })],
                     })],
-                })
+                }),
+                ($): d_main.Error => ({
+                    'exit code': 1
+                }),
             )
-        )({})
+        )(null, null)
     }
 )

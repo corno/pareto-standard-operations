@@ -6,6 +6,6 @@ import { $$ as op_expect_more_than_one_element } from "./expect_more_than_one_el
 import { Signature } from "../../../../../interface/algorithms/operations/impure/list/select_clashing_keys"
 
 
-export const $$ = <T>($: _et.Array<_et.Key_Value_Pair<T>>): _et.Dictionary<_et.Array<T>> => op_filter(
+export const $$ = <T>($: _et.List<_et.Key_Value_Pair<T>>): _et.Dictionary<_et.List<T>> => op_filter(
     _ea.group_list($).map(($) => op_expect_more_than_one_element($))
 )

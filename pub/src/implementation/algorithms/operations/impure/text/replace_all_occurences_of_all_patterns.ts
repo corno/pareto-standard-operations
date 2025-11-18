@@ -1,4 +1,4 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-export const $$ = ($: string, patterns: _et.Array<{ 'search value': string, 'replace value': string }>) => _ea.deprecated_panic("IMPLEMENT!")
+export const $$ = ($: string, patterns: _et.List<{ 'search value': string, 'replace value': string }>) => _ea.deprecated_panic("IMPLEMENT!")

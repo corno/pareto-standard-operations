@@ -7,4 +7,4 @@ export type Key_Value_Pair<T> = {
     value: T
 }
 
-export const $$ = <T>($: _et.Dictionary<Key_Value_Pair<T>>): _et.Dictionary<_et.Array<T>> => _ea.deprecated_panic("IMPLEMENT!")
+export const $$ = <T>($: _et.Dictionary<Key_Value_Pair<T>>): _et.Dictionary<_et.List<T>> => _ea.deprecated_panic("IMPLEMENT!")

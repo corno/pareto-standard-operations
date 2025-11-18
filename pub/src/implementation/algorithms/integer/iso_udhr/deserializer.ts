@@ -29,18 +29,18 @@ export const $$: $$$ = ($, abort) => {
     const characters = _ea.text_to_character_list($)
 
     const parse_iso_date = (
-        characters: _et.Array<number>
+        characters: _et.List<number>
     ): ISO_Date => {
 
 
-        const get_certain_character_at = (characters: _et.Array<number>, index: number): number => {
+        const get_certain_character_at = (characters: _et.List<number>, index: number): number => {
             return characters.__get_element_at(index).transform(
                 ($) => $,
                 () => abort(`index out of bounds`)
             )
         }
 
-        const string_to_number = (characters: _et.Array<number>, start: number, end: number): number => {
+        const string_to_number = (characters: _et.List<number>, start: number, end: number): number => {
             let result = 0
             for (let i = start; i < end; i++) {
                 const digit = get_certain_character_at(characters, i) - 48

@@ -3,6 +3,6 @@ import * as _ea from 'exupery-core-alg'
 import { Signature } from "../../../../../interface/algorithms/operations/impure/list/cast_to_non_empty"
 
 
-export const $$ = <T>($: _et.Array<T>): _et.Optional_Value<_et.Array<T>> => $.__get_number_of_elements() === 0
+export const $$ = <T>($: _et.List<T>): _et.Optional_Value<_et.List<T>> => $.__get_number_of_elements() === 0
     ? _ea.not_set()
     : _ea.set($)
