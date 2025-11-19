@@ -1,6 +1,6 @@
 import * as _et from 'exupery-core-types'
 
-export type Transformer_Without_Parameters<Input, Expected> = {
+export type Transformer<Input, Expected> = {
     'input': Input
     'expected': Expected
 }

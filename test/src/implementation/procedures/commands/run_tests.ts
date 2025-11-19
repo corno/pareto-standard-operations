@@ -44,7 +44,7 @@ export const $$: Procedure = _easync.create_command_procedure(
             },
             ($) => $,
         ),
-        _easync.p.conditional(
+        _easync.p.if_(
             has_passed($p),
             [
                 $cr.log.execute(

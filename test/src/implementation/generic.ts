@@ -22,7 +22,7 @@ export const run_transformer_tests_with_parameters = <Input, Parameters, Expecte
     })
 }
 
-export const run_transformer_tests_without_parameters = <Input, Expected>($: _et.Dictionary<generic.Transformer_Without_Parameters<Input, Expected>>, implementation: ($: Input) => Expected): generic.Results => {
+export const run_transformer_tests_without_parameters = <Input, Expected>($: _et.Dictionary<generic.Transformer<Input, Expected>>, implementation: ($: Input) => Expected): generic.Results => {
     return $.map(($) => {
         return ['test', {
             'passed': implementation($.input) === $.expected

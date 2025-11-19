@@ -8,23 +8,23 @@ import { Parameters as FractionalDecimalParameters } from "pub/dist/interface/in
 export type Test_Set = {
     'integer': {
         'decimal': {
-            'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<number, string>>
+            'serializer': _et.Dictionary<generic.Transformer<number, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, number>>
         }
         'hexadecimal': {
-            'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<number, string>>
+            'serializer': _et.Dictionary<generic.Transformer<number, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, number>>
         }
         'binary': {
-            'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<number, string>>
+            'serializer': _et.Dictionary<generic.Transformer<number, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, number>>
         }
         'octal': {
-            'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<number, string>>
+            'serializer': _et.Dictionary<generic.Transformer<number, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, number>>
         }
         'iso_udhr': {
-            'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<number, string>>
+            'serializer': _et.Dictionary<generic.Transformer<number, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, number>>
         }
         'fractional_decimal': {
@@ -34,7 +34,7 @@ export type Test_Set = {
     }
     'boolean': {
         'true_false': {
-            'serializer': _et.Dictionary<generic.Transformer_Without_Parameters<boolean, string>>
+            'serializer': _et.Dictionary<generic.Transformer<boolean, string>>
             'deserializer': _et.Dictionary<generic.Refiner_Without_Parameters<string, boolean>>
         }
     }
