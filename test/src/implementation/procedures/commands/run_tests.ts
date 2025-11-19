@@ -35,7 +35,7 @@ const has_passed = (results: d_test.Results): boolean => {
 }
 
 export const $$: Procedure = _easync.create_command_procedure(
-    ($p, $cr) => _easync.p.sequence([
+    ($p, $cr) => [
         $cr.log.execute(
             {
                 'lines': _ea.list_literal([
@@ -44,33 +44,35 @@ export const $$: Procedure = _easync.create_command_procedure(
             },
             ($) => $,
         ),
-        _easync.p.conditional.direct(
+        _easync.p.conditional(
             has_passed($p),
-            $cr.log.execute(
-                {
-                    'lines': op_flatten(_ea.list_literal([
-                        t_test_result_to_text.Results($p),
-                        _ea.list_literal([
-                            ``,
-                            `all tests successful.`
-                        ]),
-                    ]))
-                },
-                ($) => $,
-            ),
-            $cr['log error'].execute(
-                {
-                    'lines': op_flatten(_ea.list_literal([
-                        t_test_result_to_text.Results($p),
-                        _ea.list_literal([
-                            ``,
-                            `some tests failed`
-                        ]),
-                    ]))
-                },
-                ($) => $,
-            ),
+            [
+                $cr.log.execute(
+                    {
+                        'lines': op_flatten(_ea.list_literal([
+                            t_test_result_to_text.Results($p),
+                            _ea.list_literal([
+                                ``,
+                                `all tests successful.`
+                            ]),
+                        ]))
+                    },
+                    ($) => $,
+                ),
+                $cr['log error'].execute(
+                    {
+                        'lines': op_flatten(_ea.list_literal([
+                            t_test_result_to_text.Results($p),
+                            _ea.list_literal([
+                                ``,
+                                `some tests failed`
+                            ]),
+                        ]))
+                    },
+                    ($) => $,
+                ),
+            ]
         )
-    ])
+    ]
 )
 
