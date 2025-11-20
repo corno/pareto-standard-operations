@@ -9,10 +9,6 @@ import * as d_main from "exupery-resources/dist/interface/temp_main"
 import * as generic from "../interface/generic"
 
 
-import { $$ as p_log_error } from "pareto-fountain-pen/dist/implementation/algorithms/procedures/console_error"
-import { $$ as p_log } from "pareto-fountain-pen/dist/implementation/algorithms/procedures/console_log"
-
-
 
 export const run_transformer_tests_with_parameters = <Input, Parameters, Expected>(tests: _et.Dictionary<generic.Transformer_With_Parameters<Input, Parameters, Expected>>, implementation: ($: Input, parameters: Parameters) => Expected): generic.Results => {
     return tests.map(($) => {
