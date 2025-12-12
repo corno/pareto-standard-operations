@@ -1,3 +1,3 @@
 import { Transformer } from '../../../temp_generic_types'
 
-export type $$$ = Transformer<number, string>
+export type $$$ = Transformer<string, number>

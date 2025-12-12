@@ -4,4 +4,4 @@ export type Parameters = {
     'number of fractional digits': number
 }
 
-export type $$$ = Transformer_With_Parameters<number, Parameters, string>
+export type $$$ = Transformer_With_Parameters<string, number, Parameters>
