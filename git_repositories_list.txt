@@ -1,8 +1,0 @@
-Repository: pareto-standard-operations
-Path: /home/corno/workspace/pareto-canon/packages/pareto-standard-operations
-Last Commit: 2025-11-07 (9df22b5)
-Message: new version
-Branch: main
-Remote: git@github.com:corno/pareto-standard-operations
--------------------------------------------------
-
