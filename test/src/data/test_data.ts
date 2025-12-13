@@ -18,6 +18,13 @@ import * as d from "../interface/test_set"
 
 // Concrete test data conforming to My_Test_Set type
 export const TEST_DATA: d.Test_Set = {
+    'list': {
+        //I'm roundtripping here because I cannot test complex types directly yet
+        'split': _ea.dictionary_literal({
+            "simple split": { 'input': "apple,banana,cherry", 'parameters': { 'separator': 44 }, 'expected': "apple,banana,cherry" },
+            "a path": { 'input': "/usr/local/bin/", 'parameters': { 'separator': 47 }, 'expected': ",usr,local,bin," },
+        }),
+    },
     'approximate_number': {
         'scientific_notation': {
             'deserializer': _ea.dictionary_literal({

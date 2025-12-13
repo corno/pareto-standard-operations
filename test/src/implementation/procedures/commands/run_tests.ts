@@ -59,6 +59,11 @@ export const $$: Procedure = _easync.create_command_procedure(
                     },
                     ($) => $,
                 ),
+            ]
+        ),
+        _easync.p.if_(
+            !has_passed($p),
+            [
                 $cr['log error'].execute(
                     {
                         'lines': op_flatten(_ea.list_literal([
