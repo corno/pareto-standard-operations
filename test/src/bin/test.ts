@@ -33,7 +33,7 @@ import { $$ as s_fractional_decimal } from "pub/dist/implementation/algorithms/i
 import { $$ as s_boolean_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/serializer"
 import { $$ as s_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/serializer"
 import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/text/pad_left/serializer"
-import { $$ as s_split } from "pub/dist/implementation/algorithms/operations/impure/list/split"
+import { $$ as s_split } from "pub/dist/implementation/algorithms/operations/impure/list/deprecated_split"
 
 import { $$ as op_join_with_separator } from "pub/dist/implementation/algorithms/operations/impure/text/join_list_of_texts_with_separator"
 
@@ -47,10 +47,16 @@ import { $$ as d_fractional_decimal } from "pub/dist/implementation/algorithms/i
 import { $$ as d_true_false } from "pub/dist/implementation/algorithms/boolean/true_false/deserializer"
 import { $$ as d_approx_scientific } from "pub/dist/implementation/algorithms/approximate_number/scientific_notation/deserializer"
 
-const temp_split = ($:string, $p: { 'separator': number }): string => {
+const temp_split = ($: string, $p: { 'separator': number }): string => {
     return op_join_with_separator(
-        s_split($, $p),
-        {  'separator': ","},
+        _ea.build_list<string>($is => {
+            const x = s_split($, $p)
+            $is['add element'](x.head)
+            x.tail.__for_each(($) => {
+                $is['add element']($)
+            })
+        }),
+        { 'separator': "," },
     )
 }
 

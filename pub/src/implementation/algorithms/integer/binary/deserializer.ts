@@ -1,9 +1,9 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import { $$$ } from "../../../../interface/integer/binary/deserializer"
+import { Signature } from "../../../../interface/integer/binary/deserializer"
 
-export const $$: $$$ = ($, abort) => {
+export const $$: Signature = ($, abort) => {
     const characters = _ea.text_to_character_list($)
     let result = 0
     let isNegative = false

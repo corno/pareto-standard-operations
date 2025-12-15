@@ -4,7 +4,7 @@ import * as generic from "./generic"
 import * as d_number_scientific_notation from "pub/dist/interface/approximate_number/scientific_notation/serializer"
 import * as d_text_pad_left from "pub/dist/interface/text/pad_left/serializer"
 import * as d_integer_fractional_decimal from "pub/dist/interface/integer/fractional_decimal/serializer"
-import * as d_list_split from "pub/dist/implementation/algorithms/operations/impure/list/split"
+import * as d_list_split from "pub/dist/implementation/algorithms/operations/impure/list/deprecated_split"
 
 export type Test_Set = {
     'list': {
