@@ -6,17 +6,15 @@ import * as _ea from 'exupery-core-alg'
 import * as _et from 'exupery-core-types'
 import * as _easync from 'exupery-core-async'
 
-import * as generic from "../interface/generic"
-
 import {
     Resources,
     run_refiner_tests_with_parameters,
     run_refiner_tests_without_parameters,
     run_transformer_tests_with_parameters,
     run_transformer_tests_without_parameters,
-} from "../implementation/generic"
+} from "pareto-test/dist/implementation/generic"
 
-import { $$ as p_run_tests } from "../implementation/procedures/commands/run_tests"
+import { $$ as p_run_tests } from "pareto-test/dist/implementation/commands/run_tests"
 
 import * as d_main from "exupery-resources/dist/interface/temp_main"
 

@@ -1,6 +1,6 @@
 import * as _et from 'exupery-core-types'
 
-import * as generic from "./generic"
+import * as generic from "pareto-test/dist/interface/generic"
 import * as d_number_scientific_notation from "pub/dist/interface/approximate_number/scientific_notation/serializer"
 import * as d_text_pad_left from "pub/dist/interface/text/pad_left/serializer"
 import * as d_integer_fractional_decimal from "pub/dist/interface/integer/fractional_decimal/serializer"
