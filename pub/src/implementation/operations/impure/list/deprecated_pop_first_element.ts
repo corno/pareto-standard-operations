@@ -1,0 +1,27 @@
+import * as _et from 'exupery-core-types'
+import * as _ea from 'exupery-core-alg'
+
+import * as signatures from "../../../../interface/signatures"
+
+export type Element_And_Rest<T> = {
+    'element': T
+    'rest': _et.List<T>
+}
+
+export const $$ = <T>($: _et.List<T>): _et.Optional_Value<Element_And_Rest<T>> => {
+    const arr = $
+    return $.__get_element_at(0).map(
+        ($) => ({
+            'rest': _ea.build_list(($i) => {
+                let is_first = true
+                arr.__for_each(($) => {
+                    if (!is_first) {
+                        $i['add element']($)
+                    }
+                    is_first = false
+                })
+            }),
+            'element': $,
+        }),
+    )
+}

@@ -1,0 +1,1 @@
+export type Parameters = { 'number of fractional digits': number }

@@ -5,4 +5,4 @@ export type Parameters = {
     'pad character': number
 }
 
-export type $$$ = _et.Transformer_New_With_Parameters<string, string, Parameters>
+export type $$$ = _et.Transformer_With_Parameters<string, string, Parameters>
