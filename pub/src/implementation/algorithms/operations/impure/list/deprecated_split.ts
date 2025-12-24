@@ -8,7 +8,7 @@ export type Out = {
     'tail': _et.List<string>,
 }
 
-export const $$: _et.Transformer_With_Parameters<Out, string, Parameters> = (
+export const $$: _et.Transformer_New_With_Parameters<string, Out, Parameters> = (
     $,
     $p,
 ) => {

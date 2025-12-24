@@ -1,5 +1,5 @@
-import { Transformer_With_Parameters } from '../../../temp_generic_types'
+import * as _et from 'exupery-core-types'
 
 export type Parameters = { 'digits': number }
 
-export type $$$ = Transformer_With_Parameters<string, number, Parameters>
+export type $$$ = _et.Transformer_New_With_Parameters<number, string, Parameters>

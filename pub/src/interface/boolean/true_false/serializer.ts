@@ -1,3 +1,3 @@
-import { Transformer } from '../../../temp_generic_types'
+import * as _et from 'exupery-core-types'
 
-export type $$$ = Transformer<string, boolean>
+export type $$$ = _et.Transformer_New<boolean, string>
