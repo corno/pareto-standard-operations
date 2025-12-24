@@ -31,7 +31,7 @@ import { $$ as s_fractional_decimal } from "pub/dist/implementation/serializers/
 import { $$ as s_boolean_true_false } from "pub/dist/implementation/serializers/primitives/boolean/true_false"
 import { $$ as s_approx_scientific } from "pub/dist/implementation/serializers/primitives/approximate_number/scientific_notation"
 
-import { $$ as s_pad_left } from "pub/dist/implementation/algorithms/text/pad_left/serializer"
+import { $$ as s_pad_left } from "pub/dist/implementation/serializers/primitives/text/pad_left"
 import { $$ as s_split } from "pub/dist/implementation/operations/impure/list/deprecated_split"
 
 import { $$ as op_join_with_separator } from "pub/dist/implementation/operations/impure/text/join_list_of_texts_with_separator"

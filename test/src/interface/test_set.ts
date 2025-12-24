@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 
-import * as d_generic from "pareto-test/dist/interface/generic"
-import * as d_text_pad_left from "pub/dist/interface/text/pad_left/serializer"
+import * as d_generic from "pareto-test/dist/interface/temp/generic"
+import * as d_text_pad_left from "pub/dist/interface/to_be_generated/pad_left"
 import * as d_integer_fractional_decimal from "pub/dist/interface/to_be_generated/fractional_decimal"
 import * as d_number_scientific_notation from "pub/dist/interface/to_be_generated/scientific_notation"
 import * as d_list_split from "pub/dist/interface/to_be_generated/list_split"

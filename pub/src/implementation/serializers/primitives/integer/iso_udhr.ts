@@ -1,7 +1,7 @@
 import * as _ea from 'exupery-core-alg'
 
 import { $$ as s_decimal } from "./decimal"
-import { $$ as pad_left } from "../../../algorithms/text/pad_left/serializer"
+import { $$ as pad_left } from "../text/pad_left"
 
 import * as signatures from "../../../../interface/signatures"
 

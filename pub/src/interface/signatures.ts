@@ -1,8 +1,8 @@
 import *as _et from 'exupery-core-types'
 
-import * as sig_fractional_decimal from "./to_be_generated/fractional_decimal"
-import * as sig_scientific_notation from "./to_be_generated/scientific_notation"
-
+import * as d_fractional_decimal from "./to_be_generated/fractional_decimal"
+import * as d_scientific_notation from "./to_be_generated/scientific_notation"
+import * as d_pad_left from "./to_be_generated/pad_left"
 export namespace deserializers {
 
     export namespace primitives {
@@ -20,7 +20,7 @@ export namespace deserializers {
             export type octal = _et.Deserializer<number, string>
             export type decimal = _et.Deserializer<number, string>
             export type hexadecimal = _et.Deserializer<number, string>
-            export type fractional_decimal = _et.Deserializer_With_Parameters<number, string, sig_fractional_decimal.Parameters>
+            export type fractional_decimal = _et.Deserializer_With_Parameters<number, string, d_fractional_decimal.Parameters>
 
         }
 
@@ -39,7 +39,7 @@ export namespace serializers {
 
         export namespace approximate_number {
 
-            export type scientific_notation = _et.Serializer_With_Parameters<number, sig_scientific_notation.Parameters>
+            export type scientific_notation = _et.Serializer_With_Parameters<number, d_scientific_notation.Parameters>
 
         }
 
@@ -56,12 +56,18 @@ export namespace serializers {
             export type octal = _et.Serializer<number>
             export type decimal = _et.Serializer<number>
             export type hexadecimal = _et.Serializer<number>
-            export type fractional_decimal = _et.Serializer_With_Parameters<number, sig_fractional_decimal.Parameters>
+            export type fractional_decimal = _et.Serializer_With_Parameters<number, d_fractional_decimal.Parameters>
         }
 
         export namespace boolean {
 
             export type true_false = _et.Serializer<boolean>
+
+        }
+
+        export namespace text {
+
+            export type pad_left = _et.Serializer_With_Parameters<string, d_pad_left.Parameters>
 
         }
     }
