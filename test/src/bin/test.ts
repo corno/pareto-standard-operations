@@ -33,8 +33,6 @@ import { $$ as s_approx_scientific } from "pub/dist/implementation/serializers/p
 
 import { $$ as s_pad_left } from "pub/dist/implementation/serializers/primitives/text/pad_left"
 
-import { $$ as op_join_with_separator } from "pub/dist/implementation/operations/impure/text/join_list_of_texts_with_separator"
-
 // Import deserializers
 import { $$ as ds_decimal } from "pub/dist/implementation/deserializers/primitives/integer/decimal"
 import { $$ as ds_hexadecimal } from "pub/dist/implementation/deserializers/primitives/integer/hexadecimal"
