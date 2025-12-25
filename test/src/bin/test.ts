@@ -32,7 +32,6 @@ import { $$ as s_boolean_true_false } from "pub/dist/implementation/serializers/
 import { $$ as s_approx_scientific } from "pub/dist/implementation/serializers/primitives/approximate_number/scientific_notation"
 
 import { $$ as s_pad_left } from "pub/dist/implementation/serializers/primitives/text/pad_left"
-import { $$ as s_split } from "pub/dist/implementation/operations/impure/list/deprecated_split"
 
 import { $$ as op_join_with_separator } from "pub/dist/implementation/operations/impure/text/join_list_of_texts_with_separator"
 
@@ -45,19 +44,6 @@ import { $$ as ds_iso_to_udhr } from "pub/dist/implementation/deserializers/prim
 import { $$ as ds_fractional_decimal } from "pub/dist/implementation/deserializers/primitives/integer/fractional_decimal"
 import { $$ as ds_true_false } from "pub/dist/implementation/deserializers/primitives/boolean/true_false"
 import { $$ as ds_approx_scientific } from "pub/dist/implementation/deserializers/primitives/approximate_number/scientific_notation"
-
-const temp_split = ($: string, $p: { 'separator': number }): string => {
-    return op_join_with_separator(
-        _ea.build_list<string>($is => {
-            const x = s_split($, $p)
-            $is['add element'](x.head)
-            x.tail.__for_each(($) => {
-                $is['add element']($)
-            })
-        }),
-        { 'separator': "," },
-    )
-}
 
 _eb.run_main_procedure(
     ($rr) => {
@@ -72,9 +58,6 @@ _eb.run_main_procedure(
                 ).execute(
                     {
                         'test results': _ea.dictionary_literal({
-                            "list": ['group', _ea.dictionary_literal({
-                                "split": ['group', run_transformer_tests_with_parameters(TEST_DATA.list.split, temp_split)],
-                            })],
                             "integer": ['group', _ea.dictionary_literal({
                                 "decimal": ['group', _ea.dictionary_literal({
                                     "serializer": ['group', run_transformer_tests_without_parameters(TEST_DATA.integer.decimal.serializer, s_decimal)],

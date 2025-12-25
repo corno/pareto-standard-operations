@@ -35,6 +35,12 @@ export namespace deserializers {
 
 export namespace serializers {
 
+    export namespace schemas {
+
+        export type list_of_texts = _et.Transformer<_et.List<string>, string>
+
+    }
+
     export namespace primitives {
 
         export namespace approximate_number {
@@ -85,7 +91,6 @@ export namespace operations {
 
         export namespace text {
 
-            export type join_list_of_texts = _et.Transformer<_et.List<string>, string>
 
         }
 

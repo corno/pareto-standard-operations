@@ -1,7 +1,7 @@
 import * as _et from 'exupery-core-types'
 import * as _ea from 'exupery-core-alg'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../interface/signatures"
 
 export const $$ = ($: _et.List<string>, $p: { 'separator': string }): string => {
     let is_first = true
