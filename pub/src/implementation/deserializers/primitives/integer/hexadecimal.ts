@@ -10,7 +10,7 @@ export const $$: signatures.deserializers.primitives.integer.hexadecimal = ($, a
     let startIndex = 0
     
     // Check for empty string
-    if (characters.__get_number_of_elements() === 0) {
+    if (characters.get_number_of_elements() === 0) {
         abort(`Empty string is not a valid hexadecimal number`)
     }
     
@@ -22,13 +22,13 @@ export const $$: signatures.deserializers.primitives.integer.hexadecimal = ($, a
     }
     
     // Check for negative sign
-    if (characters.__get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
+    if (characters.get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
         isNegative = true
         startIndex = 1
     }
     
     // Check for "0x" prefix - REQUIRE it for hex
-    if (characters.__get_number_of_elements() <= startIndex + 1 ||
+    if (characters.get_number_of_elements() <= startIndex + 1 ||
         get_character_at(startIndex) !== 48 || // '0'
         get_character_at(startIndex + 1) !== 120) { // 'x'
         abort(`Hexadecimal number must have '0x' prefix`)
@@ -36,12 +36,12 @@ export const $$: signatures.deserializers.primitives.integer.hexadecimal = ($, a
     startIndex += 2
     
     // Check if there are digits after the prefix
-    if (startIndex >= characters.__get_number_of_elements()) {
+    if (startIndex >= characters.get_number_of_elements()) {
         abort(`Hexadecimal number must have digits after '0x' prefix`)
     }
     
     // Parse hex digits from left to right
-    for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
+    for (let i = startIndex; i < characters.get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         let digit: number
         

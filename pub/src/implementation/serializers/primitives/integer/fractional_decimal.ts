@@ -40,7 +40,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
         })
         
         // Add integer part (reverse order)
-        for (let j = integerDigits.__get_number_of_elements() - 1; j >= 0; j--) {
+        for (let j = integerDigits.get_number_of_elements() - 1; j >= 0; j--) {
             $i['add character'](48 + integerDigits.__get_element_at(j).transform(
                 ($) => $,
                 () => _ea.deprecated_panic(`index out of bounds`)
@@ -61,7 +61,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
         })
         
         // Add fractional part (reverse order)
-        for (let j = fractionalDigits_list.__get_number_of_elements() - 1; j >= 0; j--) {
+        for (let j = fractionalDigits_list.get_number_of_elements() - 1; j >= 0; j--) {
             $i['add character'](48 + fractionalDigits_list.__get_element_at(j).transform(
                 ($) => $,
                 () => _ea.deprecated_panic(`index out of bounds`)

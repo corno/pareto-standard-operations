@@ -5,7 +5,7 @@ import * as signatures from "../../../../interface/signatures"
 export const $$: signatures.serializers.primitives.text.pad_left = ($, $p) => {
     return _ea.build_text(($i) => {
         const characters = _ea.text_to_character_list($)
-        const currentLength = characters.__get_number_of_elements()
+        const currentLength = characters.get_number_of_elements()
         
         // Add padding characters if current length is less than desired length
         for (let i = currentLength; i < $p['desired length']; i++) {

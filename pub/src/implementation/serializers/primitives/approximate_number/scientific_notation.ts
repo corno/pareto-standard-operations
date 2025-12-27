@@ -71,18 +71,18 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         })
         
         // Add leading digit
-        const first_digit = digits.__get_element_at(digits.__get_number_of_elements() - 1).transform(
+        const first_digit = digits.__get_element_at(digits.get_number_of_elements() - 1).transform(
             ($) => $,
             () => _ea.deprecated_panic(`index out of bounds`)
         )
         $i['add character'](48 + first_digit) // First digit
         
         // Add decimal point if we have more digits
-        if ($p.digits > 1 && digits.__get_number_of_elements() > 1) {
+        if ($p.digits > 1 && digits.get_number_of_elements() > 1) {
             $i['add character'](46) // '.'
             
             // Add remaining digits in reverse order
-            for (let j = digits.__get_number_of_elements() - 2; j >= 0; j--) {
+            for (let j = digits.get_number_of_elements() - 2; j >= 0; j--) {
                 const digit = digits.__get_element_at(j).transform(
                     ($) => $,
                     () => _ea.deprecated_panic(`index out of bounds`)
@@ -114,7 +114,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         })
         
         // Add exponent digits in reverse order
-        for (let j = exp_digits.__get_number_of_elements() - 1; j >= 0; j--) {
+        for (let j = exp_digits.get_number_of_elements() - 1; j >= 0; j--) {
             const digit = exp_digits.__get_element_at(j).transform(
                 ($) => $,
                 () => _ea.deprecated_panic(`index out of bounds`)

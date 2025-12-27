@@ -10,7 +10,7 @@ export const $$: signatures.deserializers.primitives.integer.fractional_decimal 
     let decimalPointIndex = -1
     
     // Check for empty string
-    if (characters.__get_number_of_elements() === 0) {
+    if (characters.get_number_of_elements() === 0) {
         abort(`Empty string is not a valid fractional decimal number`)
     }
     
@@ -22,13 +22,13 @@ export const $$: signatures.deserializers.primitives.integer.fractional_decimal 
     }
     
     // Check for negative sign
-    if (characters.__get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
+    if (characters.get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
         isNegative = true
         startIndex = 1
     }
     
     // Find decimal point and validate characters
-    for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
+    for (let i = startIndex; i < characters.get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         
         if (charCode === 46) { // '.'
@@ -52,7 +52,7 @@ export const $$: signatures.deserializers.primitives.integer.fractional_decimal 
     }
     
     // Calculate number of fractional digits in input
-    const inputFractionalDigits = characters.__get_number_of_elements() - decimalPointIndex - 1
+    const inputFractionalDigits = characters.get_number_of_elements() - decimalPointIndex - 1
     const expectedFractionalDigits = $p['number of fractional digits']
     
     // Check that the number of fractional digits matches expected
@@ -69,7 +69,7 @@ export const $$: signatures.deserializers.primitives.integer.fractional_decimal 
     }
     
     // Parse fractional part
-    for (let i = decimalPointIndex + 1; i < characters.__get_number_of_elements(); i++) {
+    for (let i = decimalPointIndex + 1; i < characters.get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         const digit = charCode - 48
         result = result * 10 + digit

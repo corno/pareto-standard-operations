@@ -10,7 +10,7 @@ export const $$: signatures.deserializers.primitives.integer.binary = ($, abort)
     let startIndex = 0
     
     // Check for empty string
-    if (characters.__get_number_of_elements() === 0) {
+    if (characters.get_number_of_elements() === 0) {
         abort(`Empty string is not a valid binary number`)
     }
     
@@ -22,13 +22,13 @@ export const $$: signatures.deserializers.primitives.integer.binary = ($, abort)
     }
     
     // Check for negative sign
-    if (characters.__get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
+    if (characters.get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
         isNegative = true
         startIndex = 1
     }
     
     // Check for "0b" prefix - REQUIRE it for binary
-    if (characters.__get_number_of_elements() <= startIndex + 1 ||
+    if (characters.get_number_of_elements() <= startIndex + 1 ||
         get_character_at(startIndex) !== 48 || // '0'
         get_character_at(startIndex + 1) !== 98) { // 'b'
         abort(`Binary number must have '0b' prefix`)
@@ -36,12 +36,12 @@ export const $$: signatures.deserializers.primitives.integer.binary = ($, abort)
     startIndex += 2
     
     // Check if there are digits after the prefix
-    if (startIndex >= characters.__get_number_of_elements()) {
+    if (startIndex >= characters.get_number_of_elements()) {
         abort(`Binary number must have digits after '0b' prefix`)
     }
     
     // Parse binary digits from left to right
-    for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
+    for (let i = startIndex; i < characters.get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         
         // Check if character is a binary digit (48-49 for '0'-'1')

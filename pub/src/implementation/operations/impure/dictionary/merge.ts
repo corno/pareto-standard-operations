@@ -28,17 +28,17 @@ import * as signatures from "../../../../interface/signatures"
  *   )
  * }
  */
+
+//should be done in place, no need to have this generic function
 export const $$ = <Main, Supporting>(
     $: _et.Dictionary<Main>,
     $p: { 'supporting dictionary': _et.Dictionary<Supporting> }
 ): _et.Dictionary<{
     'context': Main
     'supporting': _et.Optional_Value<Supporting>
-}> => _ea.deprecated_build_dictionary(($i) => {
-    $.map(($, key) => {
-        $i['add entry'](key, {
-            'context': $,
-            'supporting': $p['supporting dictionary'].__get_entry(key),
-        })
-    })
-})
+}> => $.map(($, key) => ({
+    'context': $,
+    'supporting': $p['supporting dictionary'].get_entry(
+        key,
+    ),
+}))

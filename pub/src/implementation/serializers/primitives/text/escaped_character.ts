@@ -12,7 +12,7 @@ export const $$ = (
 ): string => {
     return _ea.build_text(($i) => {
         const characters = _ea.text_to_character_list($)
-        const length = characters.__get_number_of_elements()
+        const length = characters.get_number_of_elements()
 
         let position = 0
 

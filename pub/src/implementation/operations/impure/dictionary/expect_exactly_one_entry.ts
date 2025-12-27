@@ -3,6 +3,7 @@ import * as _ea from 'exupery-core-alg'
 
 import * as signatures from "../../../../interface/signatures"
 
+//should throw an error if there is not exactly one entry
 export const $$: signatures.operations.impure.dictionary.expect_exactly_one_entry = <T>($: _et.Dictionary<T>): _et.Optional_Value<_et.Key_Value_Pair<T>> => {
     let found: null | _et.Key_Value_Pair<T> = null
     let found_too_many = false

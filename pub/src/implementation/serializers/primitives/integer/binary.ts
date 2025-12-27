@@ -22,7 +22,7 @@ export const $$: signatures.serializers.primitives.integer.binary = ($) => {
 
         })
 
-        for (let j = digits.__get_number_of_elements() - 1; j >= 0; j--) {
+        for (let j = digits.get_number_of_elements() - 1; j >= 0; j--) {
             const digit = digits.__get_element_at(j).transform(
                 ($) => $,
                 () => _ea.deprecated_panic(`index out of bounds`)

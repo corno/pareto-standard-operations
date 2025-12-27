@@ -22,13 +22,13 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
     }
     
     // Check for negative sign
-    if (characters.__get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
+    if (characters.get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
         isNegative = true
         startIndex = 1
     }
     
     // Parse the number
-    for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
+    for (let i = startIndex; i < characters.get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         
         if (charCode === 46) { // '.'
@@ -42,7 +42,7 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
             }
             inExponent = true
             // Check for exponent sign
-            if (i + 1 < characters.__get_number_of_elements()) {
+            if (i + 1 < characters.get_number_of_elements()) {
                 const nextChar = get_character_at(i + 1)
                 if (nextChar === 45) { // '-'
                     isExponentNegative = true

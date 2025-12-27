@@ -52,7 +52,7 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
         const dash = 45
 
         //validate format
-        if (characters.__get_number_of_elements() !== 10) { // YYYY-MM-DD
+        if (characters.get_number_of_elements() !== 10) { // YYYY-MM-DD
             return abort(`invalid date format`)
         }
         if (get_certain_character_at(characters, 4) !== dash) { // -
