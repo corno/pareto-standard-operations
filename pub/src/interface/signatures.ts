@@ -78,35 +78,3 @@ export namespace serializers {
         }
     }
 }
-
-export namespace operations {
-
-    export namespace pure {
-
-        export namespace dictionary {
-
-            export type filter = <T>($: _et.Dictionary<_et.Optional_Value<T>>) => _et.Dictionary<T>
-
-        }
-
-        export namespace text {
-
-
-        }
-
-    }
-
-    export namespace impure {
-
-        export namespace dictionary {
-
-            export type cast_to_non_empty = <T>($: _et.Dictionary<T>) => _et.Optional_Value<_et.Dictionary<T>>
-            export type directory_of_lists_to_list = <T>($: _et.Dictionary<_et.List<T>>) => _et.List<T>
-            export type expect_exactly_one_entry = <T>($: _et.Dictionary<T>) => _et.Optional_Value<_et.Key_Value_Pair<T>>
-            export type group = <T>($: _et.Dictionary<_et.Key_Value_Pair<T>>) => _et.Dictionary<_et.List<T>>
-
-        }
-
-    }
-
-}
