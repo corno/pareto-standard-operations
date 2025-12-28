@@ -3,6 +3,8 @@ import *as _et from 'exupery-core-types'
 import * as d_fractional_decimal from "./to_be_generated/fractional_decimal"
 import * as d_scientific_notation from "./to_be_generated/scientific_notation"
 import * as d_pad_left from "./to_be_generated/pad_left"
+import * as d_repeated from "./to_be_generated/repeated"
+import * as d_escaped_character from "./to_be_generated/escaped_character"
 export namespace deserializers {
 
     export namespace primitives {
@@ -37,7 +39,7 @@ export namespace serializers {
 
     export namespace schemas {
 
-        export type list_of_texts = _et.Transformer<_et.List<string>, string>
+        export type list_of_texts = _et.Serializer<_et.List<string>>
 
     }
 
@@ -74,6 +76,8 @@ export namespace serializers {
         export namespace text {
 
             export type pad_left = _et.Serializer_With_Parameters<string, d_pad_left.Parameters>
+            export type repeated = _et.Serializer_With_Parameters<string, d_repeated.Parameters>
+            export type escaped_character = _et.Serializer_With_Parameters<string, d_escaped_character.Parameters>
 
         }
     }
