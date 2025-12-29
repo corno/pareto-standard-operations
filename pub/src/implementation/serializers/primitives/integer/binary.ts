@@ -1,9 +1,9 @@
-import * as _ea from 'exupery-core-alg'
+import * as _ps from 'pareto-core-serializer'
 
 import * as signatures from "../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.integer.binary = ($) => {
-    return _ea.build_text(($i) => {
+    return _ps.build_text(($i) => {
         if ($ < 0) {
             $i['add character'](45) // '-'
             $ = -$
@@ -13,11 +13,11 @@ export const $$: signatures.serializers.primitives.integer.binary = ($) => {
         $i['add character'](48) // '0'
         $i['add character'](98) // 'b'
         
-        const digits = _ea.build_list<number>(($i) => {
+        const digits = _ps.build_list<number>(($i) => {
             do {
                 const digit = $ % 2
                 $i['add element'](digit)
-                $ = _ea.integer_division($, 2)
+                $ = _ps.integer_division($, 2, _ps.unreachable_code_path())
             } while ($ > 0)
 
         })
@@ -25,7 +25,7 @@ export const $$: signatures.serializers.primitives.integer.binary = ($) => {
         for (let j = digits.get_number_of_elements() - 1; j >= 0; j--) {
             const digit = digits.__get_element_at(j).transform(
                 ($) => $,
-                () => _ea.deprecated_panic(`index out of bounds`)
+                () => _ps.unreachable_code_path()
             )
             $i['add character'](48 + digit) // '0'-'1'
         }

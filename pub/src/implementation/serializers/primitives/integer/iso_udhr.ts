@@ -1,4 +1,4 @@
-import * as _ea from 'exupery-core-alg'
+import * as _ps from 'pareto-core-serializer'
 
 import { $$ as s_decimal } from "./decimal"
 import { $$ as pad_left } from "../text/pad_left"
@@ -28,16 +28,16 @@ export const $$: signatures.serializers.primitives.integer.iso_udhr = (udhr_day)
         const number_of_days_in_4_years = 365 * 4 + 1
         const number_of_days_in_1_year = 365
 
-        const number_of_400_year_blocks = _ea.integer_division(total_days, number_of_days_in_400_years)
+        const number_of_400_year_blocks = _ps.integer_division(total_days, number_of_days_in_400_years, _ps.unreachable_code_path())
         const remaining_days_in_the_last_400_years = total_days % number_of_days_in_400_years
 
-        const number_of_100_year_blocks = _ea.integer_division(remaining_days_in_the_last_400_years, number_of_days_in_100_years)
+        const number_of_100_year_blocks = _ps.integer_division(remaining_days_in_the_last_400_years, number_of_days_in_100_years, _ps.unreachable_code_path())
         const remaining_days_in_the_last_100_years = remaining_days_in_the_last_400_years % number_of_days_in_100_years
 
-        const number_of_4_year_blocks = _ea.integer_division(remaining_days_in_the_last_100_years, number_of_days_in_4_years)
+        const number_of_4_year_blocks = _ps.integer_division(remaining_days_in_the_last_100_years, number_of_days_in_4_years, _ps.unreachable_code_path())
         const remaining_days_in_the_last_4_years = remaining_days_in_the_last_100_years % number_of_days_in_4_years
 
-        const number_of_1_year_blocks = _ea.integer_division(remaining_days_in_the_last_4_years, number_of_days_in_1_year)
+        const number_of_1_year_blocks = _ps.integer_division(remaining_days_in_the_last_4_years, number_of_days_in_1_year, _ps.unreachable_code_path())
         const remaining_days_in_the_last_year = remaining_days_in_the_last_4_years % number_of_days_in_1_year
 
         const base_years = number_of_400_year_blocks * 400 + number_of_100_year_blocks * 100 + number_of_4_year_blocks * 4 + number_of_1_year_blocks * 1

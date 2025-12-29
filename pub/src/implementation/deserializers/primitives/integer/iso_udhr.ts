@@ -1,5 +1,5 @@
-import * as _et from 'exupery-core-types'
-import * as _ea from 'exupery-core-alg'
+import * as _pi from 'pareto-core-interface'
+import * as _pds from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../interface/signatures"
 
@@ -26,21 +26,21 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
         (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
 
 
-    const characters = _ea.text_to_character_list($)
+    const characters = _pds.text_to_character_list($)
 
     const parse_iso_date = (
-        characters: _et.List<number>
+        characters: _pi.List<number>
     ): ISO_Date => {
 
 
-        const get_certain_character_at = (characters: _et.List<number>, index: number): number => {
+        const get_certain_character_at = (characters: _pi.List<number>, index: number): number => {
             return characters.__get_element_at(index).transform(
                 ($) => $,
                 () => abort(`index out of bounds`)
             )
         }
 
-        const string_to_number = (characters: _et.List<number>, start: number, end: number): number => {
+        const string_to_number = (characters: _pi.List<number>, start: number, end: number): number => {
             let result = 0
             for (let i = start; i < end; i++) {
                 const digit = get_certain_character_at(characters, i) - 48
@@ -96,9 +96,9 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
 
     const full_years = iso_date.year - 1
     const leap_days_before_current_year =
-        + _ea.integer_division(full_years, 4)
-        - _ea.integer_division(full_years, 100)
-        + _ea.integer_division(full_years, 400)
+        + _pds.integer_division(full_years, 4, _pds.unreachable_code_path())
+        - _pds.integer_division(full_years, 100, _pds.unreachable_code_path())
+        + _pds.integer_division(full_years, 400, _pds.unreachable_code_path())
 
     const total_days_before_current_year = full_years * 365 + leap_days_before_current_year
 

@@ -1,5 +1,0 @@
-
-export type Parameters = {
-        'character code': number
-        'escape character code': number
-}

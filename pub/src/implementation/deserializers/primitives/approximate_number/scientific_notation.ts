@@ -1,9 +1,9 @@
-import * as _ea from 'exupery-core-alg'
+import * as _pds from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../interface/signatures"
 
 export const $$: signatures.deserializers.primitives.approximate_number.scientific_notation = ($, abort) => {
-    const characters = _ea.text_to_character_list($)
+    const characters = _pds.text_to_character_list($)
     let result = 0
     let isNegative = false
     let startIndex = 0

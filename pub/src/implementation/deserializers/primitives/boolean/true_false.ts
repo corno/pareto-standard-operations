@@ -1,5 +1,5 @@
-import * as _et from 'exupery-core-types'
-import * as _ea from 'exupery-core-alg'
+import * as _pi from 'pareto-core-interface'
+import * as _pds from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../interface/signatures"
 

@@ -1,34 +1,31 @@
-import *as _et from 'exupery-core-types'
+import *as _pi from 'pareto-core-interface'
 
-import * as d_fractional_decimal from "./to_be_generated/fractional_decimal"
-import * as d_scientific_notation from "./to_be_generated/scientific_notation"
-import * as d_pad_left from "./to_be_generated/pad_left"
-import * as d_repeated from "./to_be_generated/repeated"
-import * as d_escaped_character from "./to_be_generated/escaped_character"
+import * as d_serializer_parameters from "./to_be_generated/serializer_parameters"
+import * as d_deserializer_errors from "./to_be_generated/deserializer_errors"
 export namespace deserializers {
 
     export namespace primitives {
 
         export namespace approximate_number {
 
-            export type scientific_notation = _et.Deserializer<number, string>
+            export type scientific_notation = _pi.Number_Deserializer<d_deserializer_errors.scientific_notation>
 
         }
 
         export namespace integer {
 
-            export type iso_udhr = _et.Deserializer<number, string>
-            export type binary = _et.Deserializer<number, string>
-            export type octal = _et.Deserializer<number, string>
-            export type decimal = _et.Deserializer<number, string>
-            export type hexadecimal = _et.Deserializer<number, string>
-            export type fractional_decimal = _et.Deserializer_With_Parameters<number, string, d_fractional_decimal.Parameters>
+            export type iso_udhr = _pi.Number_Deserializer<d_deserializer_errors.iso_udhr>
+            export type binary = _pi.Number_Deserializer<d_deserializer_errors.binary>
+            export type octal = _pi.Number_Deserializer<d_deserializer_errors.octal>
+            export type decimal = _pi.Number_Deserializer<d_deserializer_errors.decimal>
+            export type hexadecimal = _pi.Number_Deserializer<d_deserializer_errors.hexadecimal>
+            export type fractional_decimal = _pi.Number_Deserializer_With_Parameters<d_deserializer_errors.fractional_decimal, d_serializer_parameters.fractional_decimal>
 
         }
 
         export namespace boolean {
 
-            export type true_false = _et.Deserializer<boolean, string>
+            export type true_false = _pi.Boolean_Deserializer<d_deserializer_errors.true_false>
 
         }
     }
@@ -39,7 +36,7 @@ export namespace serializers {
 
     export namespace schemas {
 
-        export type list_of_texts = _et.Serializer<_et.List<string>>
+        export type list_of_texts = _pi.Serializer<_pi.List<string>>
 
     }
 
@@ -47,7 +44,7 @@ export namespace serializers {
 
         export namespace approximate_number {
 
-            export type scientific_notation = _et.Serializer_With_Parameters<number, d_scientific_notation.Parameters>
+            export type scientific_notation = _pi.Number_Serializer_With_Parameters<d_serializer_parameters.scientific_notation>
 
         }
 
@@ -59,25 +56,25 @@ export namespace serializers {
              * 
              * This function converts a udhr day number to an ISO 8601 date string (YYYY-MM-DD)
              */
-            export type iso_udhr = _et.Serializer<number>
-            export type binary = _et.Serializer<number>
-            export type octal = _et.Serializer<number>
-            export type decimal = _et.Serializer<number>
-            export type hexadecimal = _et.Serializer<number>
-            export type fractional_decimal = _et.Serializer_With_Parameters<number, d_fractional_decimal.Parameters>
+            export type iso_udhr = _pi.Number_Serializer
+            export type binary = _pi.Number_Serializer
+            export type octal = _pi.Number_Serializer
+            export type decimal = _pi.Number_Serializer
+            export type hexadecimal = _pi.Number_Serializer
+            export type fractional_decimal = _pi.Number_Serializer_With_Parameters<d_serializer_parameters.fractional_decimal>
         }
 
         export namespace boolean {
 
-            export type true_false = _et.Serializer<boolean>
+            export type true_false = _pi.Boolean_Serializer
 
         }
 
         export namespace text {
 
-            export type pad_left = _et.Serializer_With_Parameters<string, d_pad_left.Parameters>
-            export type repeated = _et.Serializer_With_Parameters<string, d_repeated.Parameters>
-            export type escaped_character = _et.Serializer_With_Parameters<string, d_escaped_character.Parameters>
+            export type pad_left = _pi.Text_Serializer_With_Parameters<d_serializer_parameters.pad_left>
+            export type repeated = _pi.Text_Serializer_With_Parameters<d_serializer_parameters.repeated>
+            export type escaped_character = _pi.Text_Serializer_With_Parameters<d_serializer_parameters.escaped_character>
 
         }
     }

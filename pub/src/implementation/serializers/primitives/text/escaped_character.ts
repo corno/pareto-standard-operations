@@ -1,13 +1,14 @@
-import * as _et from 'exupery-core-types'
-import * as _ea from 'exupery-core-alg'
+import * as _pi from 'pareto-core-interface'
+import * as _ps from 'pareto-core-serializer'
+import * as _pds from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../interface/signatures"
 
-export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _ea.build_text(($i) => {
+export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _ps.build_text(($i) => {
 
-    const characters = _ea.text_to_character_list($)
+    const characters = _pds.text_to_character_list($)
 
-    const iter = _ea.create_iterator(characters)
+    const iter = _pds.create_iterator(characters)
 
     while (true) {
         const current_character = iter['get current']()

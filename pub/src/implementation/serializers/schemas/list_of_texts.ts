@@ -1,9 +1,9 @@
-import * as _et from 'exupery-core-types'
-import * as _ea from 'exupery-core-alg'
+import * as _pi from 'pareto-core-interface'
+import * as _ps from 'pareto-core-serializer'
 
 import * as signatures from "../../../interface/signatures"
 
-export const $$: signatures.serializers.schemas.list_of_texts = ($) => _ea.build_text(($i) => {
+export const $$: signatures.serializers.schemas.list_of_texts = ($) => _ps.build_text(($i) => {
     $.__for_each(($) => {
         $i['add snippet']($)
     })

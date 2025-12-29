@@ -1,5 +1,0 @@
-
-export type Parameters = {
-    'desired length': number,
-    'pad character': number
-}
