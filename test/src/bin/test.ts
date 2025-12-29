@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import * as _eb from 'exupery-core-bin'
 import * as _ed from 'pareto-core-dev'
 import * as _pt from 'pareto-core-transformer'
 import * as _pi from 'pareto-core-interface'
-import * as _easync from 'exupery-core-async'
+import * as _pc from 'pareto-core-command'
+
+import * as _pn from 'pareto-host-nodejs'
 
 import {
     Resources,
@@ -43,9 +44,9 @@ import { $$ as ds_fractional_decimal } from "pub/dist/implementation/deserialize
 import { $$ as ds_true_false } from "pub/dist/implementation/deserializers/primitives/boolean/true_false"
 import { $$ as ds_approx_scientific } from "pub/dist/implementation/deserializers/primitives/approximate_number/scientific_notation"
 
-_eb.run_main_procedure(
+_pn.run_main_procedure(
     ($rr) => {
-        return _easync.create_command_procedure<ds_main.Error, ds_main.Parameters, null, null>(
+        return _pc.create_command_procedure<ds_main.Error, ds_main.Parameters, null, null>(
             ($p, $r) => [
                 p_run_tests(
                     {
