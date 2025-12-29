@@ -16,5 +16,5 @@ export const $$ = <T>(
             $i['add entry']($p.prefix + key + $p.suffix, $)
         })
     },
-    _pt.unreachable_code_path() // no possibility of duplicate keys
+    () => _pt.unreachable_code_path() // no possibility of duplicate keys
 )
