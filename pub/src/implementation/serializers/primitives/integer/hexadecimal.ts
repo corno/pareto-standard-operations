@@ -18,7 +18,7 @@ export const $$: signatures.serializers.primitives.integer.hexadecimal = ($) => 
             do {
                 const digit = $ % 16
                 $i['add element'](digit)
-                $ = _ps.integer_division($, 16, _ps.unreachable_code_path())
+                $ = _ps.integer_division($, 16, () => _ps.unreachable_code_path())
             } while ($ > 0)
 
         })

@@ -8,34 +8,34 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         // Handle special case for zero in scientific notation
         if ($ === 0) {
             $i['add character'](48) // '0'
-            
+
             // Add decimal point if we have more than 1 digit
             if ($p.digits > 1) {
                 $i['add character'](46) // '.'
-                
+
                 // Add the required number of zeros after decimal point
                 for (let i = 0; i < $p.digits - 1; i++) {
                     $i['add character'](48) // '0'
                 }
             }
-            
+
             // Add exponent part for zero: e+0
             $i['add character'](101) // 'e'
             $i['add character'](43)  // '+'
             $i['add character'](48)  // '0'
             return
         }
-        
+
         // Handle negative numbers
         if ($ < 0) {
             $i['add character'](45) // '-'
             $ = -$
         }
-        
+
         // Calculate exponent and mantissa for scientific notation
         let exponent = 0
         let mantissa = $
-        
+
         // Normalize to range [1, 10)
         if (mantissa >= 10) {
             while (mantissa >= 10) {
@@ -48,16 +48,16 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
                 exponent--
             }
         }
-        
+
         // Create scale factor by multiplying
         let scale_factor = 1
         for (let i = 0; i < $p.digits - 1; i++) {
             scale_factor = scale_factor * 10
         }
-        
+
         // Simple rounding using integer operations
-        const mantissa_scaled = _ps.integer_division(mantissa * scale_factor + 0.5, 1, _ps.unreachable_code_path())
-        
+        const mantissa_scaled = _ps.integer_division(mantissa * scale_factor + 0.5, 1, () => _ps.unreachable_code_path())
+
         // Convert mantissa to string
         const digits = _ps.build_list<number>(($i) => {
             let temp = mantissa_scaled
@@ -66,21 +66,21 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
             do {
                 const digit = temp % 10
                 $i['add element'](digit)
-                temp = _ps.integer_division(temp, 10, _ps.unreachable_code_path())
+                temp = _ps.integer_division(temp, 10, () => _ps.unreachable_code_path())
             } while (temp > 0)
         })
-        
+
         // Add leading digit
         const first_digit = digits.__get_element_at(digits.get_number_of_elements() - 1).transform(
             ($) => $,
             () => _ps.unreachable_code_path() // index cannot be out of bounds
         )
         $i['add character'](48 + first_digit) // First digit
-        
+
         // Add decimal point if we have more digits
         if ($p.digits > 1 && digits.get_number_of_elements() > 1) {
             $i['add character'](46) // '.'
-            
+
             // Add remaining digits in reverse order
             for (let j = digits.get_number_of_elements() - 2; j >= 0; j--) {
                 const digit = digits.__get_element_at(j).transform(
@@ -90,7 +90,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
                 $i['add character'](48 + digit)
             }
         }
-        
+
         // Add exponent part
         $i['add character'](101) // 'e'
         if (exponent < 0) {
@@ -99,7 +99,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         } else {
             $i['add character'](43) // '+'
         }
-        
+
         // Convert exponent to string
         const exp_digits = _ps.build_list<number>(($i) => {
             if (exponent === 0) {
@@ -108,11 +108,11 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
                 do {
                     const digit = exponent % 10
                     $i['add element'](digit)
-                    exponent = _ps.integer_division(exponent, 10, _ps.unreachable_code_path())
+                    exponent = _ps.integer_division(exponent, 10, () => _ps.unreachable_code_path())
                 } while (exponent > 0)
             }
         })
-        
+
         // Add exponent digits in reverse order
         for (let j = exp_digits.get_number_of_elements() - 1; j >= 0; j--) {
             const digit = exp_digits.__get_element_at(j).transform(

@@ -13,7 +13,7 @@ export const $$: signatures.serializers.primitives.integer.decimal = ($) => {
             do {
                 const digit = $ % 10
                 $i['add element'](digit)
-                $ = _ps.integer_division($, 10, _ps.unreachable_code_path())
+                $ = _ps.integer_division($, 10, () => _ps.unreachable_code_path())
             } while ($ > 0)
 
         })

@@ -22,7 +22,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
         }
         
         // Split into integer and fractional parts
-        const integerPart = _ps.integer_division(value, divisor, _ps.unreachable_code_path())
+        const integerPart = _ps.integer_division(value, divisor, () => _ps.unreachable_code_path())
         const fractionalPart = value % divisor
         
         // Generate integer part digits
@@ -34,7 +34,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
                 while (temp > 0) {
                     const digit = temp % 10
                     $i['add element'](digit)
-                    temp = _ps.integer_division(temp, 10, _ps.unreachable_code_path())
+                    temp = _ps.integer_division(temp, 10, () => _ps.unreachable_code_path())
                 }
             }
         })
@@ -56,7 +56,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
             for (let i = 0; i < fractionalDigits; i++) {
                 const digit = temp % 10
                 $i['add element'](digit)
-                temp = _ps.integer_division(temp, 10, _ps.unreachable_code_path())
+                temp = _ps.integer_division(temp, 10, () => _ps.unreachable_code_path())
             }
         })
         

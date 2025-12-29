@@ -17,7 +17,7 @@ export const $$: signatures.serializers.primitives.integer.binary = ($) => {
             do {
                 const digit = $ % 2
                 $i['add element'](digit)
-                $ = _ps.integer_division($, 2, _ps.unreachable_code_path())
+                $ = _ps.integer_division($, 2, () => _ps.unreachable_code_path())
             } while ($ > 0)
 
         })

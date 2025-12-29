@@ -18,7 +18,7 @@ export const $$: signatures.serializers.primitives.integer.octal = ($) => {
             do {
                 const digit = $ % 8
                 $i['add element'](digit)
-                $ = _ps.integer_division($, 8, _ps.unreachable_code_path())
+                $ = _ps.integer_division($, 8, () => _ps.unreachable_code_path())
             } while ($ > 0)
 
         })

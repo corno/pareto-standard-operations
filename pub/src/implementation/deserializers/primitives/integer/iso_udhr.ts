@@ -96,9 +96,9 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
 
     const full_years = iso_date.year - 1
     const leap_days_before_current_year =
-        + _pds.integer_division(full_years, 4, _pds.unreachable_code_path())
-        - _pds.integer_division(full_years, 100, _pds.unreachable_code_path())
-        + _pds.integer_division(full_years, 400, _pds.unreachable_code_path())
+        + _pds.integer_division(full_years, 4, () =>_pds.unreachable_code_path())
+        - _pds.integer_division(full_years, 100, () => _pds.unreachable_code_path())
+        + _pds.integer_division(full_years, 400, () => _pds.unreachable_code_path())
 
     const total_days_before_current_year = full_years * 365 + leap_days_before_current_year
 
