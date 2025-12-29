@@ -57,15 +57,15 @@ export const create_tester_for_transformer_with_parameter = <Input, Result, Para
     ))]
 }
 
-export const create_tester_for_transformer_without_parameter = <Input, Result>(
-    transformer: _pi.Transformer<Input, Result>,
-    text_to_input: (input: string) => Input,
-    result_to_text: (result: Result) => string,
-): Tester_for_Transformer => {
-    return ['without parameter', (input: string) => result_to_text(transformer(
-        text_to_input(input),
-    ))]
-}
+// export const create_tester_for_transformer_without_parameter = <Input, Result>(
+//     transformer: _pi.Transformer<Input, Result>,
+//     text_to_input: (input: string) => Input,
+//     result_to_text: (result: Result) => string,
+// ): Tester_for_Transformer => {
+//     return ['without parameter', (input: string) => result_to_text(transformer(
+//         text_to_input(input),
+//     ))]
+// }
 
 
 
@@ -93,33 +93,33 @@ export const create_tester_for_transformer_without_parameter = <Input, Result>(
 
 
 
-export const create_tester_for_refiner_with_error_with_parameter = <Input, Result, Parameter, Error>(
-    refiner: _pi.Refiner_With_Parameters<Input, Result, Error, Parameter>,
-    text_to_input: (input: string) => Input,
-    text_to_parameter: (parameter: string) => Parameter,
-    result_to_text: (result: Result) => string,
-    error_to_text: (error: Error) => string,
-): Tester_for_Refiner => {
-    return ['with error with parameter', (input: string, parameter: string) => {
-        const r = refiner(
-            text_to_input(input),
-            text_to_parameter(parameter),
-        )
-        switch (r[0]) {
-            case 'success': return ['success', result_to_text(r[1])]
-            case 'error': return ['error', error_to_text(r[1])]
-        }
-    }]
-}
+// export const create_tester_for_refiner_with_error_with_parameter = <Input, Result, Parameter, Error>(
+//     refiner: _pi.Refiner_With_Parameters<Input, Result, Error, Parameter>,
+//     text_to_input: (input: string) => Input,
+//     text_to_parameter: (parameter: string) => Parameter,
+//     result_to_text: (result: Result) => string,
+//     error_to_text: (error: Error) => string,
+// ): Tester_for_Refiner => {
+//     return ['with error with parameter', (input: string, parameter: string) => {
+//         const r = refiner(
+//             text_to_input(input),
+//             text_to_parameter(parameter),
+//         )
+//         switch (r[0]) {
+//             case 'success': return ['success', result_to_text(r[1])]
+//             case 'error': return ['error', error_to_text(r[1])]
+//         }
+//     }]
+// }
 
 
-type Integer_Refiner =
-    | ['with error', <Error>() => _pi.Number_Refiner<Error>]
+// type Integer_Refiner =
+//     | ['with error', <Error>() => _pi.Number_Refiner<Error>]
 
-type API = {
-    'deserializers': {
-        'primitives': {
-            'integer': { [key: string]: Integer_Refiner }
-        }
-    }
-}
+// type API = {
+//     'deserializers': {
+//         'primitives': {
+//             'integer': { [key: string]: Integer_Refiner }
+//         }
+//     }
+// }

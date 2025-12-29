@@ -1,9 +1,7 @@
 import * as _pi from 'pareto-core-interface'
 
 import * as d_generic from "pareto-test/dist/interface/temp/generic"
-import * as d_text_pad_left from "pub/dist/interface/to_be_generated/pad_left"
-import * as d_integer_fractional_decimal from "pub/dist/interface/to_be_generated/fractional_decimal"
-import * as d_number_scientific_notation from "pub/dist/interface/to_be_generated/scientific_notation"
+import * as d_serializer_parameters from "pub/dist/interface/to_be_generated/serializer_parameters"
 import * as d_list_split from "pub/dist/interface/to_be_generated/list_split"
 import * as signatures from "pub/dist/interface/signatures"
 
@@ -33,8 +31,8 @@ export type Test_Set = {
             'deserializer': _pi.Dictionary<d_generic.Refiner_Without_Parameters<number, string, string>>
         }
         'fractional_decimal': {
-            'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<number, string, d_integer_fractional_decimal.Parameters>>
-            'deserializer': _pi.Dictionary<d_generic.Refiner_With_Parameters<number, string, string, d_integer_fractional_decimal.Parameters>>
+            'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<number, string, d_serializer_parameters.fractional_decimal>>
+            'deserializer': _pi.Dictionary<d_generic.Refiner_With_Parameters<number, string, string, d_serializer_parameters.fractional_decimal>>
         }
     }
     'boolean': {
@@ -45,13 +43,13 @@ export type Test_Set = {
     }
     'approximate_number': {
         'scientific_notation': {
-            'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<number, string, d_number_scientific_notation.Parameters>>
-            'deserializer': _pi.Dictionary<d_generic.Refiner_With_Parameters<string, d_number_scientific_notation.Parameters, number, string>>
+            'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<number, string, d_serializer_parameters.scientific_notation>>
+            'deserializer': _pi.Dictionary<d_generic.Refiner_With_Parameters<string, d_serializer_parameters.scientific_notation, number, string>>
         }
     }
     'text': {
         'pad_left': {
-            'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<string, string, d_text_pad_left.Parameters>>
+            'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<string, string, d_serializer_parameters.pad_left>>
         }
     }
 }
