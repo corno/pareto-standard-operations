@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import * as _ed from 'pareto-core-dev'
 import * as _pt from 'pareto-core-transformer'
 import * as _pi from 'pareto-core-interface'
 import * as _pc from 'pareto-core-command'
