@@ -1,14 +1,13 @@
-import * as _pi from 'pareto-core-interface'
 import * as _ps from 'pareto-core-serializer'
-import * as _pds from 'pareto-core-deserializer'
+import * as _pinternals from 'pareto-core-internals'
 
 import * as signatures from "../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _ps.build_text(($i) => {
 
-    const characters = _pds.text_to_character_list($)
+    const characters = _pinternals.text_to_character_list($)
 
-    const iter = _pds.create_iterator(characters)
+    const iter = _pinternals.create_iterator(characters)
 
     while (true) {
         const current_character = iter['get current']()
