@@ -1,6 +1,6 @@
 import * as _ps from 'pareto-core-serializer'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.approximate_number.scientific_notation = ($, $p) => {
     return _ps.build_text(($i) => {

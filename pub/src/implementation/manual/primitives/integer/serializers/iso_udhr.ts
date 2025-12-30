@@ -1,9 +1,9 @@
 import * as _ps from 'pareto-core-serializer'
 
 import { $$ as s_decimal } from "./decimal"
-import { $$ as pad_left } from "../text/pad_left"
+import { $$ as pad_left } from "../../text/serializers/pad_left"
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.integer.iso_udhr = (udhr_day) => {
 

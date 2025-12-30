@@ -1,6 +1,6 @@
 import * as _ps from 'pareto-core-serializer'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.integer.fractional_decimal = ($, $p) => {
     const fractionalDigits = $p['number of fractional digits']

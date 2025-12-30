@@ -1,6 +1,6 @@
 import * as _pds from 'pareto-core-deserializer'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.deserializers.primitives.integer.binary = ($, abort) => {
     const characters = _pds.text_to_character_list($)

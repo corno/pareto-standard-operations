@@ -1,7 +1,7 @@
 import * as _ps from 'pareto-core-serializer'
 import * as _pinternals from 'pareto-core-internals'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _ps.build_text(($i) => {
 

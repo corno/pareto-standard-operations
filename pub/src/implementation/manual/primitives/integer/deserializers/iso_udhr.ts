@@ -1,7 +1,7 @@
 import * as _pi from 'pareto-core-interface'
 import * as _pds from 'pareto-core-deserializer'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
 /**
  * 

@@ -1,23 +1,23 @@
 import * as _ps from 'pareto-core-serializer'
 
-import * as signatures from "../../../../interface/signatures"
+import * as signatures from "../../../../../interface/signatures"
 
-export const $$: signatures.serializers.primitives.integer.octal = ($) => {
+export const $$: signatures.serializers.primitives.integer.binary = ($) => {
     return _ps.build_text(($i) => {
         if ($ < 0) {
             $i['add character'](45) // '-'
             $ = -$
         }
         
-        // Add "0o" prefix
+        // Add "0b" prefix
         $i['add character'](48) // '0'
-        $i['add character'](111) // 'o'
+        $i['add character'](98) // 'b'
         
         const digits = _ps.build_list<number>(($i) => {
             do {
-                const digit = $ % 8
+                const digit = $ % 2
                 $i['add element'](digit)
-                $ = _ps.integer_division($, 8, () => _ps.unreachable_code_path())
+                $ = _ps.integer_division($, 2, () => _ps.unreachable_code_path())
             } while ($ > 0)
 
         })
@@ -25,9 +25,9 @@ export const $$: signatures.serializers.primitives.integer.octal = ($) => {
         for (let j = digits.get_number_of_elements() - 1; j >= 0; j--) {
             const digit = digits.__get_element_at(j).transform(
                 ($) => $,
-                () => _ps.unreachable_code_path() // index cannot be out of bounds
+                () => _ps.unreachable_code_path()
             )
-            $i['add character'](48 + digit) // '0'-'7'
+            $i['add character'](48 + digit) // '0'-'1'
         }
     })
 }
