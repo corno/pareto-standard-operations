@@ -1,6 +1,6 @@
 import * as _pi from 'pareto-core-interface'
 
-import { $$ as ds_decimal } from "pub/dist/implementation/deserializers/primitives/integer/decimal"
+import { $$ as ds_decimal } from "pub/dist/implementation/manual/primitives/integer/deserializers/decimal"
 
 type Possible_Error =
     | ['success', string]

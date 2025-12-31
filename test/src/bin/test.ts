@@ -14,7 +14,7 @@ import {
     run_transformer_tests_without_parameters,
 } from "pareto-test/dist/implementation/generic"
 
-import { $$ as p_run_tests } from "pareto-test/dist/implementation/commands/run_tests"
+import { $$ as p_run_tests } from "pareto-test/dist/implementation/manual/commands/run_tests"
 
 import * as ds_main from "exupery-resources/dist/interface/to_be_generated/temp_main"
 
@@ -22,26 +22,26 @@ import * as ds_main from "exupery-resources/dist/interface/to_be_generated/temp_
 import { TEST_DATA } from "../data/test_data"
 
 // Import serializers
-import { $$ as s_decimal } from "pub/dist/implementation/serializers/primitives/integer/decimal"
-import { $$ as s_hexadecimal } from "pub/dist/implementation/serializers/primitives/integer/hexadecimal"
-import { $$ as s_binary } from "pub/dist/implementation/serializers/primitives/integer/binary"
-import { $$ as s_octal } from "pub/dist/implementation/serializers/primitives/integer/octal"
-import { $$ as s_udhr_to_iso } from "pub/dist/implementation/serializers/primitives/integer/iso_udhr"
-import { $$ as s_fractional_decimal } from "pub/dist/implementation/serializers/primitives/integer/fractional_decimal"
-import { $$ as s_boolean_true_false } from "pub/dist/implementation/serializers/primitives/boolean/true_false"
-import { $$ as s_approx_scientific } from "pub/dist/implementation/serializers/primitives/approximate_number/scientific_notation"
+import { $$ as s_decimal } from "pub/dist/implementation/manual/primitives/integer/serializers/decimal"
+import { $$ as s_hexadecimal } from "pub/dist/implementation/manual/primitives/integer/serializers/hexadecimal"
+import { $$ as s_binary } from "pub/dist/implementation/manual/primitives/integer/serializers/binary"
+import { $$ as s_octal } from "pub/dist/implementation/manual/primitives/integer/serializers/octal"
+import { $$ as s_udhr_to_iso } from "pub/dist/implementation/manual/primitives/integer/serializers/iso_udhr"
+import { $$ as s_fractional_decimal } from "pub/dist/implementation/manual/primitives/integer/serializers/fractional_decimal"
+import { $$ as s_boolean_true_false } from "pub/dist/implementation/manual/primitives/boolean/serializers/true_false"
+import { $$ as s_approx_scientific } from "pub/dist/implementation/manual/primitives/approximate_number/serializers/scientific_notation"
 
-import { $$ as s_pad_left } from "pub/dist/implementation/serializers/primitives/text/pad_left"
+import { $$ as s_pad_left } from "pub/dist/implementation/manual/primitives/text/serializers/pad_left"
 
 // Import deserializers
-import { $$ as ds_decimal } from "pub/dist/implementation/deserializers/primitives/integer/decimal"
-import { $$ as ds_hexadecimal } from "pub/dist/implementation/deserializers/primitives/integer/hexadecimal"
-import { $$ as ds_binary } from "pub/dist/implementation/deserializers/primitives/integer/binary"
-import { $$ as ds_octal } from "pub/dist/implementation/deserializers/primitives/integer/octal"
-import { $$ as ds_iso_to_udhr } from "pub/dist/implementation/deserializers/primitives/integer/iso_udhr"
-import { $$ as ds_fractional_decimal } from "pub/dist/implementation/deserializers/primitives/integer/fractional_decimal"
-import { $$ as ds_true_false } from "pub/dist/implementation/deserializers/primitives/boolean/true_false"
-import { $$ as ds_approx_scientific } from "pub/dist/implementation/deserializers/primitives/approximate_number/scientific_notation"
+import { $$ as ds_decimal } from "pub/dist/implementation/manual/primitives/integer/deserializers/decimal"
+import { $$ as ds_hexadecimal } from "pub/dist/implementation/manual/primitives/integer/deserializers/hexadecimal"
+import { $$ as ds_binary } from "pub/dist/implementation/manual/primitives/integer/deserializers/binary"
+import { $$ as ds_octal } from "pub/dist/implementation/manual/primitives/integer/deserializers/octal"
+import { $$ as ds_iso_to_udhr } from "pub/dist/implementation/manual/primitives/integer/deserializers/iso_udhr"
+import { $$ as ds_fractional_decimal } from "pub/dist/implementation/manual/primitives/integer/deserializers/fractional_decimal"
+import { $$ as ds_true_false } from "pub/dist/implementation/manual/primitives/boolean/deserializers/true_false"
+import { $$ as ds_approx_scientific } from "pub/dist/implementation/manual/primitives/approximate_number/deserializers/scientific_notation"
 
 _pn.run_main_procedure(
     ($rr) => {
