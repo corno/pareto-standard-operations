@@ -2,7 +2,7 @@ import * as _pds from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../../interface/signatures"
 
-export const $$: signatures.deserializers.primitives.integer.fractional_decimal = ($, $p, abort) => {
+export const $$: signatures.deserializers.primitives.integer.fractional_decimal = ($, abort, $p) => {
     const characters = _pds.text_to_character_list($)
     let isNegative = false
     let startIndex = 0

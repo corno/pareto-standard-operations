@@ -44,7 +44,7 @@ export type Test_Set = {
     'approximate_number': {
         'scientific_notation': {
             'serializer': _pi.Dictionary<d_generic.Transformer_With_Parameters<number, string, d_serializer_parameters.scientific_notation>>
-            'deserializer': _pi.Dictionary<d_generic.Refiner_With_Parameters<string, d_serializer_parameters.scientific_notation, number, string>>
+            'deserializer': _pi.Dictionary<d_generic.Refiner_With_Parameters<string, number, string, d_serializer_parameters.scientific_notation>>
         }
     }
     'text': {
