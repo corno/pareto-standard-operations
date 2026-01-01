@@ -1,6 +1,4 @@
 import * as _pi from 'pareto-core-interface'
-import * as _pt from 'pareto-core-transformer'
-
 import * as _pinternals from 'pareto-core-internals'
 
 import * as signatures from "../../../../interface/signatures"
