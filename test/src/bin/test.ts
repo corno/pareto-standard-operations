@@ -45,7 +45,7 @@ import { $$ as ds_approx_scientific } from "pub/dist/implementation/manual/primi
 
 _pn.run_main_procedure(
     ($rr) => {
-        return _pc.create_command_procedure<ds_main.Error, ds_main.Parameters, null, null>(
+        return _pc.command_procedure<ds_main.Error, ds_main.Parameters, null, null>(
             ($p, $r) => [
                 p_run_tests(
                     {
