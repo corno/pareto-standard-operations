@@ -9,7 +9,7 @@ export const $$: signatures.deserializers.primitives.integer.hexadecimal = ($, a
     let startIndex = 0
     
     // Check for empty string
-    if (characters.get_number_of_elements() === 0) {
+    if (characters.is_empty()) {
         abort(`Empty string is not a valid hexadecimal number`)
     }
     
