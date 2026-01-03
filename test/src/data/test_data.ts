@@ -20,14 +20,14 @@ import * as d from "../interface/test_set"
 export const TEST_DATA: d.Test_Set = {
     'list': {
         //I'm roundtripping here because I cannot test complex types directly yet
-        'split': _pt.dictionary_literal({
+        'split': _pt.dictionary.literal({
             "simple split": { 'input': { 'input': "apple,banana,cherry", 'parameters': { 'separator': 44 }, }, 'expected': "apple,banana,cherry" },
             "a path": { 'input': { 'input': "/usr/local/bin/", 'parameters': { 'separator': 47 }, }, 'expected': ",usr,local,bin," },
         }),
     },
     'approximate_number': {
         'scientific_notation': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 // "scientific positive exponent": { 'input': "1.23e+2", 'expected': _pt.set(123.0, 'tolerance': 0.01) },
                 // "scientific negative exponent": { 'input': "5.67e-1", 'expected': _pt.set(0.567, 'tolerance': 0.001) },
                 // "scientific negative number": { 'input': "-3.14e+0", 'expected': _pt.set(-3.14, 'tolerance': 0.01) },
@@ -37,7 +37,7 @@ export const TEST_DATA: d.Test_Set = {
                 // "scientific negative large": { 'input': "-1.23e+4", 'expected': _pt.set(-12300.0, 'tolerance': 1.0) },
                 // "scientific very small": { 'input': "9.87e-6", 'expected': _pt.set(0.00000987, 'tolerance': 0.00000001) }
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 "zero 3 digits": { 'input': { 'input': 0.0, 'parameters': { 'digits': 3 } }, 'expected': "0.00e+0" },
                 "one 3 digits": { 'input': { 'input': 1.0, 'parameters': { 'digits': 3 } }, 'expected': "1.00e+0" },
                 "ten 3 digits": { 'input': { 'input': 10.0, 'parameters': { 'digits': 3 } }, 'expected': "1.00e+1" },
@@ -58,7 +58,7 @@ export const TEST_DATA: d.Test_Set = {
     },
     'boolean': {
         'true_false': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 "boolean true": { 'input': "true", 'expected': ['output', true] },
                 "boolean false": { 'input': "false", 'expected': ['output', false] },
                 // Invalid input cases  
@@ -79,7 +79,7 @@ export const TEST_DATA: d.Test_Set = {
                 "f": { 'input': "f", 'expected': ['error', "HANDLE UNEXPECTED VALUE!"] },
                 "random text": { 'input': "maybe", 'expected': ['error', "HANDLE UNEXPECTED VALUE!"] }
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 "boolean true case": { 'input': true, 'expected': "true" },
                 "boolean false case": { 'input': false, 'expected': "false" }
             }),
@@ -87,7 +87,7 @@ export const TEST_DATA: d.Test_Set = {
     },
     'integer': {
         'decimal': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 "zero": { 'input': "0", 'expected': ['output', 0] },
                 "one": { 'input': "1", 'expected': ['output', 1] },
                 "ten": { 'input': "10", 'expected': ['output', 10] },
@@ -117,7 +117,7 @@ export const TEST_DATA: d.Test_Set = {
                 "infinity": { 'input': "Infinity", 'expected': ['error', "Invalid character in decimal string"] },
                 "nan": { 'input': "NaN", 'expected': ['error', "Invalid character in decimal string"] }
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 "zero": { 'input': 0, 'expected': "0" },
                 "one": { 'input': 1, 'expected': "1" },
                 "ten": { 'input': 10, 'expected': "10" },
@@ -134,7 +134,7 @@ export const TEST_DATA: d.Test_Set = {
             })
         },
         'hexadecimal': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 "zero": { 'input': "0x0", 'expected': ['output', 0] },
                 "one": { 'input': "0x1", 'expected': ['output', 1] },
                 "ten uppercase": { 'input': "0xA", 'expected': ['output', 10] },
@@ -168,7 +168,7 @@ export const TEST_DATA: d.Test_Set = {
                 "uppercase X": { 'input': "0XFF", 'expected': ['error', "Hexadecimal number must have '0x' prefix"] },
                 "plus prefix": { 'input': "+0xFF", 'expected': ['error', "Hexadecimal number must have '0x' prefix"] }
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 "zero": { 'input': 0, 'expected': "0x0" },
                 "one": { 'input': 1, 'expected': "0x1" },
                 "ten": { 'input': 10, 'expected': "0xA" },
@@ -185,7 +185,7 @@ export const TEST_DATA: d.Test_Set = {
             }),
         },
         'binary': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 "zero": { 'input': "0b0", 'expected': ['output', 0] },
                 "one": { 'input': "0b1", 'expected': ['output', 1] },
                 "ten": { 'input': "0b1010", 'expected': ['output', 10] },
@@ -216,7 +216,7 @@ export const TEST_DATA: d.Test_Set = {
                 "uppercase B": { 'input': "0B1010", 'expected': ['error', "Binary number must have '0b' prefix"] },
                 "plus prefix": { 'input': "+0b1010", 'expected': ['error', "Binary number must have '0b' prefix"] }
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 "zero": { 'input': 0, 'expected': "0b0" },
                 "one": { 'input': 1, 'expected': "0b1" },
                 "ten": { 'input': 10, 'expected': "0b1010" },
@@ -233,7 +233,7 @@ export const TEST_DATA: d.Test_Set = {
             }),
         },
         'octal': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 "zero": { 'input': "0o0", 'expected': ['output', 0] },
                 "one": { 'input': "0o1", 'expected': ['output', 1] },
                 "ten": { 'input': "0o12", 'expected': ['output', 10] },
@@ -265,7 +265,7 @@ export const TEST_DATA: d.Test_Set = {
                 "plus prefix": { 'input': "+0o123", 'expected': ['error', "Octal number must have '0o' prefix"] },
                 "old style octal": { 'input': "0123", 'expected': ['error', "Octal number must have '0o' prefix"] }
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 "zero": { 'input': 0, 'expected': "0o0" },
                 "one": { 'input': 1, 'expected': "0o1" },
                 "ten": { 'input': 10, 'expected': "0o12" },
@@ -282,7 +282,7 @@ export const TEST_DATA: d.Test_Set = {
             }),
         },
         'iso_udhr': {
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 // Basic epoch tests - these work
                 "udhr day zero": { 'input': 0, 'expected': "1948-12-10" },
                 "udhr day one": { 'input': 1, 'expected': "1948-12-11" },
@@ -325,7 +325,7 @@ export const TEST_DATA: d.Test_Set = {
                 "dec 31 in leap year": { 'input': 19014, 'expected': "2000-12-31" },
 
             }),
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 // Basic epoch tests - these work
                 "udhr day zero": { 'input': "1948-12-10", 'expected': ['output', 0] },
                 "udhr day one": { 'input': "1948-12-11", 'expected': ['output', 1] },
@@ -370,7 +370,7 @@ export const TEST_DATA: d.Test_Set = {
             }),
         },
         'fractional_decimal': {
-            'deserializer': _pt.dictionary_literal({
+            'deserializer': _pt.dictionary.literal({
                 // Basic valid cases - 2 fractional digits
                 "zero with 2 decimals": { 'input': { 'input': "0.00", 'parameters': { 'number of fractional digits': 2 } }, 'expected': ['output', 0] },
                 "one with 2 decimals": { 'input': { 'input': "1.00", 'parameters': { 'number of fractional digits': 2 } }, 'expected': ['output', 100] },
@@ -411,7 +411,7 @@ export const TEST_DATA: d.Test_Set = {
                 "plus sign": { 'input': { 'input': "+12.34", 'parameters': { 'number of fractional digits': 2 } }, 'expected': ['error', "Invalid character in fractional decimal string"] },
                 "double negative": { 'input': { 'input': "--12.34", 'parameters': { 'number of fractional digits': 2 } }, 'expected': ['error', "Invalid character in fractional decimal string"] },
             }),
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 // Basic valid cases - 2 fractional digits
                 "zero with 2 decimals": { 'input': { 'input': 0, 'parameters': { 'number of fractional digits': 2 } }, 'expected': "0.00" },
                 "one with 2 decimals": { 'input': { 'input': 100, 'parameters': { 'number of fractional digits': 2 } }, 'expected': "1.00" },
@@ -442,7 +442,7 @@ export const TEST_DATA: d.Test_Set = {
     },
     'text': {
         'pad_left': {
-            'serializer': _pt.dictionary_literal({
+            'serializer': _pt.dictionary.literal({
                 // Basic padding scenarios
                 "no padding needed": { 'input': { 'input': "hello", 'parameters': { 'desired length': 5, 'pad character': 48 } }, 'expected': "hello" },
                 "shorter needs padding": { 'input': { 'input': "hi", 'parameters': { 'desired length': 5, 'pad character': 48 } }, 'expected': "000hi" },

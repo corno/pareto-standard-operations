@@ -7,7 +7,7 @@ import * as signatures from "../../../interface/signatures"
 
 export const $$: _pi.Serializer_With_Parameters<_pi.List<string>, d_list_of_separated_strings.Parameters> = ($, $p) => {
     let is_first = true
-    return _ps.build_text(($i) => {
+    return _ps.text.build(($i) => {
         $.__for_each(($) => {
             if (!is_first) {
                 $i['add snippet']($p.separator)

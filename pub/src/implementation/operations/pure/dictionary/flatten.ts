@@ -7,7 +7,7 @@ export const $$ = <T>(
     $: _pi.Dictionary<_pi.Dictionary<T>>, 
     $p: { 'separator': string },
     abort: ($: ['duplicate key', null]) => never
-): _pi.Dictionary<T> => _pinternals.build_dictionary(
+): _pi.Dictionary<T> => _pinternals.dictionary_build(
     ($i) => {
         $.map(($, key) => {
             $.map(($, subkey) => {

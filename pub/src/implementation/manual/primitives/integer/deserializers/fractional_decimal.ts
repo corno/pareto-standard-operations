@@ -3,7 +3,7 @@ import * as _pds from 'pareto-core-deserializer'
 import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.deserializers.primitives.integer.fractional_decimal = ($, abort, $p) => {
-    const characters = _pds.text_to_character_list($)
+    const characters = _pds.list.from_text($, ($) => $)
     let isNegative = false
     let startIndex = 0
     let decimalPointIndex = -1
@@ -14,7 +14,7 @@ export const $$: signatures.deserializers.primitives.integer.fractional_decimal 
     }
     
     const get_character_at = (index: number): number => {
-        return characters.__get_element_at(index).transform(
+        return characters.__get_possible_element_at(index).transform(
             ($) => $,
             () => abort(`index out of bounds`)
         )

@@ -3,7 +3,7 @@ import * as _pds from 'pareto-core-deserializer'
 import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.deserializers.primitives.approximate_number.scientific_notation = ($, abort) => {
-    const characters = _pds.text_to_character_list($)
+    const characters = _pds.list.from_text($, ($) => $)
     let result = 0
     let isNegative = false
     let startIndex = 0
@@ -15,7 +15,7 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
     let inExponent = false
     
     const get_character_at = (index: number): number => {
-        return characters.__get_element_at(index).transform(
+        return characters.__get_possible_element_at(index).transform(
             ($) => $,
             () => abort(`index out of bounds`)
         )

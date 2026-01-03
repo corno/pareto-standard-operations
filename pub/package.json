@@ -1,14 +1,14 @@
 {
   "name": "pareto-standard-operations",
-  "version": "0.3.33",
+  "version": "0.3.35",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "dependencies": {
-    "pareto-core-deserializer": "^0.2.3",
-    "pareto-core-serializer": "^0.1.2",
-    "pareto-core-transformer": "^0.1.7"
+    "pareto-core-deserializer": "^0.2.6",
+    "pareto-core-serializer": "^0.1.5",
+    "pareto-core-transformer": "^0.1.8"
   }
 }

@@ -26,7 +26,7 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
         (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
 
 
-    const characters = _pds.text_to_character_list($)
+    const characters = _pds.list.from_text($, ($) => $)
 
     const parse_iso_date = (
         characters: _pi.List<number>
@@ -34,7 +34,7 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
 
 
         const get_certain_character_at = (characters: _pi.List<number>, index: number): number => {
-            return characters.__get_element_at(index).transform(
+            return characters.__get_possible_element_at(index).transform(
                 ($) => $,
                 () => abort(`index out of bounds`)
             )
@@ -96,9 +96,9 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
 
     const full_years = iso_date.year - 1
     const leap_days_before_current_year =
-        + _pds.integer_division(full_years, 4, () =>_pds.unreachable_code_path())
-        - _pds.integer_division(full_years, 100, () => _pds.unreachable_code_path())
-        + _pds.integer_division(full_years, 400, () => _pds.unreachable_code_path())
+        + _pds.integer.divide(full_years, 4, () =>_pds.unreachable_code_path())
+        - _pds.integer.divide(full_years, 100, () => _pds.unreachable_code_path())
+        + _pds.integer.divide(full_years, 400, () => _pds.unreachable_code_path())
 
     const total_days_before_current_year = full_years * 365 + leap_days_before_current_year
 

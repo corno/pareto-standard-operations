@@ -5,7 +5,7 @@ import * as signatures from "../../../../../interface/signatures"
 export const $$: signatures.serializers.primitives.integer.fractional_decimal = ($, $p) => {
     const fractionalDigits = $p['number of fractional digits']
     
-    return _ps.build_text(($i) => {
+    return _ps.text.build(($i) => {
         let value = $
         
         // Handle negative numbers
@@ -21,11 +21,11 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
         }
         
         // Split into integer and fractional parts
-        const integerPart = _ps.integer_division(value, divisor, () => _ps.unreachable_code_path())
+        const integerPart = _ps.integer.divide(value, divisor, () => _ps.unreachable_code_path())
         const fractionalPart = value % divisor
         
         // Generate integer part digits
-        const integerDigits = _ps.build_list<number>(($i) => {
+        const integerDigits = _ps.list.build<number>(($i) => {
             let temp = integerPart
             if (temp === 0) {
                 $i['add element'](0)
@@ -33,14 +33,14 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
                 while (temp > 0) {
                     const digit = temp % 10
                     $i['add element'](digit)
-                    temp = _ps.integer_division(temp, 10, () => _ps.unreachable_code_path())
+                    temp = _ps.integer.divide(temp, 10, () => _ps.unreachable_code_path())
                 }
             }
         })
         
         // Add integer part (reverse order)
         for (let j = integerDigits.get_number_of_elements() - 1; j >= 0; j--) {
-            $i['add character'](48 + integerDigits.__get_element_at(j).transform(
+            $i['add character'](48 + integerDigits.__get_possible_element_at(j).transform(
                 ($) => $,
                 () => _ps.unreachable_code_path() // index cannot be out of bounds
             ))
@@ -50,18 +50,18 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
         $i['add character'](46) // '.'
         
         // Generate fractional part digits
-        const fractionalDigits_list = _ps.build_list<number>(($i) => {
+        const fractionalDigits_list = _ps.list.build<number>(($i) => {
             let temp = fractionalPart
             for (let i = 0; i < fractionalDigits; i++) {
                 const digit = temp % 10
                 $i['add element'](digit)
-                temp = _ps.integer_division(temp, 10, () => _ps.unreachable_code_path())
+                temp = _ps.integer.divide(temp, 10, () => _ps.unreachable_code_path())
             }
         })
         
         // Add fractional part (reverse order)
         for (let j = fractionalDigits_list.get_number_of_elements() - 1; j >= 0; j--) {
-            $i['add character'](48 + fractionalDigits_list.__get_element_at(j).transform(
+            $i['add character'](48 + fractionalDigits_list.__get_possible_element_at(j).transform(
                 ($) => $,
                 () => _ps.unreachable_code_path() // index cannot be out of bounds
             ))
