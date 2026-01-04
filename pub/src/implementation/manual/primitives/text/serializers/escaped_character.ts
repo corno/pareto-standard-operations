@@ -28,20 +28,18 @@ const pump = <Iterator_Element>(
 const build_text_with_iterator = <Iterator_Element>(
     iter: _pi.Iterator<Iterator_Element>,
     callback: (current: Iterator_Element) => _pi.List<number>,
-): string => {
-    return _ps.text.build(
-        ($i) => {
-            pump(
-                iter,
-                (current) => {
-                    callback(current).__for_each(($) => {
-                        $i['add character']($)
-                    })
-                }
-            )
-        }
-    )
-}
+): string => _ps.text.build(
+    ($i) => {
+        pump(
+            iter,
+            (current) => {
+                callback(current).__for_each(($) => {
+                    $i['add character']($)
+                })
+            }
+        )
+    }
+)
 
 export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _pinternals.iterate_partially(
     _pinternals.list_from_text($, ($) => $),

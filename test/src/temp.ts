@@ -16,8 +16,8 @@ type Tester_for_Transformer_Without_Parameter = (
 ) => string
 
 type Tester_for_Transformer =
-| ['with parameter', Tester_for_Transformer_With_Parameter]
-| ['without parameter', Tester_for_Transformer_Without_Parameter]
+    | ['with parameter', Tester_for_Transformer_With_Parameter]
+    | ['without parameter', Tester_for_Transformer_Without_Parameter]
 
 
 type Tester_for_Refiner_With_Error_With_Parameter = (
@@ -74,22 +74,18 @@ export const create_tester_for_serializer_with_parameter = <Input, Parameter>(
     transformer: _pi.Transformer_With_Parameters<Input, string, Parameter>,
     text_to_input: (input: string) => Input,
     text_to_parameter: (parameter: string) => Parameter,
-): Tester_for_Transformer => {
-    return ['with parameter', (input, parameter) => transformer(
-        text_to_input(input),
-        text_to_parameter(parameter),
-    )]
-}
+): Tester_for_Transformer => ['with parameter', (input, parameter) => transformer(
+    text_to_input(input),
+    text_to_parameter(parameter),
+)]
 
 export const create_tester_for_transformer_without_parameter = <Input, Result>(
     transformer: _pi.Transformer<Input, Result>,
     text_to_input: (input: string) => Input,
     result_to_text: (result: Result) => string,
-): Tester_for_Transformer => {
-    return ['without parameter', (input: string) => result_to_text(transformer(
-        text_to_input(input),
-    ))]
-}
+): Tester_for_Transformer => ['without parameter', (input: string) => result_to_text(transformer(
+    text_to_input(input),
+))]
 
 
 
