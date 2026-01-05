@@ -13,24 +13,22 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
     let isExponentNegative = false
     let hasDecimal = false
     let inExponent = false
-    
-    const get_character_at = (index: number): number => {
-        return characters.__get_possible_element_at(index).transform(
-            ($) => $,
-            () => abort(`index out of bounds`)
-        )
-    }
-    
+
+    const get_character_at = (index: number): number => characters.__get_possible_element_at(index).transform(
+        ($) => $,
+        () => abort(`index out of bounds`)
+    )
+
     // Check for negative sign
     if (characters.get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
         isNegative = true
         startIndex = 1
     }
-    
+
     // Parse the number
     for (let i = startIndex; i < characters.get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
-        
+
         if (charCode === 46) { // '.'
             if (hasDecimal || inExponent) {
                 abort(`Invalid decimal format: multiple decimal points or decimal in exponent`)
@@ -53,7 +51,7 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
             }
         } else if (charCode >= 48 && charCode <= 57) { // '0'-'9'
             const digit = charCode - 48
-            
+
             if (inExponent) {
                 exponent = exponent * 10 + digit
             } else if (hasDecimal) {
@@ -66,15 +64,15 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
             abort(`Invalid character in decimal string`)
         }
     }
-    
+
     // Combine integer and decimal parts
     let finalResult = result + (decimalPart / decimalDivisor)
-    
+
     // Apply exponent
     if (isExponentNegative) {
         exponent = -exponent
     }
-    
+
     // Apply exponent by multiplying/dividing by 10
     if (exponent > 0) {
         for (let i = 0; i < exponent; i++) {
@@ -85,6 +83,6 @@ export const $$: signatures.deserializers.primitives.approximate_number.scientif
             finalResult = finalResult / 10
         }
     }
-    
+
     return isNegative ? -finalResult : finalResult
 }
