@@ -3,7 +3,7 @@ import * as _p from 'pareto-core-serializer'
 import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.approximate_number.scientific_notation = ($, $p) => {
-    return _p.text.build(($i) => {
+    return _p.text.deprecated_build(($i) => {
         // Handle special case for zero in scientific notation
         if ($ === 0) {
             $i['add character'](48) // '0'
@@ -58,7 +58,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         const mantissa_scaled = _p.integer.divide(mantissa * scale_factor + 0.5, 1, () => _p.unreachable_code_path())
 
         // Convert mantissa to string
-        const digits = _p.list.build<number>(($i) => {
+        const digits = _p.list.deprecated_build<number>(($i) => {
             let temp = mantissa_scaled
             // temp is always > 0 here since mantissa_scaled = integer_division(mantissa * scale_factor + 0.5, 1)
             // where mantissa >= 1.0 (normalized) and scale_factor >= 1, so result >= 1
@@ -70,18 +70,18 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         })
 
         // Add leading digit
-        const first_digit = digits.__get_possible_element_at(digits.get_number_of_elements() - 1).transform(
+        const first_digit = digits.__get_possible_element_at(digits.__get_number_of_elements() - 1).transform(
             ($) => $,
             () => _p.unreachable_code_path() // index cannot be out of bounds
         )
         $i['add character'](48 + first_digit) // First digit
 
         // Add decimal point if we have more digits
-        if ($p.digits > 1 && digits.get_number_of_elements() > 1) {
+        if ($p.digits > 1 && digits.__get_number_of_elements() > 1) {
             $i['add character'](46) // '.'
 
             // Add remaining digits in reverse order
-            for (let j = digits.get_number_of_elements() - 2; j >= 0; j--) {
+            for (let j = digits.__get_number_of_elements() - 2; j >= 0; j--) {
                 const digit = digits.__get_possible_element_at(j).transform(
                     ($) => $,
                     () => _p.unreachable_code_path() // index cannot be out of bounds
@@ -100,7 +100,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         }
 
         // Convert exponent to string
-        const exp_digits = _p.list.build<number>(($i) => {
+        const exp_digits = _p.list.deprecated_build<number>(($i) => {
             if (exponent === 0) {
                 $i['add element'](0)
             } else {
@@ -113,7 +113,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         })
 
         // Add exponent digits in reverse order
-        for (let j = exp_digits.get_number_of_elements() - 1; j >= 0; j--) {
+        for (let j = exp_digits.__get_number_of_elements() - 1; j >= 0; j--) {
             const digit = exp_digits.__get_possible_element_at(j).transform(
                 ($) => $,
                 () => _p.unreachable_code_path() // index cannot be out of bounds

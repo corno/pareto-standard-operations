@@ -1,49 +1,49 @@
-import * as _pds from 'pareto-core-deserializer'
+import * as _p from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.deserializers.primitives.integer.hexadecimal = ($, abort) => {
-    const characters = _pds.list.from_text($, ($) => $)
+    const characters = _p.list.from_text($, ($) => $)
     let result = 0
     let isNegative = false
     let startIndex = 0
-    
+
     // Check for empty string
-    if (characters.is_empty()) {
+    if (characters.__get_number_of_elements() === 0) {
         abort(`Empty string is not a valid hexadecimal number`)
     }
-    
+
     const get_character_at = (index: number): number => {
-        return characters.__get_possible_element_at(index).transform(
-            ($) => $,
+        return characters.__get_element_at(
+            index,
             () => abort(`index out of bounds`)
         )
     }
-    
+
     // Check for negative sign
-    if (characters.get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
+    if (characters.__get_number_of_elements() > 0 && get_character_at(0) === 45) { // '-'
         isNegative = true
         startIndex = 1
     }
-    
+
     // Check for "0x" prefix - REQUIRE it for hex
-    if (characters.get_number_of_elements() <= startIndex + 1 ||
+    if (characters.__get_number_of_elements() <= startIndex + 1 ||
         get_character_at(startIndex) !== 48 || // '0'
         get_character_at(startIndex + 1) !== 120) { // 'x'
         abort(`Hexadecimal number must have '0x' prefix`)
     }
     startIndex += 2
-    
+
     // Check if there are digits after the prefix
-    if (startIndex >= characters.get_number_of_elements()) {
+    if (startIndex >= characters.__get_number_of_elements()) {
         abort(`Hexadecimal number must have digits after '0x' prefix`)
     }
-    
+
     // Parse hex digits from left to right
-    for (let i = startIndex; i < characters.get_number_of_elements(); i++) {
+    for (let i = startIndex; i < characters.__get_number_of_elements(); i++) {
         const charCode = get_character_at(i)
         let digit: number
-        
+
         // Check if character is a hex digit
         if (charCode >= 48 && charCode <= 57) { // '0'-'9'
             digit = charCode - 48
@@ -55,9 +55,9 @@ export const $$: signatures.deserializers.primitives.integer.hexadecimal = ($, a
             // Invalid character
             return abort(`Invalid character in hexadecimal string`)
         }
-        
+
         result = result * 16 + digit
     }
-    
+
     return isNegative ? -result : result
 }

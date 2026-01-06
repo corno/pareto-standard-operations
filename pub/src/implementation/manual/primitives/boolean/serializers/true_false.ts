@@ -1,4 +1,4 @@
-import * as _ps from 'pareto-core-serializer'
+import * as _p from 'pareto-core-serializer'
 
 import * as signatures from "../../../../../interface/signatures"
 

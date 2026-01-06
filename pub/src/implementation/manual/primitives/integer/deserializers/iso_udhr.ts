@@ -1,5 +1,5 @@
+import * as _p from 'pareto-core-deserializer'
 import * as _pi from 'pareto-core-interface'
-import * as _pds from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../../interface/signatures"
 
@@ -26,7 +26,7 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
         (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)
 
 
-    const characters = _pds.list.from_text($, ($) => $)
+    const characters = _p.list.from_text($, ($) => $)
 
     const parse_iso_date = (
         characters: _pi.List<number>
@@ -52,7 +52,7 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
         const dash = 45
 
         //validate format
-        if (characters.get_number_of_elements() !== 10) { // YYYY-MM-DD
+        if (characters.__get_number_of_elements() !== 10) { // YYYY-MM-DD
             return abort(`invalid date format`)
         }
         if (get_certain_character_at(characters, 4) !== dash) { // -
@@ -96,9 +96,9 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
 
     const full_years = iso_date.year - 1
     const leap_days_before_current_year =
-        + _pds.integer.divide(full_years, 4, () =>_pds.unreachable_code_path())
-        - _pds.integer.divide(full_years, 100, () => _pds.unreachable_code_path())
-        + _pds.integer.divide(full_years, 400, () => _pds.unreachable_code_path())
+        + _p.integer.divide(full_years, 4, () =>_p.unreachable_code_path())
+        - _p.integer.divide(full_years, 100, () => _p.unreachable_code_path())
+        + _p.integer.divide(full_years, 400, () => _p.unreachable_code_path())
 
     const total_days_before_current_year = full_years * 365 + leap_days_before_current_year
 
