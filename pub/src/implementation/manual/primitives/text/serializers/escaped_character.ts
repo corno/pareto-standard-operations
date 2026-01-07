@@ -9,18 +9,12 @@ const pump = <Iterator_Element>(
 ) => {
     while (true) {
         const current = iter.look()
-        if (!current.is_set()) {
+        if (current === null) {
             return
         }
-        current._extract_data(
-            ($) => {
-                iter.discard(() => null)
-                callback($)
-            },
-            () => {
 
-            }
-        )
+        iter.discard(() => null)
+        callback(current[0])
     }
 }
 
