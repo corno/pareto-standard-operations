@@ -1,6 +1,6 @@
 {
   "name": "pareto-standard-operations",
-  "version": "0.3.36",
+  "version": "0.3.37",
   "main": "./dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
