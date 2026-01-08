@@ -7,15 +7,19 @@ import * as signatures from "../../../../interface/signatures"
 export const $$ = <T>(
     $: _pi.Dictionary<_pi.Dictionary<T>>, 
     $p: { 'separator': string },
-    abort: ($: ['duplicate key', null]) => never
-): _pi.Dictionary<T> => _pdev.implement_me("flatten dictionary")
-//     _pinternals.dictionary.build(
-//     ($i) => {
-//         $.map(($, key) => {
-//             $.map(($, subkey) => {
-//                 $i['add entry'](`${key}${$p.separator}${subkey}`, $)
-//             })
-//         })
-//     },
-//     () => abort(['duplicate key', null])
-// )
+    abort: _pi.Abort<['duplicate key', null]>
+): _pi.Dictionary<T> => _pinternals.dictionary.from_list(
+    _pinternals.list.deprecated_build<{ 'key': string, 'value': T }>(($i) => {
+        $.map(($, key) => {
+            $.map(($, subkey) => {
+                $i['add element']({
+                    'key': key + $p.separator + subkey,
+                    'value': $
+                })
+            })
+        })
+    }),
+    ($) => $.key,
+    ($) => $.value,
+    () => abort(['duplicate key', null]),
+)
