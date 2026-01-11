@@ -41,7 +41,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
 
             // Add integer part (reverse order)
             for (let j = integerDigits.__get_number_of_elements() - 1; j >= 0; j--) {
-                $i['add element'](48 + integerDigits.__get_possible_element_at(j).transform(
+                $i['add element'](48 + integerDigits.__get_possible_element_at(j).__decide(
                     ($) => $,
                     () => _p.unreachable_code_path() // index cannot be out of bounds
                 ))
@@ -62,7 +62,7 @@ export const $$: signatures.serializers.primitives.integer.fractional_decimal = 
 
             // Add fractional part (reverse order)
             for (let j = fractionalDigits_list.__get_number_of_elements() - 1; j >= 0; j--) {
-                $i['add element'](48 + fractionalDigits_list.__get_possible_element_at(j).transform(
+                $i['add element'](48 + fractionalDigits_list.__get_possible_element_at(j).__decide(
                     ($) => $,
                     () => _p.unreachable_code_path() // index cannot be out of bounds
                 ))

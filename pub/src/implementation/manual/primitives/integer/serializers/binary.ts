@@ -22,7 +22,7 @@ export const $$: signatures.serializers.primitives.integer.binary = ($) => _p.te
     })
 
     for (let j = digits.__get_number_of_elements() - 1; j >= 0; j--) {
-        const digit = digits.__get_possible_element_at(j).transform(
+        const digit = digits.__get_possible_element_at(j).__decide(
             ($) => $,
             () => _p.unreachable_code_path()
         )

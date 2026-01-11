@@ -13,7 +13,7 @@ export const $$: signatures.deserializers.primitives.integer.binary = ($, abort)
         abort(`Empty string is not a valid binary number`)
     }
 
-    const get_character_at = (index: number): number => characters.__get_possible_element_at(index).transform(
+    const get_character_at = (index: number): number => characters.__get_possible_element_at(index).__decide(
         ($) => $,
         () => abort(`index out of bounds`)
     )

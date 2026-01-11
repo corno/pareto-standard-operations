@@ -70,7 +70,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
         })
 
         // Add leading digit
-        const first_digit = digits.__get_possible_element_at(digits.__get_number_of_elements() - 1).transform(
+        const first_digit = digits.__get_possible_element_at(digits.__get_number_of_elements() - 1).__decide(
             ($) => $,
             () => _p.unreachable_code_path() // index cannot be out of bounds
         )
@@ -82,7 +82,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
 
             // Add remaining digits in reverse order
             for (let j = digits.__get_number_of_elements() - 2; j >= 0; j--) {
-                const digit = digits.__get_possible_element_at(j).transform(
+                const digit = digits.__get_possible_element_at(j).__decide(
                     ($) => $,
                     () => _p.unreachable_code_path() // index cannot be out of bounds
                 )
@@ -114,7 +114,7 @@ export const $$: signatures.serializers.primitives.approximate_number.scientific
 
         // Add exponent digits in reverse order
         for (let j = exp_digits.__get_number_of_elements() - 1; j >= 0; j--) {
-            const digit = exp_digits.__get_possible_element_at(j).transform(
+            const digit = exp_digits.__get_possible_element_at(j).__decide(
                 ($) => $,
                 () => _p.unreachable_code_path() // index cannot be out of bounds
             )

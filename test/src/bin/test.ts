@@ -43,7 +43,7 @@ import { $$ as ds_fractional_decimal } from "pub/dist/implementation/manual/prim
 import { $$ as ds_true_false } from "pub/dist/implementation/manual/primitives/boolean/deserializers/true_false"
 import { $$ as ds_approx_scientific } from "pub/dist/implementation/manual/primitives/approximate_number/deserializers/scientific_notation"
 
-_pn.run_main_procedure(
+_pn.run_main_command(
     ($rr) => {
         return _pc.command_procedure<ds_main.Error, ds_main.Parameters, null, null>(
             ($p, $r) => [

@@ -34,7 +34,7 @@ export const $$: signatures.deserializers.primitives.integer.iso_udhr = ($, abor
 
 
         const get_certain_character_at = (characters: _pi.List<number>, index: number): number => {
-            return characters.__get_possible_element_at(index).transform(
+            return characters.__get_possible_element_at(index).__decide(
                 ($) => $,
                 () => abort(`index out of bounds`)
             )
