@@ -10,8 +10,8 @@ export const $$ = <T>(
     abort: _pi.Abort<['duplicate key', null]>
 ): _pi.Dictionary<T> => _pinternals.dictionary.from_list(
     _pinternals.list.deprecated_build<{ 'key': string, 'value': T }>(($i) => {
-        $.map(($, key) => {
-            $.map(($, subkey) => {
+        $.__d_map(($, key) => {
+            $.__d_map(($, subkey) => {
                 $i['add element']({
                     'key': key + $p.separator + subkey,
                     'value': $
