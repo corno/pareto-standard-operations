@@ -1,12 +1,16 @@
-import * as _pds from 'pareto-core-deserializer'
+import * as _p from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.deserializers.primitives.integer.decimal = ($, abort) => {
-    const characters = _pds.list.from_text($, ($) => $)
+    const characters = _p.list.from_text($, ($) => $)
     let result = 0
     let isNegative = false
     let startIndex = 0
+
+    // _p.iterate(characters, (iterator) => {
+    
+    // })
     
     // Check for empty string
     if (characters.__get_number_of_elements() === 0) {
