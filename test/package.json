@@ -1,10 +1,8 @@
 {
   "dependencies": {
-    "exupery-core-bin": "^0.3.10",
-    "exupery-core-dev": "^0.3.1",
-    "pareto-core-command": "^0.2.4",
-    "pareto-standard-operations": "^0.3.6",
-    "pareto-test": "^0.13.0",
+    "pareto-core-command": "^0.3.2",
+    "pareto-standard-operations": "^0.4.1",
+    "pareto-test": "^0.13.60",
     "pub": "file:../pub"
   },
   "devDependencies": {

@@ -1,9 +1,10 @@
-import * as _p from 'pareto-core-serializer'
+import * as _p from 'pareto-core-transformer'
+import * as _ps from 'pareto-core-serializer'
 
 import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.integer.hexadecimal = ($) => {
-    return _p.text.deprecated_build(($i) => {
+    return _ps.text.deprecated_build(($i) => {
         if ($ < 0) {
             $i['add character'](45) // '-'
             $ = -$

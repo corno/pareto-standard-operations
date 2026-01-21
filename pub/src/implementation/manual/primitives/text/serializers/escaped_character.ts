@@ -1,5 +1,7 @@
-import * as _p from 'pareto-core-serializer'
+import * as _p from 'pareto-core-refiner'
+import * as _ps from 'pareto-core-serializer'
 import * as _pi from 'pareto-core-interface'
+import * as _pd from 'pareto-core-deserializer'
 
 import * as signatures from "../../../../../interface/signatures"
 
@@ -21,7 +23,7 @@ const pump = <Iterator_Element>(
 const build_text_with_iterator = <Iterator_Element>(
     iter: _pi.Iterator<Iterator_Element>,
     callback: (current: Iterator_Element) => _pi.List<number>,
-): string => _p.text.deprecated_build(
+): string => _ps.text.deprecated_build(
     ($i) => {
         pump(
             iter,
@@ -35,8 +37,8 @@ const build_text_with_iterator = <Iterator_Element>(
 )
 
 export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _p.iterate(
-    _p.list.from_text($, ($) => $),
-    (iter) => _p.text.deprecated_build(
+    _pd.list.from_text($, ($) => $),
+    (iter) => _ps.text.deprecated_build(
         ($i) => {
             pump(
                 iter,
