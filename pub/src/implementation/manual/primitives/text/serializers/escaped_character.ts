@@ -29,7 +29,7 @@ const build_text_with_iterator = <Iterator_Element>(
             iter,
             (current) => {
                 callback(current).__for_each(($) => {
-                    $i['add character']($)
+                    $i.add_character($)
                 })
             }
         )
@@ -44,13 +44,13 @@ export const $$: signatures.serializers.primitives.text.escaped_character = ($, 
                 iter,
                 ($) => {
                     if ($ === $p['escape character code']) { // \
-                        $i['add character']($p['escape character code'])
-                        $i['add character']($p['escape character code'])
+                        $i.add_character($p['escape character code'])
+                        $i.add_character($p['escape character code'])
                     } else if ($ === $p['character code']) {
-                        $i['add character']($p['escape character code'])
-                        $i['add character']($p['character code'])
+                        $i.add_character($p['escape character code'])
+                        $i.add_character($p['character code'])
                     } else {
-                        $i['add character']($)
+                        $i.add_character($)
                     }
 
                 }

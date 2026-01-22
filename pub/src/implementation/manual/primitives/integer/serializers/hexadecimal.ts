@@ -6,13 +6,13 @@ import * as signatures from "../../../../../interface/signatures"
 export const $$: signatures.serializers.primitives.integer.hexadecimal = ($) => {
     return _ps.text.deprecated_build(($i) => {
         if ($ < 0) {
-            $i['add character'](45) // '-'
+            $i.add_character(45) // '-'
             $ = -$
         }
         
         // Add "0x" prefix
-        $i['add character'](48) // '0'
-        $i['add character'](120) // 'x'
+        $i.add_character(48) // '0'
+        $i.add_character(120) // 'x'
         
         const digits = _p.list.deprecated_build<number>(($i) => {
             do {
@@ -29,9 +29,9 @@ export const $$: signatures.serializers.primitives.integer.hexadecimal = ($) => 
                 () => _p.unreachable_code_path() // index cannot be out of bounds
             )
             if (digit < 10) {
-                $i['add character'](48 + digit) // '0'-'9'
+                $i.add_character(48 + digit) // '0'-'9'
             } else {
-                $i['add character'](65 + digit - 10) // 'A'-'F'
+                $i.add_character(65 + digit - 10) // 'A'-'F'
             }
         }
     })

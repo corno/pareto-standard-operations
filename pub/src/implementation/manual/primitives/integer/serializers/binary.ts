@@ -5,13 +5,13 @@ import * as signatures from "../../../../../interface/signatures"
 
 export const $$: signatures.serializers.primitives.integer.binary = ($) => _ps.text.deprecated_build(($i) => {
     if ($ < 0) {
-        $i['add character'](45) // '-'
+        $i.add_character(45) // '-'
         $ = -$
     }
 
     // Add "0b" prefix
-    $i['add character'](48) // '0'
-    $i['add character'](98) // 'b'
+    $i.add_character(48) // '0'
+    $i.add_character(98) // 'b'
 
     const digits = _p.list.deprecated_build<number>(($i) => {
         do {
@@ -27,6 +27,6 @@ export const $$: signatures.serializers.primitives.integer.binary = ($) => _ps.t
             ($) => $,
             () => _p.unreachable_code_path()
         )
-        $i['add character'](48 + digit) // '0'-'1'
+        $i.add_character(48 + digit) // '0'-'1'
     }
 })
