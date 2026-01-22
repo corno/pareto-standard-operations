@@ -1,4 +1,4 @@
-import *as _pi from 'pareto-core-interface'
+import *as _pi from 'pareto-core/dist/interface'
 
 import * as d_serializer_parameters from "./to_be_generated/serializer_parameters"
 import * as d_deserializer_errors from "./to_be_generated/deserializer_errors"

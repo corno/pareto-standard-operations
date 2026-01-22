@@ -1,4 +1,4 @@
-import * as _pi from 'pareto-core-interface'
+import * as _pi from 'pareto-core/dist/interface'
 
 import { $$ as ds_decimal } from "pub/dist/implementation/manual/primitives/integer/deserializers/decimal"
 

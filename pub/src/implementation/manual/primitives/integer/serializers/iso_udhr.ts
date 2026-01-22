@@ -1,4 +1,4 @@
-import * as _p from 'pareto-core-transformer'
+import * as _p from 'pareto-core/dist/transformer'
 
 import { $$ as s_decimal } from "./decimal"
 import { $$ as pad_left } from "../../text/serializers/pad_left"
