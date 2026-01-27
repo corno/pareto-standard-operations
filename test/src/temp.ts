@@ -115,7 +115,7 @@ export const create_tester_for_transformer_without_parameter = <Input, Result>(
 // type API = {
 //     'deserializers': {
 //         'primitives': {
-//             'integer': { [key: string]: Integer_Refiner }
+//             'integer': { [id: string]: Integer_Refiner }
 //         }
 //     }
 // }
