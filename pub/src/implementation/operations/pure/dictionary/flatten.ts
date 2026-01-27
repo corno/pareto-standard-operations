@@ -11,7 +11,7 @@ export const $$ = <T>(
     _pinternals.list.deprecated_build<{ 'key': string, 'value': T }>(($i) => {
         $.__d_map(($, key) => {
             $.__d_map(($, subkey) => {
-                $i['add element']({
+                $i['add item']({
                     'key': key + $p.separator + subkey,
                     'value': $
                 })
