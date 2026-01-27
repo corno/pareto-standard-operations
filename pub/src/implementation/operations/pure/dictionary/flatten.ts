@@ -6,19 +6,19 @@ import * as signatures from "../../../../interface/signatures"
 export const $$ = <T>(
     $: _pi.Dictionary<_pi.Dictionary<T>>, 
     $p: { 'separator': string },
-    abort: _pi.Abort<['duplicate key', null]>
+    abort: _pi.Abort<['duplicate id', null]>
 ): _pi.Dictionary<T> => _pinternals.dictionary.from_list(
-    _pinternals.list.deprecated_build<{ 'key': string, 'value': T }>(($i) => {
+    _pinternals.list.deprecated_build<{ 'id': string, 'value': T }>(($i) => {
         $.__d_map(($, id) => {
             $.__d_map(($, sub_id) => {
                 $i['add item']({
-                    'key': id + $p.separator + sub_id,
+                    'id': id + $p.separator + sub_id,
                     'value': $
                 })
             })
         })
     }),
-    ($) => $.key,
+    ($) => $.id,
     ($) => $.value,
-    () => abort(['duplicate key', null]),
+    () => abort(['duplicate id', null]),
 )
