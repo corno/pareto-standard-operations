@@ -2,6 +2,7 @@ import * as _p from 'pareto-core/dist/refiner'
 import * as _ps from 'pareto-core/dist/serializer'
 import * as _pi from 'pareto-core/dist/interface'
 import * as _pd from 'pareto-core/dist/deserializer'
+import { _p_iterate } from 'pareto-core/dist/iterate'
 
 import * as signatures from "../../../../../interface/signatures"
 
@@ -36,7 +37,7 @@ const build_text_with_iterator = <Iterator_Element>(
     }
 )
 
-export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _p.iterate(
+export const $$: signatures.serializers.primitives.text.escaped_character = ($, $p) => _p_iterate(
     _pd.list.from_text($, ($) => $),
     (iter) => _ps.text.deprecated_build(
         ($i) => {
